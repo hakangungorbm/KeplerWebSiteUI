@@ -1,0 +1,88 @@
+$morcolor: #453D98; // site kullanilan mor ton
+$morcolor2: #312984; // site kullanilan mor ton2
+$morcolor3: #1D1570; // site kullanilan mor ton3
+$acikmorcolor: #E2E1ED; //introducing alanı acik mor renk
+$yazicolor: #1D3243; // site icerisindeki yazilarda kullanilan gri ton
+$pembecolor: #FFDDE0; // menude kullanilan mavi ton
+
+$g2color: #000000; // kullanilan griligin bir diger tonu
+$g3color: #03363d;  // ara basliklarin yesil tonuna benzer gri tonlari
+$g4color: #3f4a56;  // arkaplan headerr footerr gri tonlari
+
+$p1: relative;    // position relative
+$p2: absolute;    // position absolute
+
+$fThin: 'TTHoves-Thin', arial, sans-serif;   //font-weight: 100;
+$fMedium: 'TTHoves-Medium', arial, sans-serif;  //font-weight: 500;
+$fRegular: 'TTHoves-Regular', arial, sans-serif;  //font-weight: normal;
+$fLight: 'TTHoves-Light', arial, sans-serif;     //font-weight: 300;
+$fBold: 'TTHoves-Bold', arial, sans-serif;    //font-weight: bold;
+$fHairline: 'TTHoves-Hairline', arial, sans-serif;  //font-weight: 100;
+$fDemiBold: 'TTHoves-DemiBold', arial, sans-serif;  //font-weight: 600;
+$fExtraLight: 'TTHoves-ExtraLight', arial, sans-serif;  //font-weight: 200;
+$fBlack: 'TTHoves-Black', arial, sans-serif;   // font-weight: 900;
+
+$fThinItalic: 'TTHoves-ThinItalic', arial, sans-serif;
+$fItalic: 'TTHoves-Italic', arial, sans-serif;
+$fLightItalic: 'TTHoves-LightItalic', arial, sans-serif;
+$fMediumItalic: 'TTHoves-MediumItalic', arial, sans-serif;
+$fExtraLightItalic: 'TTHoves-ExtraLightItalic', arial, sans-serif;
+$fExtraBoldItalic: 'TTHoves-ExtraBoldItalic', arial, sans-serif;
+$fExtraBold: 'TTHoves-ExtraBold', arial, sans-serif;
+$fHairlineItalic: 'TTHoves-HairlineItalic', arial, sans-serif;
+$fDemiBoldItalic: 'TTHoves-DemiBoldItalic', arial, sans-serif;
+$fBlackItalic: 'TTHoves-BlackItalic', arial, sans-serif;
+$fBoldItalic: 'TTHoves-BoldItalic', arial, sans-serif;
+
+
+
+@mixin centerer($max-width:false) {
+    @if not $max-width {
+    margin-right: auto ;
+    margin-left: auto;
+
+    }
+    @else {
+    width: 100%;
+    max-width: $max-width;
+    margin-right: auto;
+    margin-left: auto;
+    }
+}
+
+//Close Icon Code
+@mixin cross($size: 20px, $color: currentColor, $thickness: 1px) {
+    margin: 0;
+    padding: 0;
+    border: 0;
+    background: none;
+    position: relative;
+    width: $size;
+    height: $size;
+  
+    &:before,
+    &:after {
+      content: '';
+      position: absolute;
+      top: ($size - $thickness) / 2;
+      left: 0;
+      right: 0;
+      height: $thickness;
+      background: $color;
+      border-radius: $thickness;
+    }
+  
+    &:before {
+      transform: rotate(45deg);
+    }
+  
+    &:after {
+      transform: rotate(-45deg);
+    }
+  
+    span {
+      display: block;
+    }
+  
+  }
+

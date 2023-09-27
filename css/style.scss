@@ -1,0 +1,111 @@
+/*Author- Engineer: Hakan GUNGOR */
+
+@import 'parts/sass';
+@import 'parts/font-face';
+@import 'parts/header-menu';
+@import 'parts/animation';
+@import 'parts/main-slider';
+@import 'parts/text-areas';
+@import 'parts/introducing-area';
+@import 'parts/book-slider';
+@import 'parts/partition-styles';
+@import 'parts/main-page-review-area';
+@import 'parts/description-area';
+@import 'parts/gallery';
+@import 'parts/arasayfalar';
+@import 'parts/booking-form';
+@import 'parts/locations-effect';
+@import 'parts/footer';
+
+
+
+/***********************/
+*, body, html {
+    padding: 0;
+    margin: 0;
+    font-family: $fRegular;
+    
+}
+
+body, html {
+  font-family: $fRegular;
+  font-size: 16px;
+  line-height: 30px;
+}
+
+*, ul, p, span {
+    padding: 0;
+    margin: 0;
+    list-style-type: none;
+
+}
+a {
+    text-decoration: none;
+}
+
+textarea, input, select {
+    outline: 0;
+}
+img {
+    border: 0;
+}
+.clear {
+    clear: left;
+}
+.rightclear {
+  clear: right;
+}
+.clearright {
+    clear: right;
+}
+.bothclear {
+    clear: both;
+}
+textarea, input, select {
+    outline: 0;
+}
+h1,h2,h3 {
+    font-weight: normal;
+}
+
+/*ICON LAR*/
+
+
+[class*=" icon32-"], [class^=icon32-] {
+    background: url(../images/icon32.png) no-repeat;
+    height: 32px;
+    width: 32px;
+    display: inline-block;
+    vertical-align: text-top;
+  }
+  
+  .icon32-linkedin {
+    background-position: 0 0px !important;
+  }
+  .icon32-instagram {
+    background-position: 0 -32px !important;
+  }
+  .icon32-youtube {
+    background-position: 0 -64px !important;
+  }
+  .icon32-x {
+    background-position: 0 -96px !important;
+  }
+  .icon32-y {
+    background-position: 0 -128px !important;
+  }
+  .icon32-z {
+    background-position: 0 -160px !important;
+  }
+  .icon32-subscribe {
+    background-position: 0 -352px !important;
+  }
+  .icon32-kariyer {
+    background-position: 0 -384px !important;
+  }
+  .icon32-kariyer2 {
+    background-position: 0 -416px !important;
+  }
+  .icon32-linkedin2 {
+    background-position: 0 -448px !important;
+  }

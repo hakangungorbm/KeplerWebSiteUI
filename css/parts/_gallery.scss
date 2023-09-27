@@ -1,0 +1,187 @@
+/*Gallery CSS*/
+.gallery-top-content {
+  min-height: 130px;
+  background-image: url(../images/gallery-wrapper-bg.png);
+  background-repeat: repeat;
+}
+.gallery-block-wrapper {
+  padding-bottom: 50px;
+  h2 {
+      text-align: center;
+      font-family: $fBold;
+      color: $morcolor;
+      padding-top: 50px;
+      padding-bottom: 50px;
+      font-size: 28px;
+  }
+  .gallery-content-wrapper {
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    overflow: hidden;
+    margin-bottom: 10px;
+  }
+  figure {
+      margin-left: 0px;
+      margin-right: 0px;
+      margin-top: 0px;
+      margin-bottom: 0px;
+      max-height: 760px;
+      overflow: hidden;
+      cursor: pointer;
+      &::after {
+        content: '';
+        display: block;
+        width: 100%;
+        height: 100%;
+        position: absolute;
+        top: 0px;
+        background-size: 32px;
+        background-repeat: no-repeat;
+        background-position: center;
+        background-size: 80px;
+        background-image: url(../images/galler-plus-icon.svg) !important;
+      }
+
+  }
+  img {
+      width: 100%;
+  }
+  .row {
+    .col-md-7, .col-sm-7, .col-xs-12 {
+      padding-left: 5px;
+      padding-right: 5px;
+    }
+  }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1190px) {
+  .gallery-block-wrapper {
+    figure {
+      max-height: 492px;
+      overflow: hidden;
+    }
+  }
+}
+
+
+.gallery-menu {
+  background-color: white;
+  .menu {
+      @include centerer(845px);
+      margin-bottom: 30px;
+      border-bottom: 1px solid #D7D7D7;
+      li {
+          display: inline-block;
+          a {
+              color: $yazicolor;
+              display: inline-block;
+              font-size: 18px;
+              padding-top: 20px;
+              padding-bottom: 20px;
+              padding-right: 20px;
+              padding-left: 20px;
+              position: relative;
+              transition: all 1s linear;
+              &::before {
+                  content: "";
+                  border-bottom: 3px solid transparent;
+              }
+          }
+      }
+      .active a {     
+        color: $morcolor;
+        font-weight: 600; 
+          &::before {
+              content: "";
+              position: absolute;
+              left: 0px;
+              right: 0px;
+              margin-left: auto;
+              margin-right: auto;
+              bottom: -2px;             
+              border-bottom: 3px solid $morcolor;
+              transition : all 1s linear;
+          }
+      }
+  }
+}
+
+.filter-menu {
+  background-color: white;
+  .menu {
+      @include centerer(845px);
+      margin-bottom: 30px;
+      .category-button {
+          display: inline-block;
+          border: 1px solid #453D98;
+          color: #453D98;
+          border-radius: 50px;
+          text-align: center;
+          font-size: 14px;
+          -webkit-transition: all 0.5s ease;
+          -moz-transition: all 0.5s ease;
+          -o-transition: all 0.5s ease;
+          transition: all 0.5s ease;
+          padding: 10px 20px 10px 20px;
+          background-color: white;
+          margin-right: 20px;
+          a {
+              color: $yazicolor;
+              display: inline-block;
+              font-size: 18px;
+              padding-top: 20px;
+              padding-bottom: 20px;
+              padding-right: 20px;
+              padding-left: 20px;
+              position: relative;
+              transition: all 1s linear;
+              &::before {
+                  content: "";
+                  border-bottom: 3px solid transparent;
+              }
+          }
+          &:hover {
+            background-color: #e2f3f7;
+          }
+      }
+      .active {     
+        color: white;
+        background-color: $morcolor;
+        font-weight: 600; 
+      }
+  }
+}
+
+
+@media (max-width: 900px) {
+  .filter-menu .menu .category-button {
+    border-radius: 20px;
+    font-size: 12px;
+    padding: 5px 10px 5px 10px;
+    margin-right: 0px;
+    margin-bottom: 10px;
+  }
+  .gallery-menu .menu li a {
+    font-size: 16px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+    padding-right: 0px;
+    padding-left: 0px;
+  }
+  .gallery-menu .menu {
+    padding-bottom: 20px;
+    li {
+      padding-right: 20px;
+      padding-left: 20px;
+    }
+    .active {
+      margin-bottom: 10px;
+    }
+  } 
+}
+@media (max-width: 1198px) {
+  .gallery-top-content {
+    min-height: 62px;
+  }
+}

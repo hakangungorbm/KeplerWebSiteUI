@@ -1,0 +1,125 @@
+//kepler-summary-top-text
+.kepler-summary-top-text {
+    padding-top: 100px;
+    padding-bottom: 50px;
+    .container {
+        @include centerer(1920px);
+    }
+    .title {
+        font-size: 18px;
+        line-height: 20px;
+    }
+    .detail-text {
+        font-family: $fLight;
+        font-size: 32px;
+        line-height: 38px;
+        letter-spacing: 0px;
+        text-align: left;
+        animation: 1.3s ease-out 0s 1 wipe-in-right;        
+    }
+}
+
+@media (min-width: 768px) {
+    .kepler-summary-top-text {
+        .container {
+        width: 100%;
+        .col-md-1 {
+            padding-left: 0px;
+        }
+        }
+        .title {
+            position: relative;
+           margin-top: 15px;
+           width: 130px;
+           -webkit-transform: rotate(-90deg);
+           -ms-transform: rotate(-90deg);
+           transform: rotate(-90deg);
+        }
+        .detail-text {
+           padding-left: 50px;
+           width: 100%;
+           max-width: 1000px;
+        }
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 1040px) {
+    .kepler-summary-top-text {
+        .title {
+            margin-top: 0px;
+        }
+        .detail-text {
+            font-size: 20px;
+            line-height: 26px;
+        } 
+    }
+}
+@media (max-width: 767px) {
+    .kepler-summary-top-text {
+        .title {
+            margin-bottom: 20px;
+        }
+        .detail-text {
+            font-size: 18px;
+            line-height: 24px;
+        } 
+    }
+}
+
+.kepler-summary-bottom-text {
+    .container {
+        width: 100%;
+        max-width: 1490px;
+        padding-bottom: 100px;
+    }
+    .block-area {
+        margin-right: auto;
+        margin-left: auto;
+        position: relative;
+    }
+    .block-area-image {
+        width: 100%;
+        max-width: 780px;
+    }
+    .summary-bottom-text {
+        p {
+            display: block;
+            width: 100%;
+            font-family: $fLight;
+            font-size: 18px;
+            line-height: 24px;
+        }
+    }
+}
+@media (min-width: 768px) {
+    .kepler-summary-bottom-text {
+        .container {
+            .row {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+            }
+        }
+    }
+    .summary-bottom-text {
+        p {
+            padding-left: 50px; 
+        }
+    }
+}
+@media (max-width: 767px) {
+    .summary-bottom-text {
+        margin-top: 50px;
+        p {
+            font-size: 18px;
+            line-height: 24px;
+            letter-spacing: 0px;
+        }
+    }
+}
+
+@media (max-width: 992px) {
+    .block-area {
+        margin-bottom: 30px;
+    }
+}

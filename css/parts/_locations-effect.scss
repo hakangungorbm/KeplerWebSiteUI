@@ -1,0 +1,247 @@
+//locations-effect
+.locations-effect-wrapper {
+    background-color: $morcolor;
+    .area-wrapper {
+        @include centerer(1144px);
+        position: relative;
+    }
+    .locations-effect-image-container {
+        .effect-img {
+            max-width: 100%;
+            margin-right: auto;
+            margin-left: auto;
+        }
+    }
+    .tooltip-container {
+        position: absolute;
+        .unit-tooltip {
+            position: absolute;
+            color: #fff;
+            z-index: 3;
+            .rect {
+                border-radius: 6px;
+                position: absolute;
+                padding: 4px;
+                justify-content: center;
+                line-height: 20px;
+                // &::after {
+                //     content: "";
+                //     position: absolute;
+                //     -webkit-transform: translateX(-50%);
+                //     transform: translateX(-50%);
+                //     left: 50%;
+                //     top: 98%;
+                //     border-width: 6px;
+                //     border-style: solid;
+                //     border-color: #312984 transparent transparent transparent; 
+                // }
+                .unit-type {
+                    font-weight: 300; 
+                }
+                .rect-text-wrapper {
+                    a {
+                        color: white;
+                        text-decoration: underline;
+                        &:hover {
+                            color: #e2f3f7;
+                        }
+                    }
+                }
+            }
+        }
+        .unit-mark {
+            position: relative;
+            .circle-container {
+                position: absolute; 
+                z-index: 4;
+                .circle {
+                    height: 20px;
+                    width: 20px;
+                    // height: 30px;
+                    // width: 30px;
+                    border-radius: 50%;
+                    background-color: #fff;
+                    position: relative;
+                    -webkit-transition: height 0.25s ease, width 0.25s ease;
+                    transition: height 0.25s ease, width 0.25s ease;
+                    -webkit-transform: translate(-50%, -50%);
+                    transform: translate(-50%, -50%); 
+                    &::after, &::before {
+                        content: "";
+                        display: block;
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                        border-radius: 50%;
+                        border: 1px solid #fff; 
+                    }
+                }
+            }
+        }
+    }
+    .ems-none {
+        display: none !important;
+    }
+    .tooltip-container .animated {
+        .circle-container {
+            z-index: 3;
+            .circle {
+                background-image: url(../images/plus.svg);
+                background-size: 11px 10px;
+                background-repeat: no-repeat;
+                background-position: 5px 5px;
+                &:before {
+                    -webkit-animation: ripple 3s linear infinite;
+                    animation: ripple 3s linear infinite; 
+                }
+            }
+            
+        }
+    }
+    .tooltip-container .animated {
+        .circle-container {
+            z-index: 3;
+            .circle {
+                background-image: url(../images/plus.svg);
+                background-size: 11px 10px;
+                background-repeat: no-repeat;
+                background-position: 5px 5px;
+                &:before {
+                    -webkit-animation: ripple 3s linear infinite;
+                    animation: ripple 3s linear infinite; 
+                }
+            }
+        }
+    }
+}
+
+
+@media (min-width: 930px) {
+    .effect-mobile {
+        display: none !important;
+    }
+    .locations-effect-wrapper {
+        .tooltip-container {
+            .unit-tooltip {
+                .rect {
+                    width: 330px;
+                    font-size: 14px;
+                    -webkit-transform: translate(-1%, -50%);
+                    transform: translate(-1%, -50%);
+                    img {
+                        max-width: 150px;
+                        display: block;
+                        float: left;
+                    }
+                    .rect-text-wrapper {
+                        display: block;
+                        float: left;
+                        margin-top: 50px;
+                        margin-left: 10px;
+                    }
+                }
+            } 
+        } 
+    }
+}
+
+@media (max-width: 929px) {
+    .effect-desktop {
+        display: none !important;
+    }
+    .locations-effect-wrapper {
+        .tooltip-container {
+            .unit-tooltip {
+                .rect {
+                    width: auto;
+                    font-size: 12px;
+                    img {
+                        max-width: 80px;
+                        display: block;
+                    }
+                    .rect-text-wrapper {
+                        display: block;
+                    }
+                }
+                .rect1 {
+                    -webkit-transform: translate(-1%, -50%);
+                    transform: translate(-1%, -50%);
+                    width: 240px;
+                    img {
+                        float: left;
+                    }
+                    .rect-text-wrapper {
+                        float: left;
+                        margin-top: 17px;
+                        margin-left: 10px;
+                    }
+                }
+                .rect2 {
+                    -webkit-transform: translate(-1%, -53%);
+                    transform: translate(-1%, -53%);
+                    width: 220px;
+                    img {
+                        float: left;
+                    }
+                    .rect-text-wrapper {
+                        float: left;
+                        margin-top: 17px;
+                        margin-left: 10px;
+                    }
+                }
+                .rect3 {
+                    -webkit-transform: translate(-100%, -30%);
+                    transform: translate(-100%, -30%);
+                    width: 86px;
+                    img {
+                        float: none;
+                        margin-right: auto;
+                        margin-left: auto;
+                    }
+                    .rect-text-wrapper {
+                        float: none;
+                        margin-top: 0px;
+                        margin-left: 0px;
+                        text-align: center;
+                    }
+                }
+            } 
+        } 
+    }
+}
+
+
+
+
+/*TOOLTIP KONUMLARI*/
+@media (min-width: 930px) {
+    .tooltip1 {     //Turkiye
+        left: 37%;
+        top: 43%;
+    }
+    .tooltip2 {    //latvia
+        left: 34%;
+        top: 33%;
+    }
+    .tooltip3 {    //malaysia
+        left: 64%;
+        top: 67%;
+    }
+}
+
+@media (max-width: 929px) {
+    .tooltip1 {     //Turkiye
+        left: 23%;
+        top: 46%;
+    }
+    .tooltip2 {    //latvia
+        left: 20%;
+        top: 35%;
+    }
+    .tooltip3 {    //malaysia
+        left: 82%;
+        top: 64%;
+    }
+}

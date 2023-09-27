@@ -1,0 +1,316 @@
+/*HEADER MENU*/
+@media (min-width: 1850px) {
+  #collapse-navbar {
+    max-width: 1200px;
+  }
+}
+@media only screen and (min-width: 1700px) and (max-width: 1849px) {
+  #collapse-navbar {
+    max-width: 1100px;
+  }
+}
+@media only screen and (min-width: 1600px) and (max-width: 1699px) {
+  #collapse-navbar {
+    max-width: 1045px;
+  }
+}
+@media only screen and (min-width: 1500px) and (max-width: 1599px) {
+  #collapse-navbar {
+    max-width: 1000px;
+  }
+}
+@media only screen and (min-width: 1400px) and (max-width: 1499px) {
+  #collapse-navbar {
+    max-width: 900px;
+  }
+}
+@media only screen and (min-width: 1199px) and (max-width: 1399px) {
+  #collapse-navbar {
+    max-width: 855px;
+  }
+}
+@media (min-width: 1199px) {
+  #header-menu .container {
+    width: 100%;
+    padding-right: 2%;
+    padding-left: 2%;
+  }
+  #collapse-navbar {
+    width: 100%;
+    float: right;
+  }
+  .book-session-button {
+    float: right !important;
+  }
+  .book-session-mobile-button {
+    display: none !important;
+  }
+  .navbar-nav > li > a {
+    color: white;
+    -webkit-transition: all 0.5s ease;
+    -moz-transition: all 0.5s ease;
+    -o-transition: all 0.5s ease;
+    transition: all 0.5s ease;
+  }
+  .mobile-lang-menu {
+    display: none;
+  }
+}
+.book-session-button, .book-session-mobile-button {
+  width: 100%;
+  padding: 10px 20px 10px 20px;
+  border-radius: 50px;
+  background-color: white;
+  color: $morcolor;
+  text-align: center;
+  font-family: $fMedium;
+  font-size: 14px;
+  max-width: 200px;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+  &:hover {
+    background-color: #e2f3f7;
+  }
+}
+.navbar-default .navbar-nav > .open > a, .navbar-default .navbar-nav > .open > a:hover {
+  background-color: transparent !important;
+  color: white !important;
+  -webkit-transition: all 0.5s ease;
+  -moz-transition: all 0.5s ease;
+  -o-transition: all 0.5s ease;
+  transition: all 0.5s ease;
+}
+.lang-text {
+  float: left;
+}
+.caret {
+  border: solid white;
+  border-width: 0 2px 2px 0;
+  padding: 5px;
+  transform: rotate(45deg);
+  -webkit-transform: rotate(45deg);
+  float: right;
+  margin-left: 12px;
+  margin-top: 1px;
+
+}
+#header-wrapper {
+  animation: 1.3s ease-in 0s 1 wipe-in-down;
+  width: 100%;
+  z-index: 4;
+  position: $p2;
+  #header-menu {
+    @include centerer(1920px);
+  }
+}
+.navbar-nav {
+  padding-top: 7px;
+}
+.navbar-fixed-top .navbar-collapse {
+  max-height: 100% !important;
+}
+.navbar-toggle {
+  border: none !important;
+}
+.navbar-brand {
+  display: block;
+  background-image: url(../images/kepler-top-logo.svg);
+  background-repeat: no-repeat;
+  text-indent: -99999px;
+  height: 45px !important;
+  width: 130px;
+  background-size: 130px 45px;
+  transition: all .35s ease;
+  padding: 0px !important;
+}
+.no-svg .navbar-brand {
+  background-image: url(../images/kepler-top-logo.png);
+}
+.navbar-brand.kepler-logo {
+  background-image: url(../images/kepler-top-logo.svg) !important;
+  background-size: 130px 45px !important;
+  width: 130px !important;
+}
+@media (max-width: 1198px) {
+  .navbar-nav {
+    padding-top: 70px;
+    li {
+      margin-bottom: 45px;
+      a {
+        font-size: 22px !important;
+        font-family: $fLight;
+        text-align: center;
+        color: $morcolor;
+      }
+    }
+  }
+  .desktop-lang-menu {
+    display: none !important;
+  }
+  .mobile-lang-menu {
+    position: $p2;
+    order: 3;
+    height: auto;
+    padding: 30px 0 30px 0;
+    width: 100%;
+    background: #f7f7f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    bottom: 0px;
+    li {
+      margin-right: 10px;
+    margin-left: 10px;
+    font-size: 18px;
+    color: $morcolor;
+    }
+  }
+  .navbar-collapse {
+    background-color: white;
+  }
+  .navbar-brand {
+    height: 30px !important;
+    width: 90px;
+    background-size: 90px 30px; 
+    margin-left: 20px;
+    margin-top: 18px;
+    margin-bottom: 14px;
+  }
+  .navbar-brand.kepler-logo {
+    background-image: url(../images/kepler-top-logo.svg) !important;
+    background-size: 90px 30px !important;
+    width: 90px !important;
+  }
+  .navbar-wrapper {
+    height: calc(100vh - 65px);
+    animation: 1.3s ease-out 0s 1 mobileMenuOpenFromLeft;
+  }
+  .navbar-nav {
+    margin: 0px !important
+  }
+  .book-session-button {
+    display: none;
+  }
+  .book-session-mobile-button {
+    margin-left: auto;
+    margin-right: auto;
+    color: $morcolor !important;
+    border: 1px solid $morcolor;
+    border-radius: 21px;
+    min-width: 270px;
+    padding: 12px 0px;
+    margin-top: 90px;
+  }
+  .dropdown {
+    width: 52px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .kapali-mobil-menu {
+    .cross-1px {
+      display: none;
+    }
+  }
+  .acik-mobil-menu {
+    .cross-1px {
+      display: block;
+      @include cross(30px, white);
+      margin-top: -5px;  
+    }
+    .icon-bar {
+      display: none !important;
+    }
+   
+  }
+  #header-menu .container {
+    width: 100%;
+    padding-right: 0%;
+    padding-left: 0%;
+  }
+}
+@media (min-width: 1199px) {
+    .header-menu-wrapper {
+      width: 100%;
+      padding-top: 40px;
+      padding-bottom: 40px;
+    }  
+    .navbar-nav > li > a {
+        padding-top: 8px !important;
+        text-align: center;
+    }
+    .navbar-nav > li > a:hover {
+      color: #E2E1ED !important;
+    }
+    .nav > li > a {
+      padding-left: 20px !important;
+      padding-right: 20px !important;
+    }
+    .navbar-nav > li {
+      display: inline-block;
+    }
+    .nav > li {
+      position: relative !important;
+    }
+    
+    .dropdown-menu {
+      padding-top: 0px !important;
+      padding-bottom: 0px !important;
+      visibility: hidden;
+      display: block !important;
+      opacity: 0;
+      width: 100%; 
+      box-shadow: 0px 0px 10px rgba(0, 0, 0,0.25%) ;
+      transform: translateY(0em);
+      transition: all 0.2s ease-in 0s;
+      min-width: 30px !important;
+    }
+    /*hover olunca acilmasi icin*/
+    .open .dropdown-menu {
+      transform: translateY(0%);
+      transition-delay: 0s, 0s, 0.2s;
+    }
+    .dropdown:hover .dropdown-menu {
+      visibility: visible;
+      opacity: 1;
+      transform: translateY(0%);
+      transition-delay: 0s, 0s, 0.2s;
+    }
+    .dropdown-menu{
+      margin-top: 0;
+    }
+    .dropdown-menu li a {
+      color: red;
+    }
+    .dropdown-toggle{
+      margin-bottom: 2px;
+    }
+    .navbar .dropdown-toggle, .nav-tabs .dropdown-toggle{
+      margin-bottom: 0;
+    }
+}
+@media (min-width: 768px) {
+    .navbar-right .dropdown-menu {
+      left: 0px !important;
+    }
+}
+
+.navbar-toggle {
+  border-color: white !important;
+  margin-right: 5px !important;
+  margin-top: 15px !important;
+  margin-bottom: 0px !important
+
+}
+.navbar-toggle .icon-bar {
+  background-color: white !important;
+}
+.add-background-color {
+  background-color: $morcolor;
+}
+
+
+
+

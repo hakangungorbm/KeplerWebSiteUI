@@ -1,0 +1,162 @@
+1. Token alınacak
+
+İstek Atılacak adres:
+https://kepler.seytekbilisim.com/Login/LoginUser
+
+Request Body:
+{
+  "username": "KeplerwebPage",
+  "password": "Abc123!" 
+}
+
+Response dan token, user.applicationID bilgilerini aldim.
+{
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJodHRwOi8vc2NoZW1hcy54bWxzb2FwLm9yZy93cy8yMDA1LzA1L2lkZW50aXR5L2NsYWltcy9uYW1lIjoiS2VwbGVyd2ViUGFnZSIsInN1YiI6WyJLZXBsZXJ3ZWJQYWdlIiwiS2VwbGVyd2ViUGFnZSJdLCJlbWFpbCI6IktlcGxlcndlYlBhZ2VAa2VwbGVyY2x1Yi5jb20iLCJqdGkiOiJhYjU3NjY4N2U1ZjI0MzdkYTJiODBlM2VhMDczNDU2YyIsImh0dHA6Ly9zY2hlbWFzLm1pY3Jvc29mdC5jb20vd3MvMjAwOC8wNi9pZGVudGl0eS9jbGFpbXMvcm9sZSI6WyJLaW9zayIsIlVzZXIiXSwibmJmIjoxNjk0OTQ2MDA4LCJleHAiOjE2OTQ5Njc2MDgsImlzcyI6Im15dGVzdGhvc3QuY29tIiwiYXVkIjoia2VwbGVyLmNvbSJ9.7GbnZqvB8McL-bziXGI1ECRq1Hm1E1JVUOADbfeVmLI",
+    "user": {
+        "applicationId": "cafb58e9-2b27-440b-866c-e71447e0b975",
+		}
+}		
+
+2. LocationInfo bilgisi alacak
+
+Istek atılacak adres:
+https://kepler.seytekbilisim.com/WebReservation/GetLocationInformation?ApplicationId=cafb58e9-2b27-440b-866c-e71447e0b975
+
+
+Donen Cevap:
+
+[
+    {
+        "name": "Merkez Bölge",
+        "code": "BR001",
+        "locationId": "27a9f9c7-c509-402e-9bd5-0be285b8a550",   //bu degeri
+        "areas": [
+            {
+                "name": "After Passport Control",
+                "areaId": "ace09f63-b173-48a7-2284-08dbb767564c"
+            }
+        ],
+        "roomInfoList": [
+            {
+                "roomCategoryId": "1f6ba4eb-6496-46e0-919d-08db38f8af30",
+                "name": "Kabin / Cabin",
+                "capacity": 1,
+                "price": 12,
+                "currencyCode": "TRY",
+                "currencyId": "63fc9654-c9b9-4e3e-2e23-08db35051060"
+				"vatRate"
+				"accommodationRate"
+				"discountRate"
+				"rawPrice"
+            },
+            {
+                "roomCategoryId": "5c00e9cc-7aa7-42c9-919e-08db38f8af30",
+                "name": "Oda / Room",
+                "capacity": 1,
+                "price": 14,
+                "currencyCode": "TRY",
+                "currencyId": "63fc9654-c9b9-4e3e-2e23-08db35051060"
+            }
+        ]
+    },
+    {
+        "name": "Sabiha Gökçen",
+        "code": "SG",
+        "locationId": "d73d6267-b792-4a38-824e-d271cbdcaa9b",
+        "areas": [
+            {
+                "name": "Before Passport Control",
+                "areaId": "a7936ca0-856f-4db4-94f2-08db9d0522ac"
+            },
+            {
+                "name": "After Passport Control",
+                "areaId": "768c9d8a-4bf9-4f0c-d210-08db9d55c9b3"
+            }
+        ],
+        "roomInfoList": [
+            {
+                "roomCategoryId": "1f6ba4eb-6496-46e0-919d-08db38f8af30",
+                "name": "Kabin / Cabin",
+                "capacity": 1,
+                "price": 12,
+                "currencyCode": "EUR",
+                "currencyId": "75a73287-1606-4f8f-6bf0-08db518aa90a"
+            }
+        ]
+    }
+]
+
+
+3.Adim Kişi ve tarih bilgisi seçildikten sonra gelen verilerle fiyat hesaplanır.
+-----------------------------------------------------------------------------------
+
+2 X secilen saat x price  = Bu hesap bize SUBTOTAL verdi
+
+Gelen discount rate subtotal den o oranda indirim hesaplayip DISCOUNT alanina yazdik
+
+Discount rate gelirse subtotal den o oranda indirim yapip SUBTOTAL WITH DISCOUNT alanina yazdik
+
+VAT(gelen oran %) = SUBTOTAL WITH DISCOUNT dan gelen oranda hesapladik.
+
+ACCOMMODATION TAX(gelen oran %) =  SUBTOTAL WITH DISCOUNT dan gelen oranda hesapladik.
+
+TOTAL = SUBTOTAL WITH DISCOUNT + VAT + ACCOMMODATION TAX
+
+
+
+4. Adim rezervasyon kaydi icin istek aticaz:
+
+Istek atilacak servis: (token olacak)
+https://kepler.seytekbilisim.com/WebReservation/AddRezervation
+
+Request Body:
+
+{
+  "plannedEntryTime": "2023-09-14T11:50:55.583Z",
+  "plannedExitTime": "2023-09-14T11:50:55.583Z",
+  "locationId": "string",  // sectigi locationin ID si
+  "areaId": "string",       // sectigi area ID si
+  "roomTypeId": "string",   // sectigi roomType ID si
+  "rawPrice": 0,               // roomInfoList altindaki rawPrice
+  "amount": 0,              // TOTAL bilgisi
+  "currencyId": "string",  //  roomInfoList altindaki currencyId
+  "applicationId": "string", // token alirken aldigimiz applicationId
+  "maleCount": 0,            // ekrandan sectik
+  "femaleCount": 0,          // ekrandan sectik
+  "passenger": {
+    "name": "string",
+    "surname": "string",
+    "gender": "string",
+    "email": "string",
+    "phoneNumber": "string",
+    "birthDate": "2023-09-14T11:50:55.583Z"
+  }
+}
+
+Response Body de gelen obje icersinden asagidaki alanlari aldik:
+{ 
+  "branchId": "27a9f9c7-c509-402e-9bd5-0be285b8a550",
+  "reservationId": "2656769d-af78-47db-56c1-08dbb5130800",
+  "total": 12,
+  "passengerId": "21e9a657-5f2b-4d4a-134b-08dbb51307fc",
+  "currencyId": "11ee9aa3-e4f1-4069-5764-08db44a9b255"
+}
+
+
+5. Adim: 
+
+Kart ekrani geldi. Odemeye gittik. Basariliysa
+4. adimda bana gelen reservationNo yu ekrana yazdik. Birde tebrikler isleminiz basarili seklinde bir mesaj yazicaz.
+
+Arka planda da AddPayment istegi atilir:
+https://kepler.seytekbilisim.com/WebReservation/AddPayment
+
+Request Body:
+
+{ 
+  "branchId": "27a9f9c7-c509-402e-9bd5-0be285b8a550",
+  "reservationId": "2656769d-af78-47db-56c1-08dbb5130800",
+  "total": 12,
+  "passengerId": "21e9a657-5f2b-4d4a-134b-08dbb51307fc",
+  "currencyId": "11ee9aa3-e4f1-4069-5764-08db44a9b255"
+}

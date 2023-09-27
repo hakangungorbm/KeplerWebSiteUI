@@ -1,0 +1,200 @@
+//herhangi bir module ait olmayan ara kısımların css leri
+.description-area {
+    padding-top: 100px;
+    padding-bottom: 100px;
+    .unit-container {
+        position: relative;
+        width: 85%;
+        margin: 0 auto;
+    }
+    .unit-container-img {
+        img {
+            max-width: 100%;
+        }
+    }
+    .tooltip-container {
+        position: absolute;
+        .unit-tooltip {
+            position: absolute;
+            text-align: center;
+            color: #fff;
+            z-index: 3;
+            .rect {
+                background-color: #312984;
+                font-weight: 500;
+                width: 92px;
+                min-height: 46px;
+                border-radius: 6px;
+                font-size: 12px;
+                -webkit-transform: translate(-50%, -140%);
+                transform: translate(-50%, -140%);
+                position: absolute;
+                padding: 4px;
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                line-height: 20px;
+                &::after {
+                    content: "";
+                    position: absolute;
+                    -webkit-transform: translateX(-50%);
+                    transform: translateX(-50%);
+                    left: 50%;
+                    top: 98%;
+                    border-width: 6px;
+                    border-style: solid;
+                    border-color: #312984 transparent transparent transparent; 
+                }
+                .unit-type {
+                    font-weight: 300; 
+                }
+            }
+        }
+        .unit-mark {
+            position: relative;
+            .mark-button {
+                position: absolute;
+                -webkit-transform: translate(-48%, -50%);
+                transform: translate(-48%, -50%);
+                font-size: 24px;
+                z-index: 97;
+            }
+            .circle-container {
+                position: absolute; 
+                .circle {
+                    height: 30px;
+                    width: 30px;
+                    border-radius: 50%;
+                    background-color: #fff;
+                    position: relative;
+                    -webkit-transition: height 0.25s ease, width 0.25s ease;
+                    transition: height 0.25s ease, width 0.25s ease;
+                    -webkit-transform: translate(-50%, -50%);
+                    transform: translate(-50%, -50%); 
+                    background-image: url(../images/plus.svg);
+                    background-size: 20px 16px;
+                    background-repeat: no-repeat;
+                    background-position: 5px 5px;
+                    &::after, &::before {
+                        content: "";
+                        display: block;
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        bottom: 0;
+                        left: 0;
+                        border-radius: 50%;
+                        border: 1px solid #fff; 
+                    }
+                }
+            }
+        }
+        
+    }
+    .ems-none {
+        display: none !important;
+    }
+    .tooltip-container .unit-mark .circle-container .circle:before {
+        -webkit-animation: ripple 3s linear infinite;
+        animation: ripple 3s linear infinite; 
+    }
+    .tooltip-container .unit-mark .circle-container .circle:after {
+        -webkit-animation: ripple 3s linear 2s infinite;
+        animation: ripple 3s linear 2s infinite; 
+    }
+
+    .text-area {
+        h3 {
+            font-family: "TTHoves-Bold", arial, sans-serif;
+            color: #453D98;
+            padding-bottom: 30px;
+            font-size: 28px;
+        }
+        .content-list {
+            li {
+                position: relative;
+                margin-bottom: 10px;
+                display: flex;
+                align-items: baseline;
+                justify-content: space-between;
+                flex-wrap: wrap;
+                max-width: 390px;
+            }
+            span:first-child {
+                width: 35%;
+                text-align: left;
+                font-weight: bold;
+            }
+            span:nth-child(2) {
+                width: 65%;
+            }
+        }
+    }
+}
+
+@media (max-width: 767px) {
+    .description-area .unit-container {
+        margin-bottom: 50px;
+    }
+}
+
+@media screen and (min-width: 1025px) {
+    .description-area {
+        .unit-container {
+            max-width: 520px;
+             .tooltip-container {
+                .unit-tooltip .rect {
+                    width: 174px;
+                    min-height: 81px;
+                    font-size: 18px;
+                }
+                .unit-mark .mark-button {
+                    font-size: 30px;
+                }
+             } 
+        }
+    }
+    .obj-mobile {
+        display: none !important;
+    }
+}
+
+@media screen and (max-width: 1024px) {
+    .obj-desktop {
+        display: none !important;
+    }
+}
+
+
+
+
+@-webkit-keyframes ripple {
+    0% {
+      -webkit-transform: scale(1); 
+    }
+    75% {
+      -webkit-transform: scale(2.5);
+      opacity: 1; 
+    }
+    100% {
+      -webkit-transform: scale(4);
+      opacity: 0; 
+    } 
+    }
+  
+  @keyframes ripple {
+    0% {
+      -webkit-transform: scale(1);
+      transform: scale(1); 
+    }
+    75% {
+      -webkit-transform: scale(2.5);
+      transform: scale(2.5);
+      opacity: 1; 
+    }
+    100% {
+      -webkit-transform: scale(4);
+      transform: scale(4);
+      opacity: 0; 
+    } 
+}
