@@ -1,3 +1,122 @@
+var airport = {
+  elements: {
+    dropdown: ".location-menu",
+    container: ".location-container",
+  },
+  isComplete: false,
+  template: "#locationTemplate",
+  name: "",
+  id: "",
+  address: "",
+  link: "",
+  markup: "",
+
+  fetchAirpots() {
+    $.ajax({
+      type: "GET",
+      url: "http://kepler.marrul.com/api/KeplerService/Get?id=1",
+      success: function(resp) {
+        airport.success(resp.data);
+      },
+      complete: function() {
+        airport.complete();
+      },
+      dataType: "json",
+      timeout: 30000,
+      error: function() {
+        if (typeof callback !== "undefined")
+          callback({
+            type: "error",
+          });
+      },
+    });
+  },
+
+  success(data) {
+    data.map(function(item) {
+      airport.markup += $(airport.template)
+        .html()
+        .replace(/{{item.id}}/g, item.id)
+        .replace(/{{item.kodu}}/g, item.kodu)
+        .replace(/{{item.adi}}/g, item.adi);
+    });
+
+    $(airport.elements.dropdown)
+      .find("ul")
+      .html(airport.markup);
+  },
+  complete() {
+    $(this.elements.dropdown)
+      .find("ul li")
+      .bind("click", function() {
+        airport.id = $(this).attr("airport-id");
+        airport.name = $(this).attr("airport-name");
+        $(this)
+          .addClass(cls.selectedItem)
+          .siblings()
+          .removeClass(cls.selectedItem);
+        $(airport.elements.container)
+          .find(".input-info")
+          .text($(this).text());
+      });
+    airport.isComplete = true;
+  },
+
+  handleDropDown() {
+    var id = this.elements.dropdown;
+    var parent = $(id).parent();
+    parent.bind("click", function() {
+      $(id).toggleClass(cls.none);
+      // CONTROLS ?
+      // if (!airport.isComplete) {
+      //   airport.fetchAirpots();
+      // }
+      stepControls.confirmBooking();
+    });
+
+    parent.find("ul").bind("click", "li", function() {
+      if (airport.id != "") {
+        parent
+          .next()
+          .find(".input-info")
+          .removeClass(cls.none);
+        parent
+          .next()
+          .find(product.elements.counter.container)
+          .removeClass(cls.none);
+        parent
+          .next()
+          .find("ul")
+          .removeClass(cls.none);
+        // Sabiha Gokcen
+        if (airport.id.replace(/ /g, "") == "10e30452-ed1e-4917-915f-a999110310c8") {
+          parent
+            .next()
+            .find(".guest-family-info")
+            .removeClass(cls.none);
+        } else {
+          parent
+            .next()
+            .find(".guest-family-info")
+            .addClass(cls.none);
+        }
+      }
+
+      stepControls.confirmBooking();
+    });
+  },
+};
+
+airport.handleDropDown();
+
+
+
+
+
+
+
+
+
 
 /*KREDI KARTI GORUNTUSU generate eden ve CVC alanına gelince kartı çeviren script */
 var creditCard = new Card({
