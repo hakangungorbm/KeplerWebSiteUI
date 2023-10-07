@@ -1,8 +1,17 @@
+
+
+
+
+
+
+
+
 var airport = {
   fetchAirpots() {
     $.ajax({
       type: "GET",
       url: "http://kepler.marrul.com/api/KeplerService/Get?id=1",
+      crossDomain: true,
       success: function(response) {
 
         // Set airports
@@ -10,6 +19,9 @@ var airport = {
         
         response.map(function(item) {
           $airports.append('<option value="'+ item.locationId +'">'+ item.name +'</option>');
+          selectedLocation.airport.name = item.name;
+          selectedLocation.airport.locationId = item.locationId;
+          selectedLocation.airport.code = item.code;
         });
 
         // Set areas and rooms on change
@@ -25,6 +37,9 @@ var airport = {
           if ( airportIndex !== -1 ) {
             response[airportIndex].areas.map(function(item) {
               $areas.append('<option value="'+ item.areaId +'">'+ item.name +'</option>');
+              selectedLocation.area.name = item.name;
+              selectedLocation.area.areaId = item.areaId;
+
             });
           }
 
@@ -36,8 +51,22 @@ var airport = {
           if ( airportIndex !== -1 ) {
             response[airportIndex].roomInfoList.map(function(item) {
               $rooms.append('<option value="'+ item.roomCategoryId +'">'+ item.name +'</option>');
+
+              selectedLocation.room.roomCategoryId = item.roomCategoryId;
+              selectedLocation.room.name = item.name;
+              selectedLocation.room.capacity = item.capacity
+              selectedLocation.room.price = item.price
+              selectedLocation.room.rawPrice = item.rawPrice
+              selectedLocation.room.discountRate = item.discountRate
+              selectedLocation.room.vateRate = item.vateRate
+              selectedLocation.room.accommodationRate = item.accommodationRate
+              selectedLocation.room.currencyCode = item.currencyCode
+              selectedLocation.room.currencyId = item.currencyId
             });
+            
+
           }
+
 
         });
 
@@ -57,7 +86,29 @@ var airport = {
 airport.fetchAirpots();
 
 
-
+var selectedLocation = {
+  airport: {
+    name: "",
+    code: "",
+    locationId: ""
+  },
+  area: {
+    name:"",
+    areaId:"",
+  },
+  room: {
+    roomCategoryId:"",
+    name:"",
+    capacity: 0,
+    price: 0,
+    rawPrice: 0,
+    discountRate: 0,
+    vateRate: 0,
+    accommodationRate: 0,
+    currencyCode: "",
+    currencyId: ""
+  }
+}
 
 
 
@@ -1074,6 +1125,174 @@ date.init();
     },
   };
   guest.formValidation();
+
+  var parser = {
+    info: {
+      plannedEntryTime: "",
+      plannedExitTime: "",
+      locationId: "locationId",
+      areaId: "",
+      roomTypeId: "",
+      rawPrice: 0,
+      amount: 0,
+      currencyId: "",
+      applicationId: "",
+      maleCount: "",
+      femaleCount:"",
+      passenger: {
+        name: "",
+        surname: "",
+        gender: "",
+        email: "",
+        phoneNumber: "",
+        birthDate: ""
+      }
+    },
+    bookingInfo() {
+    var markupTemplate = "";
+    var info = this.info;
+    info.plannedEntryTime = this.generatePlannedEntryTime(date.checkIn.day,date.checkIn.time);
+    info.plannedExitTime = this.generatePlannedExitTime(date.checkOut.day,date.checkOut.time);
+    info.locationId = summaryContext.location.airport.locationId;
+    info.areaId = summaryContext.location.area.areaId;
+    info.roomTypeId = summaryContext.location.room.roomCategoryId;
+    info.rawPrice = summaryContext.location.room.rawPrice;
+    info.amount = 0;
+    info.currencyId = summaryContext.location.room.currencyId;
+    info.maleCount = product.male;
+    info.femaleCount = product.female;
+    
+    },
+    generatePlannedEntryTime(day, time) {
+      return day.concat("T",time,":00.000Z");
+    },
+    generatePlannedExitTime(day, time) {
+      return day.concat("T",time,":00.000Z");
+    },
+    passengerInfo() {
+      var info = this.info;
+      info.passenger.name = "adi";
+    },
+
+    init() {
+      this.bookingInfo();
+      this.passengerInfo();
+    }
+    
+  }
+
+
+  setTimeout(function() {
+    parser.init();
+  }, 10);
+  
+
+  $(".continue-button").on("click", function() {
+    parser.bookingInfo();
+  });
+
+
+  /*MARKUP HTML SABLON ISLEMLERI */
+
+  var prepareGuestInfo = {
+    maleGuestInfo() {
+      if(product.male > 0) {  // erkek misafir varsa
+
+        var maleGuestContext = {
+          maleGuestNumber: product.male,
+          hour: date.totalHours,
+          price: selectedLocation.room.price.toFixed(2),
+          currencyCode: selectedLocation.room.currencyCode
+        };
+
+        var maleGuestTemplate = document.getElementById("maleGuestTemplate").firstChild.textContent;
+        $("#male-guest-content").html(Mark.up(maleGuestTemplate, maleGuestContext));
+
+      }
+    },
+    femaleGuestInfo() {
+      if(product.female > 0) {  // bayan misafir varsa
+
+        var femaleGuestContext = {
+          femaleGuestNumber: product.female,
+          hour: date.totalHours,
+          price: selectedLocation.room.price.toFixed(2),
+          currencyCode: selectedLocation.room.currencyCode
+        };
+
+        var femaleGuestTemplate = document.getElementById("femaleGuestTemplate").firstChild.textContent;
+        $("#female-guest-content").html(Mark.up(femaleGuestTemplate,femaleGuestContext));
+
+      }
+    },
+    bookingSummaryInfo() {
+      if(selectedLocation.airport.name !== "" && date.totalHours > 0) {
+      var bookingSummaryContext = {
+        airport: selectedLocation.airport.name,
+        area: selectedLocation.area.name,
+        checkInDate: date.checkIn.day,
+        checkOutDate: date.checkOut.day,
+        maleGuestNumber: product.male,
+        femaleGuestNumber: product.female,
+        checkInTime: date.checkIn.time,
+        checkOutTime: date.checkOut.time,
+        totalHour: date.totalHours
+      };
+      var bookingSummaryTemplate = document.getElementById("bookingInfoSummaryTemplate").firstChild.textContent;
+        $("#booking-info-summary-content").html(Mark.up(bookingSummaryTemplate,bookingSummaryContext));
+      }
+    },
+    amountSummaryInfo() {
+      if(selectedLocation.airport.name !== "" && date.totalHours > 0) {
+      var subTotal = 2 * date.totalHours * selectedLocation.room.price;
+      var currencyCode = selectedLocation.room.currencyCode;
+      var totalGuest = parseInt(product.male) + parseInt(product.female);
+      var discountRate = selectedLocation.room.discountRate;
+      var vateRate =  selectedLocation.room.vateRate;
+      var vatePrice = Number((subTotal * Number(vateRate) / 100).toFixed(2));
+      var accommodationRate = selectedLocation.room.accommodationRate;
+      var accommodationPrice =  Number((subTotal * Number(accommodationRate) / 100).toFixed(2));
+      var totalPrice = subTotal + vatePrice + accommodationPrice;
+      
+      var amountSummaryContext = {
+        toplamYolcu: totalGuest,
+        ilkTutar: subTotal.toFixed(2),
+        paraBirimi: currencyCode,
+        indirimOrani: discountRate,
+        kdvOrani: vateRate,
+        kdvUcreti: vatePrice,
+        konaklamaVergisiOrani: accommodationRate,
+        konaklamaVergiUcreti: accommodationPrice,
+        toplamFiyat: totalPrice.toFixed(2)
+      };
+      var amountSummaryTemplate = document.getElementById("amountSummaryInfoTemplate").firstChild.textContent;
+        $("#amount-summary-content").html(Mark.up(amountSummaryTemplate,amountSummaryContext));
+      }      
+    },
+    init() {
+      this.bookingSummaryInfo();
+      this.maleGuestInfo();
+      this.femaleGuestInfo();
+      this.amountSummaryInfo();
+    }
+  };
+
+  setTimeout(function() {
+    prepareGuestInfo.init();
+  }, 10);
+
+  $(".comfirm-button").on("click", function() {
+    prepareGuestInfo.maleGuestInfo();
+    prepareGuestInfo.femaleGuestInfo();
+    prepareGuestInfo.bookingSummaryInfo();
+    prepareGuestInfo.amountSummaryInfo();
+  });
+
+  var summaryContext = {
+    location: selectedLocation,
+    product: product,
+    date: date
+  };
 
 
 

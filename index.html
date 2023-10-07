@@ -319,9 +319,10 @@
             </ul>
         </div>
 
-        <div class="time-picker-warnings ems-none"><p class="total-hours-warning">You booked <span id="tp-totalHour"></span> hour(s)</p><p class="date-warning ems-none">
-            Your reservation is between <span id="ci-day"></span> and
-            <span id="co-day"></span></p></div>
+        <div class="time-picker-warnings ems-none">
+            <p class="total-hours-warning">You booked <span id="tp-totalHour"></span> hour(s)</p>
+            <p class="date-warning ems-none"> Your reservation is between <span id="ci-day"></span> and <span id="co-day"></span></p>
+        </div>
 
 </div><!--dropdown-container-->
 </div><!--select-form-dropdown bitti-->
@@ -384,29 +385,35 @@
 </div><!--steper-wrapper bitti-->
 
 
-<div class="rezervation-time-summary">
 
-<section class="booking-info-card-container">
+<div id="booking-info-summary-content"></div>
+
+
+<script id="bookingInfoSummaryTemplate" type="text/template">
+    <div class="rezervation-time-summary">
+    <section class="booking-info-card-container">
     <div class="booking-info-card-wrapper">
         <div class="booking-info-card-item">
             <div class="booking-info-location-card-item-icon"></div>
-            <div class="booking-info-location"> Sabiha Gokcen - Airside </div>
+            <div class="booking-info-location"> {{airport}} - {{area}} </div>
         </div>
 
         <div class="booking-info-card-item">
             <div class="booking-info-calendar-card-item-icon"></div>
-            <div class="booking-info-item-detail"><div class="booking-info-date">14 Sep - 15 Sep, 23</div>
+            <div class="booking-info-item-detail"><div class="booking-info-date">{{checkInDate}} - {{checkOutDate}}, 23</div>
                 <div class="booking-info-guest">
-                    <div class="booking-info-guest-number"><span class="bi-male-number">1</span> Male, <span class="bi-female-number">1</span> Female</div>
-                    <div class="booking-info-guest-hours"><span class="bi-checkin-hour">01:00</span> - <span class="bi-checkout-hour">01:00</span> (<span class="bi-total-hour">24</span> hrs)</div>
+                    <div class="booking-info-guest-number"><span class="bi-male-number">{{maleGuestNumber}}</span> Male, <span class="bi-female-number">{{femaleGuestNumber}}</span> Female</div>
+                    <div class="booking-info-guest-hours"><span class="bi-checkin-hour">{{checkInTime}}</span> - <span class="bi-checkout-hour">{{checkOutTime}}</span> (<span class="bi-total-hour">{{totalHour}}</span> hrs)</div>
                 </div>
             </div>
         </div>
     </div>
     <a href="#" class="bi-button-back">Start Again</a>
 </section>
-
 </div><!--rezervation-time-summary bitti-->
+</script>
+
+
 
 
 <div class="unit-detail-area">
@@ -416,62 +423,68 @@
         
         <div class="booking-info-product-wrapper">
 
+        <div id="male-guest-content"></div>
+        <div id="female-guest-content"></div>
+
+        <script id="maleGuestTemplate" type="text/template">
             <div class="booking-info-product">
-                <div class="bi-product-image"><img src="images/product-for-male.png"></div>
-            <div class="bi-product-info"><div class="bi-product-title">Nap Session ( <span class="bi-product-gender"> Male </span>) x 1</div>
+            <div class="bi-product-image"><img src="images/product-for-male.png"></div>
+            <div class="bi-product-info"><div class="bi-product-title">Nap Session ( <span class="bi-product-gender"> Male </span>) x {{maleGuestNumber}}</div>
                 <ul class="bi-product-specs">
                     <li>Fully Equipped Kep</li>
                     <li>Reserved for your use only</li>
                 </ul>
-                <div class="bi-product-fee"><div class="bi-prodcut-hour"><span class="bi-hour">2 x 24</span>hrs x<span class="bi-unit-price"> 10,71 </span> EUR / 30 min</div>
+                <div class="bi-product-fee"><div class="bi-prodcut-hour"><span class="bi-hour">{{hour}} x 24</span>hrs x<span class="bi-unit-price"> {{price}} </span> {{currencyCode}} / 30 min</div>
                 </div>
             </div>
-        </div>
-        
-        <div class="booking-info-product"><div class="bi-product-image"><img src="images/product-for-female.png"></div>
-            <div class="bi-product-info"><div class="bi-product-title"> Nap Session ( <span class="bi-product-gender"> Female </span>) x 1</div>
-                <ul class="bi-product-specs">
-                    <li>Fully Equipped Kep</li>
-                    <li>Reserved for your use only</li>
-                </ul>
-                <div class="bi-product-fee"><div class="bi-prodcut-hour"><span class="bi-hour">2 x 24</span>hrs x<span class="bi-unit-price">  10,71 </span> EUR / 30 min</div>
+            </div>
+        </script>
+
+        <script id="femaleGuestTemplate" type="text/template">
+            <div class="booking-info-product"><div class="bi-product-image"><img src="images/product-for-female.png"></div>
+                <div class="bi-product-info"><div class="bi-product-title"> Nap Session ( <span class="bi-product-gender"> Female </span>) x {{femaleGuestNumber}}</div>
+                    <ul class="bi-product-specs">
+                        <li>Fully Equipped Kep</li>
+                        <li>Reserved for your use only</li>
+                    </ul>
+                    <div class="bi-product-fee"><div class="bi-prodcut-hour"><span class="bi-hour">{{hour}} x 24</span>hrs x<span class="bi-unit-price">  {{price}} </span> {{currencyCode}} / 30 min</div>
+                    </div>
                 </div>
             </div>
-        </div>
+        </script>
 
     </div>
 </section>
 
 </div><!--unit-detail-area-->
 
-<div class="booking-amount-summary-area">
+<div id="amount-summary-content"></div>
 
-
-<div class="booking-info-order-container">
-    <div class="order-wrapper">
-        <div class="bi-order-amount-container">
-            <div class="bi-order-amount"><div><span class="bi-order-total-guest">3</span> adult(s) x <span class="bi-order-guest-price"></span> EUR</div></div>
-                <div><span class="bi-order-subtotal-price">32.13</span> EUR</div>
-        </div>
-        <div class="bi-order-total-container">
-                <div class="bi-order-total">
-                    <div class="bi-order-total-subtotal-price"><div>Subtotal</div><div><span class="bi-order-subtotal-price">32.13</span> EUR</div></div>
-                    <div class="bi-order-discount-price-box pgs-show-flex"><!-- Razor indirim --><div>Discount(<span class="bi-order-discount-rate">0%</span>)</div><div><span class="bi-order-discount-price">0.00</span> EUR</div></div>
-                    <div class="bi-order-subtotal-discount-price-box pgs-show-flex"><!-- Razor indirim --><div>Subtotal with Discount</div><div><span class="bi-order-subtotal-discount-price">32.13</span> EUR</div></div>
-                    <div class="bi-order-total-vat-price"><!-- Razor Vat Rate  --><div>VAT(<span class="bi-order-vat-rate">10%</span>)</div><div><span class="bi-order-vat-price">3.21</span> EUR</div></div>
-                    <div class="bi-order-accommodation-tax-wrapper"><div>Accommodation Tax(<span class="bi-order-accommodation-tax-rate">2%</span>)</div><div><span class="bi-order-accommodation-tax-price">0.64</span> EUR</div></div>
-                    <div class="bi-order-total-total-price"><div>Total</div><div><span class="bi-order-total-price">35.98</span> EUR</div></div>
+<script id="amountSummaryInfoTemplate" type="text/template">
+    <div class="booking-amount-summary-area">
+        <div class="booking-info-order-container">
+            <div class="order-wrapper">
+                <div class="bi-order-amount-container">
+                    <div class="bi-order-amount"><div><span class="bi-order-total-guest">{{toplamYolcu}}</span> adult(s) x <span class="bi-order-guest-price"></span> {{paraBirimi}}</div></div>
+                        <div><span class="bi-order-subtotal-price">{{ilkTutar}}</span> {{paraBirimi}}</div>
                 </div>
-            <div class="bi-order-payment ems-none">
-                <script id="paymentMethodTemplateBI" type="text/template"><div class="bi-order-payment-title">Payment Method</div><div class="bi-order-payment-info"><div>Card Holder</div><div>{{biOrderCardHolder}}</div></div><div class="bi-order-payment-info"><div>Card Type</div><div>{{biOrderCardType}}</div></div><div class="bi-order-payment-info"><div>Card Number</div><div>{{biOrderCardNumber}}</div></div></script>
-            </div>
-            <div rel="booking-info" class="continue-button">CONTINUE</div>
+                <div class="bi-order-total-container">
+                        <div class="bi-order-total">
+                            <div class="bi-order-total-subtotal-price"><div>Subtotal</div><div><span class="bi-order-subtotal-price">{{ilkTutar}}</span> {{paraBirimi}}</div></div>
+                            <div class="bi-order-discount-price-box pgs-show-flex"><!-- Razor indirim --><div>Discount(<span class="bi-order-discount-rate">0%</span>)</div><div><span class="bi-order-discount-price">0.00</span> {{paraBirimi}}</div></div>
+                            <div class="bi-order-subtotal-discount-price-box pgs-show-flex"><!-- Razor indirim --><div>Subtotal with Discount</div><div><span class="bi-order-subtotal-discount-price">{{ilkTutar}}</span> {{paraBirimi}}</div></div>
+                            <div class="bi-order-total-vat-price"><!-- Razor Vat Rate  --><div>VAT(<span class="bi-order-vat-rate">{{kdvOrani}}%</span>)</div><div><span class="bi-order-vat-price">{{kdvUcreti}}</span> {{paraBirimi}}</div></div>
+                            <div class="bi-order-accommodation-tax-wrapper"><div>Accommodation Tax(<span class="bi-order-accommodation-tax-rate">{{konaklamaVergisiOrani}}%</span>)</div><div><span class="bi-order-accommodation-tax-price">{{konaklamaVergiUcreti}}</span> {{paraBirimi}}</div></div>
+                            <div class="bi-order-total-total-price"><div>Total</div><div><span class="bi-order-total-price">{{toplamFiyat}}</span> {{paraBirimi}}</div></div>
+                        </div>
+                    <div rel="booking-info" class="continue-button">CONTINUE</div>
+                </div>
+            </div><!--order-wrapper bitti-->
+            <a href="#" class="previous-step-button">Previous Step</a>
         </div>
-    </div><!--order-wrapper bitti-->
-    <a href="#" class="previous-step-button">Previous Step</a>
-</div>
+    </div><!--booking-amount-summary-area-->
+</script>
 
-</div><!--booking-amount-summary-area-->
 
 <div class="guest-info-form-area">
 
@@ -550,12 +563,12 @@
                 <div class="card-info-wrapper">
                     <div class="card-info">
                         <label for="card-holder">Kart Sahibi<sup>*</sup></label>
-                        <input placeholder="Full name" type="text" name="name" id="card-holder" />
+                        <input placeholder="Full name" type="text" name="name" id="card-holder">
                     </div>
 
                     <div class="card-info">
                         <label for="card-number">Kart numarası<sup>*</sup></label>
-                        <input placeholder="Card number" type="tel" name="number" id="card-number" />
+                        <input placeholder="Card number" type="tel" name="number" id="card-number">
                     </div>
 
                     <div class="card-info">
@@ -563,12 +576,12 @@
                         <div class="payment-credential">
                             <div>
                                 <label for="expiration">Sona erme<sup>*</sup></label>
-                                <input placeholder="MM/YY" type="tel" name="expiry" id="expiration" />
+                                <input placeholder="MM/YY" type="tel" name="expiry" id="expiration">
                             </div>
                             <div>
                                 <div class="cvc-info"><div class="cvc-mark">?</div><div class="cvc-info-tooltip ems-none"><p>The CVC is a 3 or 4 digit number unique to each credit card that only appears on the actual card itself; it cannot be obtained from receipts or any other transaction documents</p><i class="cvc-info-close"></i></div></div>
                                 <label for="cvc">CVC<sup>*</sup></label>
-                                <input placeholder="CVC" type="number" name="cvc" id="cvc" />
+                                <input placeholder="CVC" type="number" name="cvc" id="cvc">
                             </div>
                         </div>
                     </div>
@@ -1191,7 +1204,7 @@
         <div class="container">
 
             <div class="row">
-            
+            <div id="sidebar"></div>
             <div class="col-md-6 col-sm-6 col-xs-8">
                 <p>© 2023 Keplerclub. All rights reserved.</p>
             </div><!--1.kolon bitti-->
@@ -1212,6 +1225,7 @@
 <script type="text/javascript" src="js/fancybox/jquery.fancybox.pack.js"></script>
 <script type="application/javascript" src="js/lazyloadxt.js"></script>
 <script type="application/javascript" src="js/jquery.cookie.js"></script>
+<script type="application/javascript" src="js/markup.js"></script>
 <script src="js/card.js"></script>
 <script src="js/alljs.js"></script>    
 <script src="js/booking-form.js"></script>
