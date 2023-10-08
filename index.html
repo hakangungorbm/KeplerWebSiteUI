@@ -385,105 +385,31 @@
 </div><!--steper-wrapper bitti-->
 
 
+<!-- 2.STEP te alttaki div ve icerigi gosterilecek -->
 
 <div id="booking-info-summary-content"></div>
 
 
-<script id="bookingInfoSummaryTemplate" type="text/template">
-    <div class="rezervation-time-summary">
-    <section class="booking-info-card-container">
-    <div class="booking-info-card-wrapper">
-        <div class="booking-info-card-item">
-            <div class="booking-info-location-card-item-icon"></div>
-            <div class="booking-info-location"> {{airport}} - {{area}} </div>
-        </div>
-
-        <div class="booking-info-card-item">
-            <div class="booking-info-calendar-card-item-icon"></div>
-            <div class="booking-info-item-detail"><div class="booking-info-date">{{checkInDate}} - {{checkOutDate}}, 23</div>
-                <div class="booking-info-guest">
-                    <div class="booking-info-guest-number"><span class="bi-male-number">{{maleGuestNumber}}</span> Male, <span class="bi-female-number">{{femaleGuestNumber}}</span> Female</div>
-                    <div class="booking-info-guest-hours"><span class="bi-checkin-hour">{{checkInTime}}</span> - <span class="bi-checkout-hour">{{checkOutTime}}</span> (<span class="bi-total-hour">{{totalHour}}</span> hrs)</div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <a href="#" class="bi-button-back">Start Again</a>
-</section>
-</div><!--rezervation-time-summary bitti-->
-</script>
-
-
-
-
 <div class="unit-detail-area">
-
-    <section class="booking-info-product-container">
-        <h3>Your Unit Details</h3>
-        
-        <div class="booking-info-product-wrapper">
-
+<section class="booking-info-product-container">
+    <h3>Your Unit Details</h3>
+    <div class="booking-info-product-wrapper">
         <div id="male-guest-content"></div>
         <div id="female-guest-content"></div>
-
-        <script id="maleGuestTemplate" type="text/template">
-            <div class="booking-info-product">
-            <div class="bi-product-image"><img src="images/product-for-male.png"></div>
-            <div class="bi-product-info"><div class="bi-product-title">Nap Session ( <span class="bi-product-gender"> Male </span>) x {{maleGuestNumber}}</div>
-                <ul class="bi-product-specs">
-                    <li>Fully Equipped Kep</li>
-                    <li>Reserved for your use only</li>
-                </ul>
-                <div class="bi-product-fee"><div class="bi-prodcut-hour"><span class="bi-hour">{{hour}} x 24</span>hrs x<span class="bi-unit-price"> {{price}} </span> {{currencyCode}} / 30 min</div>
-                </div>
-            </div>
-            </div>
-        </script>
-
-        <script id="femaleGuestTemplate" type="text/template">
-            <div class="booking-info-product"><div class="bi-product-image"><img src="images/product-for-female.png"></div>
-                <div class="bi-product-info"><div class="bi-product-title"> Nap Session ( <span class="bi-product-gender"> Female </span>) x {{femaleGuestNumber}}</div>
-                    <ul class="bi-product-specs">
-                        <li>Fully Equipped Kep</li>
-                        <li>Reserved for your use only</li>
-                    </ul>
-                    <div class="bi-product-fee"><div class="bi-prodcut-hour"><span class="bi-hour">{{hour}} x 24</span>hrs x<span class="bi-unit-price">  {{price}} </span> {{currencyCode}} / 30 min</div>
-                    </div>
-                </div>
-            </div>
-        </script>
-
     </div>
 </section>
-
 </div><!--unit-detail-area-->
 
-<div id="amount-summary-content"></div>
+<div class="amount-summary-content"></div>
 
-<script id="amountSummaryInfoTemplate" type="text/template">
-    <div class="booking-amount-summary-area">
-        <div class="booking-info-order-container">
-            <div class="order-wrapper">
-                <div class="bi-order-amount-container">
-                    <div class="bi-order-amount"><div><span class="bi-order-total-guest">{{toplamYolcu}}</span> adult(s) x <span class="bi-order-guest-price"></span> {{paraBirimi}}</div></div>
-                        <div><span class="bi-order-subtotal-price">{{ilkTutar}}</span> {{paraBirimi}}</div>
-                </div>
-                <div class="bi-order-total-container">
-                        <div class="bi-order-total">
-                            <div class="bi-order-total-subtotal-price"><div>Subtotal</div><div><span class="bi-order-subtotal-price">{{ilkTutar}}</span> {{paraBirimi}}</div></div>
-                            <div class="bi-order-discount-price-box pgs-show-flex"><!-- Razor indirim --><div>Discount(<span class="bi-order-discount-rate">0%</span>)</div><div><span class="bi-order-discount-price">0.00</span> {{paraBirimi}}</div></div>
-                            <div class="bi-order-subtotal-discount-price-box pgs-show-flex"><!-- Razor indirim --><div>Subtotal with Discount</div><div><span class="bi-order-subtotal-discount-price">{{ilkTutar}}</span> {{paraBirimi}}</div></div>
-                            <div class="bi-order-total-vat-price"><!-- Razor Vat Rate  --><div>VAT(<span class="bi-order-vat-rate">{{kdvOrani}}%</span>)</div><div><span class="bi-order-vat-price">{{kdvUcreti}}</span> {{paraBirimi}}</div></div>
-                            <div class="bi-order-accommodation-tax-wrapper"><div>Accommodation Tax(<span class="bi-order-accommodation-tax-rate">{{konaklamaVergisiOrani}}%</span>)</div><div><span class="bi-order-accommodation-tax-price">{{konaklamaVergiUcreti}}</span> {{paraBirimi}}</div></div>
-                            <div class="bi-order-total-total-price"><div>Total</div><div><span class="bi-order-total-price">{{toplamFiyat}}</span> {{paraBirimi}}</div></div>
-                        </div>
-                    <div rel="booking-info" class="continue-button">CONTINUE</div>
-                </div>
-            </div><!--order-wrapper bitti-->
-            <a href="#" class="previous-step-button">Previous Step</a>
-        </div>
-    </div><!--booking-amount-summary-area-->
-</script>
+<div class="toGuestInfo continue-button-wrapper">
+<div class="continue-button">CONTINUE</div>
+<a href="#" class="previous-step-button">Previous Step</a>    
+</div><!--continue-button-wrapper bitti-->
+
+
+
+<!-- 3.STEP te alttaki div ve icerigi gosterilecek -->
 
 
 <div class="guest-info-form-area">
@@ -491,6 +417,7 @@
     <section class="booking-guest-info-container">
         <p>Lütfen tamamlamak için kişisel bilgilerinizi giriniz</p>
         <h3>Misafir Bilgisi</h3>
+        <form id="guest-info-form" action="">
         <div class="guest-info-wrapper">
             <div class="guest-info-input">
                 <div class="validation-icon"></div>
@@ -515,18 +442,6 @@
                     </select>
                 </span>
             </div>
-
-            <!-- <div class="guest-info-input">
-                <div class="validation-icon"></div>
-                <label for="gender">Cinsiyet<sup>*</sup></label>
-                <div class="select-wrapper">
-                    <select name="gender" id="gender" required>
-                        <option value="">Cinsiyet</option>
-                        <option value="MALE">Kadın</option>
-                        <option value="FEMALE">Erkek</option>
-                    </select>
-                </div>
-            </div> -->
             <div class="guest-info-input">
                 <div class="validation-icon"></div>
                 <label for="email">Email Adresi<sup>*</sup></label>
@@ -536,18 +451,28 @@
                 <div class="validation-icon"></div>
                 <label for="mobile">Telefon Numarası<sup>*</sup></label>
                 <div class="gi-mobile">
-                    <input required="" autocomplete="off" type="text" id="country-code" name="country-code" value="+90" />
-                    <input required="" autocomplete="off" type="text" name="phoneNumber" id="mobile" placeholder="5555555555" />
+                    <input required="" autocomplete="off" type="text" id="countryCode" name="countryCode" value="+90" />
+                    <input required="" autocomplete="off" type="text" name="mobile" id="mobile" placeholder="5555555555" />
                 </div>
             </div>
+            
             <div class="guest-info-input">
                 <label for="birthdate">Doğum Günü<sup>*</sup></label>
-                <input required="" readonly="" autocomplete="off" type="text" name="birthDate" id="birthDate" placeholder="GG/AA/YYYY" />
+                <input required="" autocomplete="off" type="text" name="birthDate" id="birthdate" placeholder="GG/AA/YYYY" class="hasDatepicker" />
             </div>
+
         </div>
+
+    </form>
     </section>    
 
+    <div class="toCreditCard continue-button-wrapper">
+        <div class="continue-button disabled">CONTINUE</div>
+        <a href="#" class="previous-step-button">Previous Step</a>    
+    </div><!--continue-button-wrapper bitti-->
+
 </div><!--guest-info-form-area bitti-->
+
 
 <div class="payment-card-area">
 
@@ -559,7 +484,7 @@
         <div class="card-wrapper"></div>
 
         <div class="form-container active">
-            <form action="">
+            <form id="credit-card-form" action="">
                 <div class="card-info-wrapper">
                     <div class="card-info">
                         <label for="card-holder">Kart Sahibi<sup>*</sup></label>
@@ -614,179 +539,6 @@
 
 </div><!--booking-form bitti-->
 </div><!--booking-form-wrapper bitti-->
-
-<!-- WARNING TEXTLERI -->
-<div class="warning-background ems-none"></div>
-<div class="form-warnings tou-warning ems-none">
-<div class="warning-content-wrapper">
-    <p tex-align="center"><b>MEMBERSHIP AGREEMENT AND THE TERMS OF USE FOR THE WEBSITE</b></p><ol><li><b>1. </b><b>PARTIES</b></li></ol><p><b>1.1. </b>This Membership Agreement and the Terms of Use for the Website (“<b>Agreement</b>”) has been executed between Kepler Dinlenme Hizmetleri Anonim Şirketi (“<b>Company</b>”) located at
-    Emniyet Evleri Mah. Eski Büyükdere Cad. Sapphire Sit. No: 1/1B01 Kâğıthane / İstanbul, and the members (“<b>Member</b>”) of the website with the domain name
-    <a href="http://www.keplerclub.com/">www.keplerclub.com</a> (“<b>Site</b>”).
-    </p><p><b>1.2. </b>Within the scope of this Agreement, Company and Member shall individually be referred to as the “<b>Party</b>” and collectively as “<b>Parties</b>”.</p><p><b>1.3. </b>In the event where a person uses the Site without becoming a member to the Site, the provisions included in this Agreement shall be applicable as the Terms of Use for the Website for
-    the relevant user. It is accepted that any person using the Site without a membership undertakes to be bound by the provisions of this Agreement.
-    </p><p><b>1.4. </b>The Member accepts and undertakes that they have read, understood, are bound by, and have accepted the terms herein. The Company shall have no liability if the Site is used in
-    violation of this Agreement, and shall have the right to request from the Member any damages it may incur as a result of this usage.
-    </p><p><b>1.5. </b>The provisions of this Agreement shall be applicable in relation to the Member’s registration to the Site and any transactions performed over the Site.</p><ol><li><b>2. </b><b>SUBJECT OF THE AGREEMENT</b></li></ol><p><b>2.1. </b>The Company operates the Site and within this scope, makes sales to Members who wish to shop through the Site.</p><p><b>2.2. </b>The subject matter of this Agreement is the regulation of the terms and conditions of the Member’s Site membership and the use of the Site. Within the scope of this Agreement, the
-    Member benefiting from the Site, which belongs to the Company, is aware that this Agreement shall enter into force with the use of the Site and they are obliged to act in compliance with the
-    provisions included in this Agreement.
-    </p><p><b>2.3. </b>The <span style="text-decoration: underline;">Disclosure Statement</span> published on the Site constitutes an integral part of this Agreement.</p><ol><li><b>3. </b><b>SITE MEMBERSHIP CONDITIONS</b></li></ol><p><b>3.1. </b>The Member accepts and undertakes that they have become a member to the Site in consideration of the rules included in this Agreement. In the event where the Company is convinced
-    that the Member does not satisfy the Site membership conditions, or does not have the required qualities anymore, it shall have the right to prevent the Member from using the Site or cancel
-    their membership without any other notice or warning.
-    </p><p><b>3.2. </b>The Member accepts and undertakes that they are a consumer, they shall not, by any means, use the Site for commercial purposes and any information or document they may submit to show
-    that they are qualified to use the Site is correct, up to date and reflective of the actual circumstances. Otherwise, the Member accepts that they shall exclusively be liable for any loss
-    incurred by the Company and shall indemnify such loss.
-    </p><p><b>3.3. </b>Membership to the Site is free of charge, the person requesting to become a Member is responsible for the accuracy of all information they have provided for membership, and such
-    person accepts and undertakes that in situations where this information is necessary, they shall be liable for any loss arising due to incorrect or incomplete information, such as forgetting of
-    a password.
-    </p><p><b>3.4. </b>The necessary precautions for the security of the information and transactions entered into the Site have been taken in the systems and internet infrastructure of either the Company
-    and/or the relevant payment service providers according to the nature of such information or transaction. All credit card transactions and approvals are executed between the Member and the
-    relevant payment service provider independent from the Company. Information such as the credit card password are not visible to or recorded by the Company.
-    </p><p><b>3.5. </b>The information entered into the Site by the Member for the purposes of membership, product/service purchase and information update, especially confidential information belonging to
-    credit cards and bank cards cannot be viewed by the other Site members.
-    </p><p><b>3.6. </b>If the Member forgets their password, they may create a new password through clicking the “I Forgot My Password” link located in the “Member Login” page, entering the e-mail address
-    connected to their membership account, clicking the “Send” button and using the link sent to their e-mail address; the member is directly responsible for the security of this communication and
-    their own communication channels.
-    </p><p><b>3.7. </b>The Company retains the right to decline the Member’s Site membership request, to remove them from membership or to suspend their membership.</p><p><b>3.8. </b>In the event where the membership is suspended or cancelled, a new membership cannot be created by using the previous membership information or new information.</p><p><b>3.9. </b>The Member accepts and undertakes to act in accordance with all terms and conditions located on the Site, the legislation in force, public order and the general rules of morality,
-    whether or not regulated within the scope of this Agreement; and to comply with the requirements of the legislation.
-    </p><ol><li><b>4. </b><b>GENERAL PROVISIONS</b></li></ol><p><b>4.1. </b>The products and services sold by the Company over the Site are provided “AS THEY ARE”, in other words, within the framework of their existing actual and legal situations, and no
-    guarantees, overt or implied, are issued over the products and services.
-    </p><p><b>4.2. </b>The prices and availability of the products and services offered on the Site may be changed without giving prior notice to the Member. If the information provided on the Site
-    contains inaccuracies, such inaccuracies shall be unilaterally corrected by the Company.
-    </p><p><b>4.3. </b>The Company, at any time, may amend, suspend or terminate the Site or any of its components without prior notice or warning. The amendment, suspension or termination of the Site by
-    the Company shall not result in any liability for the Company.
-    </p><p><b>4.4. </b>The execution of this Agreement between the Parties does not oblige the Parties to purchase products or services from each other and does not constitute an undertaking to do as such.
-    </p><p><b>4.5. </b>The Member is obliged to keep the password they have created during their membership process confidential, and must not share it with third parties. The exclusive right to use this
-    password shall belong to the Member. The Member shall be liable for any damage which may arise from the sharing of this password with third parties. If the Company incurs any loss from the
-    violation of the aforementioned obligation, it may claim for the compensation of such loss from the Member.
-    </p><p><b>4.6. </b>In cases where the Site provides links to other websites, the confidentiality-security policies and the terms of use for those sites shall be applicable for all uses and
-    transactions; the Company shall not be liable for any disputes, pecuniary and non-pecuniary damages and losses resulting from the use of information from other sites accessed via exposure to
-    advertisements, banners and content on the Site, and the ethical principles, confidentiality-security principles, service quality and other practices of such other sites accessed for other
-    purposes.
-    </p><ol><li><b>5. </b><b>ORDERS</b></li></ol><p><b>5.1. </b>When the Member places an order through the Site, the Member shall be sent an e-mail acknowledging the receipt of this order.</p><p><b>5.2. </b>The Company reserves the right to reject any orders placed by the Member without showing any reason. The Member shall be notified by e-mail of the rejection of their order. If the
-    purchase fee of the rejected order has already been collected from the Member, the fee shall be returned to the Member through the same payment method used to make the payment.
-    </p><p><b>5.3. </b>The Company may limit or cancel the number of purchases allowed per person, per household or per order as it deems fit without being subjected to prior notice requirements. The
-    limitations may include the orders placed by the same Member account, and orders using the same credit/bank cards and the same invoice/delivery address.
-    </p><ol><li><b>6. </b><b>INTELLECTUAL PROPERTY RIGHTS</b></li></ol><p><b>6.1. </b>All intellectual property rights, including all financial rights such as the right to process, multiply, distribute, represent, signal, transmit and retransmit to the public through
-    audio and video transmission devices, all other rights and interests over the Site and all components of the Site including its source codes belong to the Company. Copying and usage beyond
-    enjoyment of the Site of the information/software used for the design, content and the formation of its database, the multiplication, copying, distribution, processing, transmission to the
-    public through audio and video transmission devices, and utilization by other means of all data included in the Site such as pictures, text, images and files is strictly forbidden. Within the
-    scope of this Agreement, the Member is only granted a personal, worldwide, free of charge, non-transferrable, and non-exclusive usage right for their enjoyment of the services provided over the
-    Site. No provisions located in this Agreement shall be construed as the granting of any partial or complete right, property or interest to the Member. The Member may not in any way copy, amend,
-    multiply, create works deriving from or reverse engineer the software utilized on the Site, and may not try to reach the source code of the software through decompilation or other methods.
-    </p><p><b>6.2. </b>The Member hereby grants a worldwide, non-exclusive, free of charge usage right (alongside the right to grant sub-licenses) for the usage, copying, multiplication, processing,
-    adaptation, amendment, publication, transmission, showing, distribution, storage and backup of the information belonging to the Company and content created on the Site through all media and
-    distribution channels (current or future).
-    </p><p><b>6.3. </b>The Member may not use the trade name, commercial brands, service brands, logos or domain names of the Company or its subsidiaries in any way.</p><ol><li><b>7. </b><b>CONFIDENTIALITY</b></li></ol><p><b>7.1. </b>The Parties shall deem any information in relation to the other Party’s past, present and future commercial activities, products, services, technical knowledge and information on
-    their other clients and any other information defined as confidential by the other Party to be “<b>Confidential Information</b>” and shall not share such Confidential Information with third
-    parties without explicit consent from the other Party and shall not use such information outside of the performance of this Agreement. The Member shall destroy all Confidential Information
-    belonging to the Company when it ceases to be useful and at the latest, the time of the termination of this Agreement.
-    </p><p><b>7.2. </b>The Parties shall fulfill any requests by the official authorities in relation to the Confidential Information to the extent that they are not in violation of the Parties’ legal
-    obligations. The fulfillment of such requests shall not constitute a violation of the confidentiality obligations in this Agreement.
-    </p><p><b>7.3. </b>The Parties accept, declare and undertake that they shall act in accordance with the Personal Data Protection Law numbered 6698 and all related legislation and deliver all
-    information and documents requested by the data owners and/or the Personal Data Protection Board pursuant to the aforementioned legislation. The Member shall work in cooperation with the Company
-    in relation to the exercising of the rights pursuant to Law no. 6698 by the data owners and all other obligations.
-    </p><p><b>7.4. </b>The <span style="text-decoration: underline;">Disclosure Statement</span> published on the Site shall be applicable between the Parties in relation to data protection.</p><p><b>7.5. </b>This provision is independent from this Agreement and shall remain in force even if the Agreement is terminated.</p><ol><li><b>8. </b><b>SÖZLEŞME’NİN SÜRESİ VE FESHİ</b></li></ol><p><b>8.1. </b>The termination of the Site activities by the Company shall cause the termination of this Agreement effective immediately without requiring any additional notice or declaration. If
-    the services provided over the Site are interrupted, this shall not mean the Agreement is terminated and shall not confer any liability on the Company.
-    </p><p><b>8.2. </b>The Agreement may be terminated by the Company without the payment of any damages with 1 (one) week prior notice.</p><p><b>8.3. </b>Any actions in violation of the confidentiality provisions by any of the Parties shall grant the right to immediately and unilaterally terminate this Agreement to the other Party.
-    </p><p><b>8.4. </b>The Member shall indemnify the Company for all damages incurred due to their failure to fulfill their obligations within the scope of the Agreement properly or at all.</p><p><b>8.5. </b>The liability of the Company for any claims or allegations made by the Member shall be limited to the compensation of the damage incurred, and the total amount payable by the Company
-    within the scope of this liability shall not exceed 100% of the net fees paid to the Company for the order subject to the dispute.
-    </p><p><b>8.6. </b>The Member accepts and undertakes that any information or document they have submitted during the execution of this Agreement is correct, up to date and reflective of the actual
-    circumstances. If the information and documents in question do not possess the aforementioned qualities, the Member shall be liable for the compensation of any loss incurred by the Company.
-    </p><ol><li><b>9. </b><b>FORCE MAJEURE</b></li></ol><p><b>9.1. </b>Events such as human and natural disasters, wars, mobilizations, fires, strikes and lockouts and other events which have occurred outside of the Parties’ control, which were not in
-    existence on the date of the approval of this Agreement, were not foreseeable and partially or completely, permanently or temporarily prevent the performance of the obligations arising from this
-    Agreement by the Parties are deemed as “<b>Force Majeure</b>”.
-    </p><p><b>9.2. </b>If a Party is unable to perform its obligations arising from this Agreement for more than 30 days due to Force Majeure, the other Party shall have the right to terminate this
-    Agreement without the obligation to pay any compensation or fees.
-    </p><p><b>9.3. </b>If the Parties are delayed in performing their obligations due to Force Majeure, the Parties shall not be liable for such delay.</p><p><b>10. </b><b>OTHER PROVISIONS</b></p><p><b>10.1. </b><b>Assignment:</b> The Member may not assign this Agreement or their rights and obligations within the scope of this Agreement to third party institutions or persons in any way
-    without obtaining prior written consent from the Company. The Company may assign this Agreement or its rights and obligations within the scope of this Agreement without prior notice to the
-    Member or obtaining the Member’s approval.
-    </p><p><b>10.2. </b><b>Relationship between the Parties:</b> This Agreement does not constitute in any way a partnership, joint venture, agency, business relationship or any other transaction based on
-    trust between the Parties. This Agreement does not grant to any Party the power to give undertakings or enter into debts on behalf of the other Party (including making any commitments, any
-    assumptions of any obligation or responsibility, or the exercising of a right or power).
-    </p><p><b>10.3. </b><b>Communication:</b> The form located in the “<span style="text-decoration: underline;">Contact Us</span>” section of the Site shall be filled out for questions, suggestions and
-    notifications in relation to this Agreement, policy and rules and/or any content included in the Site.
-    </p><p><b>10.4. </b><b>Validity:</b> If one or more provision of this Agreement becomes unenforceable due to a mutual agreement by the Parties or a legal obligation, the remaining provisions of the
-    Agreement shall continue to be effective. If required, the Parties shall prepare a new provision to replace the provision rendered unenforceable by mutual agreement.
-    </p><p><b>10.5. </b><b>Waiver</b>: The disuse of one or more rights included in this Agreement shall not be construed as a complete waiver of such rights or the obligation to disuse other rights unless
-    the Parties state this waiver in writing, and shall not grant the other Party any right in this direction.
-    </p><p><b>10.6. </b><b>Amendment of the Agreement:</b> The terms of this Agreement may be amended unilaterally by the Company in a way it deems fit when the Company wishes to do so. The continuation of
-    the Site usage by the Member after such amendments shall be taken as acceptance of the amended agreement.
-    </p><p><b>10.7. </b><b>Notification Address:</b> Any notices, warnings or confirmations and objections to the aforementioned shall be served through telegraph, fax, mutually agreed e-mail addresses or
-    the notary public (notifications which need to be served in a certain way pursuant to legislation are excluded). If the Parties do not notify any changes of address to the other party, the
-    notices served to the address specified in this Agreement shall bear the same consequences as legally valid notices.
-    </p><p><b>10.8. </b><b>Applicable Law and Authorized Courts: </b>This Agreement is governed by Turkish law and Istanbul (Central) Courts and the Enforcement Offices shall have jurisdiction in the
-    resolution of any dispute arising between the Parties, including the performance, interpretation, violation, termination or validity of this Agreement.
-    </p><p><b>10.9. </b><b>Evidential Contract:</b> The Parties accept, declare and undertake that in any dispute which may arise from this Agreement, the electronic and system records, electronic
-    correspondence, commercial records, book records kept by the Company in its own database and servers shall constitute material evidence, and this provision shall have the quality of an
-    evidential contract in accordance with Article 193 of the Code of Civil Procedure.
-    </p><p><b>10.10. </b><b>Entry into Force: </b>This Agreement, which has been executed electronically, will become effective from the date on which the Member starts to use the Site.</p><p></p>
-</div>
-    <div class="form-close-button"><i class="close-icon"></i></div>
-</div><!--tou-warning bitti-->
-
-<div class="form-warnings pp-warning ems-none">
-    <div class="warning-content-wrapper">
-    <p text-align="center"><b>DISCLOSURE STATEMENT </b></p>
-    <p text-align="center"><b>ON THE PROCESSING AND PROTECTION OF PERSONAL DATA </b></p>
-    <p>Dear Guest,</p>
-    <p>As Kepler Dinlenme Hizmetleri Anonim Şirketi (“<b>Kepler</b>”), we attach a great deal of importance to the protection of your personal data. In this context and pursuant to the Law No. 6698
-    on Protection of Personal Data (“<b>LPPD</b>”), we, in the capacity of “data controller”, processyour personal data in accordance with the LPPD and within the scope of the below mentioned
-    purposes and limitations, and in line with those purposes, we show ultimate attention to take the necessary administrative and technical measures. Within this framework, we would like to
-    inform you about our data processing processes related to your personal data and your rights under the LPPD through this Disclosure Statement.
-    </p><ol><li><b>1. </b><b><span style="text-decoration: underline;">Which of Your Personal Data We Process</span></b></li></ol><p>
-    Within the scope of your registration to our website at <a href="http://www.keplerclub.com/">www.keplerclub.com</a> (“<b>Website</b>”)<b></b>and/or any purchase transactions made through this
-    website,<b></b>we process your personal data listed below:
-    </p><ol><li><b>a. </b><b>Identity Information: </b>Your<b></b>name, surname, Turkish ID number/passport number, nationality, sex, date of birth, tax office and tax ID number (if applicable).</li><li><b>b. </b><b>Contact Information: </b>Your address, telephone number and e-mail address.</li><li><b>c. </b><b>Customer/Member Transaction Information: </b>Information on transactions such as services purchased, purchase amount, transaction date and time, information on lounge use (entry
-    and exit date and time).
-    </li><li><b>d. </b><b>Flight Information:</b> If the passenger scans their boarding pass, flight date and time, destination airport, the airline company operating the flight.</li><li><b>e. </b><b>Internet Access Information: </b>IP information related to the device you use and information related to websites you visit
-    <i>(This information shall only be processed if you use the Wi-Fi connection provided by Kepler).</i></li></ol><p>(Hereinafter, all the data listed above will be referred to as “<b>Personal Data</b>” collectively.)</p><ol><li><b>2. </b><b><span style="text-decoration: underline;">For Which Purpose We Process Your Personal Data</span></b></li></ol><p>Your Personal Data is processed within the scope of the purposes listed below:</p><ol><li>Management and performance of the transactions and activities necessitated by the contractual relationship formed between Kepler and yourself, including reservation processes</li><li>Fulfilment of the legal obligations arising within the context of the contractual relationship</li><li>Fulfilment of our obligations in relation to the legislation and serving of legal notices to the relevant authorities within this scope</li><li>Getting in contact with you in relation to matters regarding your reservation (such as payment, cancellation, refund of payment)</li><li>Performance of financial transactions within the scope of the contractual relationship such as tracking of payments and issuing of invoices</li><li>Preparation of all necessary records and documentation arising from the contractual relationship electronically or physically.</li><li>Conduct of the evaluation, feedback and complaints processes regarding our services and the customer satisfaction studies</li><li>Conduct of marketing activities, sale and market research and analysis and determination of commercial policies within this scope</li><li>
-    Conduct of financial and legal audits within Kepler’s organization structure and performance of legal works and processes if required<b><span style="text-decoration: underline;"></span></b></li><li>Provision of responses to information requests from administrative and judicial authorities</li><li>
-    Making necessary organizations to ensure that the data processed is up to date and accurate<b><span style="text-decoration: underline;"></span></b><ol><li><b>3. </b><b><span style="text-decoration: underline;">By Which Methods and on What Legal Grounds We Process Your Personal Data</span></b></li></ol></li></ol><p>
-    Your Personal Data is automatically being collected and processed, partially or completely, through our website, mobile application, the kiosk device in our premises, telephone and e-mail
-    within the scope of the reservation and purchase transactions you perform, with the purposes outlined in Article 2 of this Disclosure Statement, based on the following legal grounds located in
-    Article 5 of the LPPD: “Processing of personal data belonging to the parties of a contract is necessary, provided that it is directly related to the conclusion or fulfilment of that
-    contract.”, “it is mandatory for the data controller to process personal data to fulfill its legal obligations”, and “it is mandatory for the legitimate interests of the data controller,
-    provided that this processing shall not violate the fundamental rights and freedoms of the data subject.”
-    </p><p>
-    While processing your Personal Data, Kepler will act in compliance with the data processing principles and its obligations as specified under the relevant legislation, and particularly the
-    Constitution of the Republic of Turkey, the international treaties to which our country is a party, the LPPD and secondary legislation on protection of personal data. In the event that
-    processing of your Personal Data is required in addition to the aforementioned legal grounds, your data shall be processed based on the legal grounds set forth in Articles 5 and 6 of the LPPD
-    and you shall be notified of such situation.
-    </p><ol><li><b>4. </b><b><span style="text-decoration: underline;">The Reason and to Whom We Transfer Your Personal Data</span></b></li></ol><p>Your Personal Data is transferred within the framework of the personal data processing conditions and purposes specified in Article 8 of the LPPD in the following ways:</p><ol><li>
-    For the purposes of conducting and developing our services and developing our infrastructure and security processes, to our business partners and performance assistants from whom we receive
-    services,
-    </li><li>
-    For the purpose of fulfilling our legal obligations, to the judicial bodies, law enforcement agencies, other legal authorities, regulatory and supervisory agencies and other public
-    institutions or organizations authorized to request your personal data,
-    </li><li>
-    For the purposes of conducting our business processes in accordance with the law and our legitimate interests and exercising our right to defense in a possible dispute process, to our legal
-    advisors, auditors, tax advisors and other third parties from whom we receive services, judicial bodies, enforcement offices and arbitral tribunals,
-    </li><li>
-    For the purposes of duly keeping the Company’s financial records within the scope of proper operation of the Company activities, obtaining consultancy and audit services in areas such as
-    information technologies, marketing and auditing, to our business partners and service providers with whom Kepler works on such matters,
-    </li></ol><p>Your credit card information used for payment is transferred to third parties providing these services such as the bank or electronic payment institution without being recorded by Kepler.</p><p>In addition to the cases listed above, in the event that the transfer of your Personal Data with a third party is required, you will be further notified.</p><ol><li><b>5. </b><b><span style="text-decoration: underline;">What are Your Rights under the LPPD</span></b></li></ol><p>Within the framework of the LPPD and other legislation in force, your rights are as follows:</p><p>i. To learn whether your Personal Data is processed or not;</p><p>ii. If your Personal Data is processed, to request information related with such processing;</p><p>iii.To learn the purpose of processing Personal Data, and whether Personal Data is used in accordance with the purpose;</p><p>iv. To be informed about the third parties to whom your Personal Data is transferred domestically or abroad;</p><p>v. If your Personal Data is processed in an incomplete and wrongful manner, to request remedy of the same;</p><p>vi.To request for the deletion or destruction of your Personal Data pursuant to the conditions stipulated under the LPPD</p><p>vii. To request that any transaction concluded within the scope of the articles v. and vi. would be notified to the third parties to whom your Personal Data is transferred;</p><ol><li>to object to the occurrence of any consequences to your detriment as a result of the analysis of the processed data exclusively through automatic systems;</li></ol><p>ix. in case you incur any damages as a result of illegal processing of Personal Data, to request indemnification of such damages.</p><ol><li><b>6. </b><b><span style="text-decoration: underline;">How Can You Convey Your Requests to Kepler</span></b><span style="text-decoration: underline;"></span></li></ol><p>
-    You can convey your requests related to the exercise of your rights under the LPPD as specified above to Kepler within the framework of the provisions of the LPPD and the Communiqué on the
-    Procedures and Principles for Application to the Data Controller by either delivering the original signed request with the documents certifying your identity to the registered office of the
-    company at the address of Emniyet Evleri Mah. Eski Büyükdere Cad. Sapphire Sit. No: 1/1B01 Kağıthane / İstanbul, or sending a registered electronic mail (REM) to
-    <a href="mailto:keplerdinlenmehizmetleri@hs01.kep">keplerdinlenmehizmetleri@hs01.kep</a> or to info@keplerclub.com signed with your secure electronic signature or mobile signature.
-    </p><p>
-    If any changes are made to the procedures of personal data processing under this Disclosure Statement, such changes will be reflected to the Disclosure Statement as soon as possible, and you
-    may review the current version of the text on our website at all times.
-    </p><p>We respectfully submit to your attention.</p><p>Kepler Dinlenme Hizmetleri Anonim Şirketi</p><p><b></b></p><p></p>
-    <div>
-    <div><p>Processing of personal data is defined under the LPPD as any operation performed on personal data such as its collection, recording, storage, retention, alteration, re-organization,
-    disclosure, transfer, taking over, making retrievable, classification or preventing the use thereof, fully or partially through automatic means or, provided that the process is a part of
-    any data registry system, through non-automatic means.
-    </p></div>
-    <div><p>
-    In order to fulfill this request, it is necessary that the legal grounds for processing your Personal Data should no longer exist and the storage times for keeping the relevant data should
-    be expired. Prior to expiration of these times, your request for deletion/destroying cannot be fulfilled.</p>
-    </div>
-    </div>
-    </div>
-    <div class="form-close-button"><i class="close-icon"></i></div>
-    </div><!-- pp-warning bitti -->
-
 
 <div id="kepler-summary-top-text" class="kepler-summary-top-text">
     <div class="container">
@@ -1216,6 +968,289 @@
     </div><!--footer-bottom-wrapper bitti-->
 
 </div><!--footer-main-wrapper bitti-->
+
+
+
+
+
+
+
+<!-- WARNING TEXTLERI -->
+
+<!--Warning alani arka plani-->
+<div class="warning-background ems-none"></div>
+
+
+<!--Dogum tarihi alanina basinda ikaz veren warning-->
+<div class="form-warnings child-warning ems-none">
+<div class="warning-content-wrapper">
+<div class="warning-title"><p>Please be aware that we cannot accept children below 7 years old to provide the highest standards of comfort for our guests <br><br> Kepler Club is located in the transit area (airside) of the international departures terminal, therefore our guests need to have an international flight departing from Turkey in order to be able to stay at with us. Please make sure you can access our facility before completing your reservation!</p><div></div></div>
+<div class="form-close-button"><i class="close-icon"></i></div>
+</div>
+</div>
+
+<!--Formlari post ettikten sonra hata donerse bu warning ile gostericem-->
+<div class="form-warnings post-sonuclari-warning ems-none">
+    <div class="warning-content-wrapper">
+    <div class="warning-title"><p></p><div></div></div>
+    <div class="form-close-button"><i class="close-icon"></i></div>
+    </div>
+</div>
+
+<!--Term of User warning-->
+<div class="form-warnings tou-warning ems-none">
+<div class="warning-content-wrapper">
+    <p tex-align="center"><b>MEMBERSHIP AGREEMENT AND THE TERMS OF USE FOR THE WEBSITE</b></p><ol><li><b>1. </b><b>PARTIES</b></li></ol><p><b>1.1. </b>This Membership Agreement and the Terms of Use for the Website (“<b>Agreement</b>”) has been executed between Kepler Dinlenme Hizmetleri Anonim Şirketi (“<b>Company</b>”) located at
+    Emniyet Evleri Mah. Eski Büyükdere Cad. Sapphire Sit. No: 1/1B01 Kâğıthane / İstanbul, and the members (“<b>Member</b>”) of the website with the domain name
+    <a href="http://www.keplerclub.com/">www.keplerclub.com</a> (“<b>Site</b>”).
+    </p><p><b>1.2. </b>Within the scope of this Agreement, Company and Member shall individually be referred to as the “<b>Party</b>” and collectively as “<b>Parties</b>”.</p><p><b>1.3. </b>In the event where a person uses the Site without becoming a member to the Site, the provisions included in this Agreement shall be applicable as the Terms of Use for the Website for
+    the relevant user. It is accepted that any person using the Site without a membership undertakes to be bound by the provisions of this Agreement.
+    </p><p><b>1.4. </b>The Member accepts and undertakes that they have read, understood, are bound by, and have accepted the terms herein. The Company shall have no liability if the Site is used in
+    violation of this Agreement, and shall have the right to request from the Member any damages it may incur as a result of this usage.
+    </p><p><b>1.5. </b>The provisions of this Agreement shall be applicable in relation to the Member’s registration to the Site and any transactions performed over the Site.</p><ol><li><b>2. </b><b>SUBJECT OF THE AGREEMENT</b></li></ol><p><b>2.1. </b>The Company operates the Site and within this scope, makes sales to Members who wish to shop through the Site.</p><p><b>2.2. </b>The subject matter of this Agreement is the regulation of the terms and conditions of the Member’s Site membership and the use of the Site. Within the scope of this Agreement, the
+    Member benefiting from the Site, which belongs to the Company, is aware that this Agreement shall enter into force with the use of the Site and they are obliged to act in compliance with the
+    provisions included in this Agreement.
+    </p><p><b>2.3. </b>The <span style="text-decoration: underline;">Disclosure Statement</span> published on the Site constitutes an integral part of this Agreement.</p><ol><li><b>3. </b><b>SITE MEMBERSHIP CONDITIONS</b></li></ol><p><b>3.1. </b>The Member accepts and undertakes that they have become a member to the Site in consideration of the rules included in this Agreement. In the event where the Company is convinced
+    that the Member does not satisfy the Site membership conditions, or does not have the required qualities anymore, it shall have the right to prevent the Member from using the Site or cancel
+    their membership without any other notice or warning.
+    </p><p><b>3.2. </b>The Member accepts and undertakes that they are a consumer, they shall not, by any means, use the Site for commercial purposes and any information or document they may submit to show
+    that they are qualified to use the Site is correct, up to date and reflective of the actual circumstances. Otherwise, the Member accepts that they shall exclusively be liable for any loss
+    incurred by the Company and shall indemnify such loss.
+    </p><p><b>3.3. </b>Membership to the Site is free of charge, the person requesting to become a Member is responsible for the accuracy of all information they have provided for membership, and such
+    person accepts and undertakes that in situations where this information is necessary, they shall be liable for any loss arising due to incorrect or incomplete information, such as forgetting of
+    a password.
+    </p><p><b>3.4. </b>The necessary precautions for the security of the information and transactions entered into the Site have been taken in the systems and internet infrastructure of either the Company
+    and/or the relevant payment service providers according to the nature of such information or transaction. All credit card transactions and approvals are executed between the Member and the
+    relevant payment service provider independent from the Company. Information such as the credit card password are not visible to or recorded by the Company.
+    </p><p><b>3.5. </b>The information entered into the Site by the Member for the purposes of membership, product/service purchase and information update, especially confidential information belonging to
+    credit cards and bank cards cannot be viewed by the other Site members.
+    </p><p><b>3.6. </b>If the Member forgets their password, they may create a new password through clicking the “I Forgot My Password” link located in the “Member Login” page, entering the e-mail address
+    connected to their membership account, clicking the “Send” button and using the link sent to their e-mail address; the member is directly responsible for the security of this communication and
+    their own communication channels.
+    </p><p><b>3.7. </b>The Company retains the right to decline the Member’s Site membership request, to remove them from membership or to suspend their membership.</p><p><b>3.8. </b>In the event where the membership is suspended or cancelled, a new membership cannot be created by using the previous membership information or new information.</p><p><b>3.9. </b>The Member accepts and undertakes to act in accordance with all terms and conditions located on the Site, the legislation in force, public order and the general rules of morality,
+    whether or not regulated within the scope of this Agreement; and to comply with the requirements of the legislation.
+    </p><ol><li><b>4. </b><b>GENERAL PROVISIONS</b></li></ol><p><b>4.1. </b>The products and services sold by the Company over the Site are provided “AS THEY ARE”, in other words, within the framework of their existing actual and legal situations, and no
+    guarantees, overt or implied, are issued over the products and services.
+    </p><p><b>4.2. </b>The prices and availability of the products and services offered on the Site may be changed without giving prior notice to the Member. If the information provided on the Site
+    contains inaccuracies, such inaccuracies shall be unilaterally corrected by the Company.
+    </p><p><b>4.3. </b>The Company, at any time, may amend, suspend or terminate the Site or any of its components without prior notice or warning. The amendment, suspension or termination of the Site by
+    the Company shall not result in any liability for the Company.
+    </p><p><b>4.4. </b>The execution of this Agreement between the Parties does not oblige the Parties to purchase products or services from each other and does not constitute an undertaking to do as such.
+    </p><p><b>4.5. </b>The Member is obliged to keep the password they have created during their membership process confidential, and must not share it with third parties. The exclusive right to use this
+    password shall belong to the Member. The Member shall be liable for any damage which may arise from the sharing of this password with third parties. If the Company incurs any loss from the
+    violation of the aforementioned obligation, it may claim for the compensation of such loss from the Member.
+    </p><p><b>4.6. </b>In cases where the Site provides links to other websites, the confidentiality-security policies and the terms of use for those sites shall be applicable for all uses and
+    transactions; the Company shall not be liable for any disputes, pecuniary and non-pecuniary damages and losses resulting from the use of information from other sites accessed via exposure to
+    advertisements, banners and content on the Site, and the ethical principles, confidentiality-security principles, service quality and other practices of such other sites accessed for other
+    purposes.
+    </p><ol><li><b>5. </b><b>ORDERS</b></li></ol><p><b>5.1. </b>When the Member places an order through the Site, the Member shall be sent an e-mail acknowledging the receipt of this order.</p><p><b>5.2. </b>The Company reserves the right to reject any orders placed by the Member without showing any reason. The Member shall be notified by e-mail of the rejection of their order. If the
+    purchase fee of the rejected order has already been collected from the Member, the fee shall be returned to the Member through the same payment method used to make the payment.
+    </p><p><b>5.3. </b>The Company may limit or cancel the number of purchases allowed per person, per household or per order as it deems fit without being subjected to prior notice requirements. The
+    limitations may include the orders placed by the same Member account, and orders using the same credit/bank cards and the same invoice/delivery address.
+    </p><ol><li><b>6. </b><b>INTELLECTUAL PROPERTY RIGHTS</b></li></ol><p><b>6.1. </b>All intellectual property rights, including all financial rights such as the right to process, multiply, distribute, represent, signal, transmit and retransmit to the public through
+    audio and video transmission devices, all other rights and interests over the Site and all components of the Site including its source codes belong to the Company. Copying and usage beyond
+    enjoyment of the Site of the information/software used for the design, content and the formation of its database, the multiplication, copying, distribution, processing, transmission to the
+    public through audio and video transmission devices, and utilization by other means of all data included in the Site such as pictures, text, images and files is strictly forbidden. Within the
+    scope of this Agreement, the Member is only granted a personal, worldwide, free of charge, non-transferrable, and non-exclusive usage right for their enjoyment of the services provided over the
+    Site. No provisions located in this Agreement shall be construed as the granting of any partial or complete right, property or interest to the Member. The Member may not in any way copy, amend,
+    multiply, create works deriving from or reverse engineer the software utilized on the Site, and may not try to reach the source code of the software through decompilation or other methods.
+    </p><p><b>6.2. </b>The Member hereby grants a worldwide, non-exclusive, free of charge usage right (alongside the right to grant sub-licenses) for the usage, copying, multiplication, processing,
+    adaptation, amendment, publication, transmission, showing, distribution, storage and backup of the information belonging to the Company and content created on the Site through all media and
+    distribution channels (current or future).
+    </p><p><b>6.3. </b>The Member may not use the trade name, commercial brands, service brands, logos or domain names of the Company or its subsidiaries in any way.</p><ol><li><b>7. </b><b>CONFIDENTIALITY</b></li></ol><p><b>7.1. </b>The Parties shall deem any information in relation to the other Party’s past, present and future commercial activities, products, services, technical knowledge and information on
+    their other clients and any other information defined as confidential by the other Party to be “<b>Confidential Information</b>” and shall not share such Confidential Information with third
+    parties without explicit consent from the other Party and shall not use such information outside of the performance of this Agreement. The Member shall destroy all Confidential Information
+    belonging to the Company when it ceases to be useful and at the latest, the time of the termination of this Agreement.
+    </p><p><b>7.2. </b>The Parties shall fulfill any requests by the official authorities in relation to the Confidential Information to the extent that they are not in violation of the Parties’ legal
+    obligations. The fulfillment of such requests shall not constitute a violation of the confidentiality obligations in this Agreement.
+    </p><p><b>7.3. </b>The Parties accept, declare and undertake that they shall act in accordance with the Personal Data Protection Law numbered 6698 and all related legislation and deliver all
+    information and documents requested by the data owners and/or the Personal Data Protection Board pursuant to the aforementioned legislation. The Member shall work in cooperation with the Company
+    in relation to the exercising of the rights pursuant to Law no. 6698 by the data owners and all other obligations.
+    </p><p><b>7.4. </b>The <span style="text-decoration: underline;">Disclosure Statement</span> published on the Site shall be applicable between the Parties in relation to data protection.</p><p><b>7.5. </b>This provision is independent from this Agreement and shall remain in force even if the Agreement is terminated.</p><ol><li><b>8. </b><b>SÖZLEŞME’NİN SÜRESİ VE FESHİ</b></li></ol><p><b>8.1. </b>The termination of the Site activities by the Company shall cause the termination of this Agreement effective immediately without requiring any additional notice or declaration. If
+    the services provided over the Site are interrupted, this shall not mean the Agreement is terminated and shall not confer any liability on the Company.
+    </p><p><b>8.2. </b>The Agreement may be terminated by the Company without the payment of any damages with 1 (one) week prior notice.</p><p><b>8.3. </b>Any actions in violation of the confidentiality provisions by any of the Parties shall grant the right to immediately and unilaterally terminate this Agreement to the other Party.
+    </p><p><b>8.4. </b>The Member shall indemnify the Company for all damages incurred due to their failure to fulfill their obligations within the scope of the Agreement properly or at all.</p><p><b>8.5. </b>The liability of the Company for any claims or allegations made by the Member shall be limited to the compensation of the damage incurred, and the total amount payable by the Company
+    within the scope of this liability shall not exceed 100% of the net fees paid to the Company for the order subject to the dispute.
+    </p><p><b>8.6. </b>The Member accepts and undertakes that any information or document they have submitted during the execution of this Agreement is correct, up to date and reflective of the actual
+    circumstances. If the information and documents in question do not possess the aforementioned qualities, the Member shall be liable for the compensation of any loss incurred by the Company.
+    </p><ol><li><b>9. </b><b>FORCE MAJEURE</b></li></ol><p><b>9.1. </b>Events such as human and natural disasters, wars, mobilizations, fires, strikes and lockouts and other events which have occurred outside of the Parties’ control, which were not in
+    existence on the date of the approval of this Agreement, were not foreseeable and partially or completely, permanently or temporarily prevent the performance of the obligations arising from this
+    Agreement by the Parties are deemed as “<b>Force Majeure</b>”.
+    </p><p><b>9.2. </b>If a Party is unable to perform its obligations arising from this Agreement for more than 30 days due to Force Majeure, the other Party shall have the right to terminate this
+    Agreement without the obligation to pay any compensation or fees.
+    </p><p><b>9.3. </b>If the Parties are delayed in performing their obligations due to Force Majeure, the Parties shall not be liable for such delay.</p><p><b>10. </b><b>OTHER PROVISIONS</b></p><p><b>10.1. </b><b>Assignment:</b> The Member may not assign this Agreement or their rights and obligations within the scope of this Agreement to third party institutions or persons in any way
+    without obtaining prior written consent from the Company. The Company may assign this Agreement or its rights and obligations within the scope of this Agreement without prior notice to the
+    Member or obtaining the Member’s approval.
+    </p><p><b>10.2. </b><b>Relationship between the Parties:</b> This Agreement does not constitute in any way a partnership, joint venture, agency, business relationship or any other transaction based on
+    trust between the Parties. This Agreement does not grant to any Party the power to give undertakings or enter into debts on behalf of the other Party (including making any commitments, any
+    assumptions of any obligation or responsibility, or the exercising of a right or power).
+    </p><p><b>10.3. </b><b>Communication:</b> The form located in the “<span style="text-decoration: underline;">Contact Us</span>” section of the Site shall be filled out for questions, suggestions and
+    notifications in relation to this Agreement, policy and rules and/or any content included in the Site.
+    </p><p><b>10.4. </b><b>Validity:</b> If one or more provision of this Agreement becomes unenforceable due to a mutual agreement by the Parties or a legal obligation, the remaining provisions of the
+    Agreement shall continue to be effective. If required, the Parties shall prepare a new provision to replace the provision rendered unenforceable by mutual agreement.
+    </p><p><b>10.5. </b><b>Waiver</b>: The disuse of one or more rights included in this Agreement shall not be construed as a complete waiver of such rights or the obligation to disuse other rights unless
+    the Parties state this waiver in writing, and shall not grant the other Party any right in this direction.
+    </p><p><b>10.6. </b><b>Amendment of the Agreement:</b> The terms of this Agreement may be amended unilaterally by the Company in a way it deems fit when the Company wishes to do so. The continuation of
+    the Site usage by the Member after such amendments shall be taken as acceptance of the amended agreement.
+    </p><p><b>10.7. </b><b>Notification Address:</b> Any notices, warnings or confirmations and objections to the aforementioned shall be served through telegraph, fax, mutually agreed e-mail addresses or
+    the notary public (notifications which need to be served in a certain way pursuant to legislation are excluded). If the Parties do not notify any changes of address to the other party, the
+    notices served to the address specified in this Agreement shall bear the same consequences as legally valid notices.
+    </p><p><b>10.8. </b><b>Applicable Law and Authorized Courts: </b>This Agreement is governed by Turkish law and Istanbul (Central) Courts and the Enforcement Offices shall have jurisdiction in the
+    resolution of any dispute arising between the Parties, including the performance, interpretation, violation, termination or validity of this Agreement.
+    </p><p><b>10.9. </b><b>Evidential Contract:</b> The Parties accept, declare and undertake that in any dispute which may arise from this Agreement, the electronic and system records, electronic
+    correspondence, commercial records, book records kept by the Company in its own database and servers shall constitute material evidence, and this provision shall have the quality of an
+    evidential contract in accordance with Article 193 of the Code of Civil Procedure.
+    </p><p><b>10.10. </b><b>Entry into Force: </b>This Agreement, which has been executed electronically, will become effective from the date on which the Member starts to use the Site.</p><p></p>
+</div>
+    <div class="form-close-button"><i class="close-icon"></i></div>
+</div><!--tou-warning bitti-->
+
+<!--Privacy Policy warning-->
+<div class="form-warnings pp-warning ems-none">
+    <div class="warning-content-wrapper">
+    <p text-align="center"><b>DISCLOSURE STATEMENT </b></p>
+    <p text-align="center"><b>ON THE PROCESSING AND PROTECTION OF PERSONAL DATA </b></p>
+    <p>Dear Guest,</p>
+    <p>As Kepler Dinlenme Hizmetleri Anonim Şirketi (“<b>Kepler</b>”), we attach a great deal of importance to the protection of your personal data. In this context and pursuant to the Law No. 6698
+    on Protection of Personal Data (“<b>LPPD</b>”), we, in the capacity of “data controller”, processyour personal data in accordance with the LPPD and within the scope of the below mentioned
+    purposes and limitations, and in line with those purposes, we show ultimate attention to take the necessary administrative and technical measures. Within this framework, we would like to
+    inform you about our data processing processes related to your personal data and your rights under the LPPD through this Disclosure Statement.
+    </p><ol><li><b>1. </b><b><span style="text-decoration: underline;">Which of Your Personal Data We Process</span></b></li></ol><p>
+    Within the scope of your registration to our website at <a href="http://www.keplerclub.com/">www.keplerclub.com</a> (“<b>Website</b>”)<b></b>and/or any purchase transactions made through this
+    website,<b></b>we process your personal data listed below:
+    </p><ol><li><b>a. </b><b>Identity Information: </b>Your<b></b>name, surname, Turkish ID number/passport number, nationality, sex, date of birth, tax office and tax ID number (if applicable).</li><li><b>b. </b><b>Contact Information: </b>Your address, telephone number and e-mail address.</li><li><b>c. </b><b>Customer/Member Transaction Information: </b>Information on transactions such as services purchased, purchase amount, transaction date and time, information on lounge use (entry
+    and exit date and time).
+    </li><li><b>d. </b><b>Flight Information:</b> If the passenger scans their boarding pass, flight date and time, destination airport, the airline company operating the flight.</li><li><b>e. </b><b>Internet Access Information: </b>IP information related to the device you use and information related to websites you visit
+    <i>(This information shall only be processed if you use the Wi-Fi connection provided by Kepler).</i></li></ol><p>(Hereinafter, all the data listed above will be referred to as “<b>Personal Data</b>” collectively.)</p><ol><li><b>2. </b><b><span style="text-decoration: underline;">For Which Purpose We Process Your Personal Data</span></b></li></ol><p>Your Personal Data is processed within the scope of the purposes listed below:</p><ol><li>Management and performance of the transactions and activities necessitated by the contractual relationship formed between Kepler and yourself, including reservation processes</li><li>Fulfilment of the legal obligations arising within the context of the contractual relationship</li><li>Fulfilment of our obligations in relation to the legislation and serving of legal notices to the relevant authorities within this scope</li><li>Getting in contact with you in relation to matters regarding your reservation (such as payment, cancellation, refund of payment)</li><li>Performance of financial transactions within the scope of the contractual relationship such as tracking of payments and issuing of invoices</li><li>Preparation of all necessary records and documentation arising from the contractual relationship electronically or physically.</li><li>Conduct of the evaluation, feedback and complaints processes regarding our services and the customer satisfaction studies</li><li>Conduct of marketing activities, sale and market research and analysis and determination of commercial policies within this scope</li><li>
+    Conduct of financial and legal audits within Kepler’s organization structure and performance of legal works and processes if required<b><span style="text-decoration: underline;"></span></b></li><li>Provision of responses to information requests from administrative and judicial authorities</li><li>
+    Making necessary organizations to ensure that the data processed is up to date and accurate<b><span style="text-decoration: underline;"></span></b><ol><li><b>3. </b><b><span style="text-decoration: underline;">By Which Methods and on What Legal Grounds We Process Your Personal Data</span></b></li></ol></li></ol><p>
+    Your Personal Data is automatically being collected and processed, partially or completely, through our website, mobile application, the kiosk device in our premises, telephone and e-mail
+    within the scope of the reservation and purchase transactions you perform, with the purposes outlined in Article 2 of this Disclosure Statement, based on the following legal grounds located in
+    Article 5 of the LPPD: “Processing of personal data belonging to the parties of a contract is necessary, provided that it is directly related to the conclusion or fulfilment of that
+    contract.”, “it is mandatory for the data controller to process personal data to fulfill its legal obligations”, and “it is mandatory for the legitimate interests of the data controller,
+    provided that this processing shall not violate the fundamental rights and freedoms of the data subject.”
+    </p><p>
+    While processing your Personal Data, Kepler will act in compliance with the data processing principles and its obligations as specified under the relevant legislation, and particularly the
+    Constitution of the Republic of Turkey, the international treaties to which our country is a party, the LPPD and secondary legislation on protection of personal data. In the event that
+    processing of your Personal Data is required in addition to the aforementioned legal grounds, your data shall be processed based on the legal grounds set forth in Articles 5 and 6 of the LPPD
+    and you shall be notified of such situation.
+    </p><ol><li><b>4. </b><b><span style="text-decoration: underline;">The Reason and to Whom We Transfer Your Personal Data</span></b></li></ol><p>Your Personal Data is transferred within the framework of the personal data processing conditions and purposes specified in Article 8 of the LPPD in the following ways:</p><ol><li>
+    For the purposes of conducting and developing our services and developing our infrastructure and security processes, to our business partners and performance assistants from whom we receive
+    services,
+    </li><li>
+    For the purpose of fulfilling our legal obligations, to the judicial bodies, law enforcement agencies, other legal authorities, regulatory and supervisory agencies and other public
+    institutions or organizations authorized to request your personal data,
+    </li><li>
+    For the purposes of conducting our business processes in accordance with the law and our legitimate interests and exercising our right to defense in a possible dispute process, to our legal
+    advisors, auditors, tax advisors and other third parties from whom we receive services, judicial bodies, enforcement offices and arbitral tribunals,
+    </li><li>
+    For the purposes of duly keeping the Company’s financial records within the scope of proper operation of the Company activities, obtaining consultancy and audit services in areas such as
+    information technologies, marketing and auditing, to our business partners and service providers with whom Kepler works on such matters,
+    </li></ol><p>Your credit card information used for payment is transferred to third parties providing these services such as the bank or electronic payment institution without being recorded by Kepler.</p><p>In addition to the cases listed above, in the event that the transfer of your Personal Data with a third party is required, you will be further notified.</p><ol><li><b>5. </b><b><span style="text-decoration: underline;">What are Your Rights under the LPPD</span></b></li></ol><p>Within the framework of the LPPD and other legislation in force, your rights are as follows:</p><p>i. To learn whether your Personal Data is processed or not;</p><p>ii. If your Personal Data is processed, to request information related with such processing;</p><p>iii.To learn the purpose of processing Personal Data, and whether Personal Data is used in accordance with the purpose;</p><p>iv. To be informed about the third parties to whom your Personal Data is transferred domestically or abroad;</p><p>v. If your Personal Data is processed in an incomplete and wrongful manner, to request remedy of the same;</p><p>vi.To request for the deletion or destruction of your Personal Data pursuant to the conditions stipulated under the LPPD</p><p>vii. To request that any transaction concluded within the scope of the articles v. and vi. would be notified to the third parties to whom your Personal Data is transferred;</p><ol><li>to object to the occurrence of any consequences to your detriment as a result of the analysis of the processed data exclusively through automatic systems;</li></ol><p>ix. in case you incur any damages as a result of illegal processing of Personal Data, to request indemnification of such damages.</p><ol><li><b>6. </b><b><span style="text-decoration: underline;">How Can You Convey Your Requests to Kepler</span></b><span style="text-decoration: underline;"></span></li></ol><p>
+    You can convey your requests related to the exercise of your rights under the LPPD as specified above to Kepler within the framework of the provisions of the LPPD and the Communiqué on the
+    Procedures and Principles for Application to the Data Controller by either delivering the original signed request with the documents certifying your identity to the registered office of the
+    company at the address of Emniyet Evleri Mah. Eski Büyükdere Cad. Sapphire Sit. No: 1/1B01 Kağıthane / İstanbul, or sending a registered electronic mail (REM) to
+    <a href="mailto:keplerdinlenmehizmetleri@hs01.kep">keplerdinlenmehizmetleri@hs01.kep</a> or to info@keplerclub.com signed with your secure electronic signature or mobile signature.
+    </p><p>
+    If any changes are made to the procedures of personal data processing under this Disclosure Statement, such changes will be reflected to the Disclosure Statement as soon as possible, and you
+    may review the current version of the text on our website at all times.
+    </p><p>We respectfully submit to your attention.</p><p>Kepler Dinlenme Hizmetleri Anonim Şirketi</p><p><b></b></p><p></p>
+    <div>
+    <div><p>Processing of personal data is defined under the LPPD as any operation performed on personal data such as its collection, recording, storage, retention, alteration, re-organization,
+    disclosure, transfer, taking over, making retrievable, classification or preventing the use thereof, fully or partially through automatic means or, provided that the process is a part of
+    any data registry system, through non-automatic means.
+    </p></div>
+    <div><p>
+    In order to fulfill this request, it is necessary that the legal grounds for processing your Personal Data should no longer exist and the storage times for keeping the relevant data should
+    be expired. Prior to expiration of these times, your request for deletion/destroying cannot be fulfilled.</p>
+    </div>
+    </div>
+    </div>
+    <div class="form-close-button"><i class="close-icon"></i></div>
+</div><!-- pp-warning bitti -->
+
+
+
+
+
+
+
+
+<!-- ASAGIDAKI SCRIPTLERIN SAYFANIN HERHANGI BIR YERINDE OLMASI YETERLI -->
+
+<script id="amountSummaryInfoTemplate" type="text/template">
+    <div class="booking-amount-summary-area">
+        <div class="booking-info-order-container">
+            <div class="order-wrapper">
+                <div class="bi-order-amount-container">
+                    <div class="bi-order-amount"><div><span class="bi-order-total-guest">{{toplamYolcu}}</span> adult(s) x <span class="bi-order-guest-price"></span> {{paraBirimi}}</div></div>
+                        <div><span class="bi-order-subtotal-price">{{ilkTutar}}</span> {{paraBirimi}}</div>
+                </div>
+                <div class="bi-order-total-container">
+                        <div class="bi-order-total">
+                            <div class="bi-order-total-subtotal-price"><div>Subtotal</div><div><span class="bi-order-subtotal-price">{{ilkTutar}}</span> {{paraBirimi}}</div></div>
+                            <div class="bi-order-discount-price-box pgs-show-flex"><!-- Razor indirim --><div>Discount(<span class="bi-order-discount-rate">0%</span>)</div><div><span class="bi-order-discount-price">0.00</span> {{paraBirimi}}</div></div>
+                            <div class="bi-order-subtotal-discount-price-box pgs-show-flex"><!-- Razor indirim --><div>Subtotal with Discount</div><div><span class="bi-order-subtotal-discount-price">{{ilkTutar}}</span> {{paraBirimi}}</div></div>
+                            <div class="bi-order-total-vat-price"><!-- Razor Vat Rate  --><div>VAT(<span class="bi-order-vat-rate">{{kdvOrani}}%</span>)</div><div><span class="bi-order-vat-price">{{kdvUcreti}}</span> {{paraBirimi}}</div></div>
+                            <div class="bi-order-accommodation-tax-wrapper"><div>Accommodation Tax(<span class="bi-order-accommodation-tax-rate">{{konaklamaVergisiOrani}}%</span>)</div><div><span class="bi-order-accommodation-tax-price">{{konaklamaVergiUcreti}}</span> {{paraBirimi}}</div></div>
+                            <div class="bi-order-total-total-price"><div>Total</div><div><span class="bi-order-total-price">{{toplamFiyat}}</span> {{paraBirimi}}</div></div>
+                        </div>
+                </div>
+            </div><!--order-wrapper bitti-->
+        </div>
+    </div><!--booking-amount-summary-area-->
+</script>
+
+<script id="bookingInfoSummaryTemplate" type="text/template">
+    <div class="rezervation-time-summary">
+    <section class="booking-info-card-container">
+    <div class="booking-info-card-wrapper">
+        <div class="booking-info-card-item">
+            <div class="booking-info-location-card-item-icon"></div>
+            <div class="booking-info-location"> {{airport}} - {{area}} </div>
+        </div>
+
+        <div class="booking-info-card-item">
+            <div class="booking-info-calendar-card-item-icon"></div>
+            <div class="booking-info-item-detail"><div class="booking-info-date">{{checkInDate}} - {{checkOutDate}}, 23</div>
+                <div class="booking-info-guest">
+                    <div class="booking-info-guest-number"><span class="bi-male-number">{{maleGuestNumber}}</span> Male, <span class="bi-female-number">{{femaleGuestNumber}}</span> Female</div>
+                    <div class="booking-info-guest-hours"><span class="bi-checkin-hour">{{checkInTime}}</span> - <span class="bi-checkout-hour">{{checkOutTime}}</span> (<span class="bi-total-hour">{{totalHour}}</span> hrs)</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="bi-button-back">Start Again</a>
+</section>
+</div><!--rezervation-time-summary bitti-->
+</script>
+
+<script id="maleGuestTemplate" type="text/template">
+    <div class="booking-info-product">
+    <div class="bi-product-image"><img src="images/product-for-male.png"></div>
+    <div class="bi-product-info"><div class="bi-product-title">Nap Session ( <span class="bi-product-gender"> Male </span>) x {{maleGuestNumber}}</div>
+        <ul class="bi-product-specs">
+            <li>Fully Equipped Kep</li>
+            <li>Reserved for your use only</li>
+        </ul>
+        <div class="bi-product-fee"><div class="bi-prodcut-hour"><span class="bi-hour">{{hour}} x 24</span>hrs x<span class="bi-unit-price"> {{price}} </span> {{currencyCode}} / 30 min</div>
+        </div>
+    </div>
+    </div>
+</script>
+
+<script id="femaleGuestTemplate" type="text/template">
+    <div class="booking-info-product"><div class="bi-product-image"><img src="images/product-for-female.png"></div>
+        <div class="bi-product-info"><div class="bi-product-title"> Nap Session ( <span class="bi-product-gender"> Female </span>) x {{femaleGuestNumber}}</div>
+            <ul class="bi-product-specs">
+                <li>Fully Equipped Kep</li>
+                <li>Reserved for your use only</li>
+            </ul>
+            <div class="bi-product-fee"><div class="bi-prodcut-hour"><span class="bi-hour">{{hour}} x 24</span>hrs x<span class="bi-unit-price">  {{price}} </span> {{currencyCode}} / 30 min</div>
+            </div>
+        </div>
+    </div>
+</script>
 
 
 <script type="application/javascript" src="js/jquery-2.2.4.js"></script>

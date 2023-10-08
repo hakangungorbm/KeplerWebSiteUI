@@ -1,8 +1,26 @@
-
-
-
-
-
+var selectedLocation = {
+  airport: {
+    name: "",
+    code: "",
+    locationId: ""
+  },
+  area: {
+    name:"",
+    areaId:"",
+  },
+  room: {
+    roomCategoryId:"",
+    name:"",
+    capacity: 0,
+    price: 0,
+    rawPrice: 0,
+    discountRate: 0,
+    vateRate: 0,
+    accommodationRate: 0,
+    currencyCode: "",
+    currencyId: ""
+  }
+}
 
 
 
@@ -85,30 +103,113 @@ var airport = {
 
 airport.fetchAirpots();
 
+var bookingEvents = {
 
-var selectedLocation = {
-  airport: {
-    name: "",
-    code: "",
-    locationId: ""
+  /*CVC alanindaki ? iconuna basinca tooltip acilmasini saglayan kod */
+  cvcToolTip() {
+    $(".cvc-mark").bind("click", function() {
+      $(".cvc-info-tooltip").toggleClass("ems-none");
+    });
+
+    $(".cvc-info-close").bind("click", function() {
+      $(".cvc-info-tooltip").addClass("ems-none");
+    });
+
+    $("#cvc").bind("focus", function() {
+      $(".cvc-info-tooltip").addClass("ems-none");
+    });
   },
-  area: {
-    name:"",
-    areaId:"",
+  /*TERM OF USE BILDIRIM ALANINI ACIP KAPATAN SCRIPT */
+  birthDateWarning() {
+    var isOpen = false;
+    var maxDate = setDate(-7, 0, 0);
+    var currentMaxDate = maxDate.substr(0, 4);
+    var _yearRange = "1900:" + currentMaxDate;
+
+    // $(".hasDatepicker").on("click", function() {
+    $("#birthdate").on("focus", function() {
+      if (!isOpen) {
+        $(".child-warning").removeClass(cls.none);
+        $(".warning-background").removeClass(cls.none);
+        isOpen = true;
+      }
+      //Alttaki satir neden datepicker acmiyor sorulacak
+      else {
+        $("#birthdate").datepicker({
+          yearRange: _yearRange,
+          maxDate: "-7y",
+          changeMonth: true,
+          changeYear: true,
+          dateFormat: "yy-mm-dd",
+          showButtonPanel: true,
+        });
+      }
+    });
+
+    $(".child-warning").bind("click", function() {
+        $(".child-warning").addClass(cls.none);
+        $(".warning-background").addClass(cls.none);
+      });
   },
-  room: {
-    roomCategoryId:"",
-    name:"",
-    capacity: 0,
-    price: 0,
-    rawPrice: 0,
-    discountRate: 0,
-    vateRate: 0,
-    accommodationRate: 0,
-    currencyCode: "",
-    currencyId: ""
-  }
+  privacyPolicyAndTermOfUseWarning() {
+    // Privacy Policy Açar
+    $(".pd-privacy").bind("click", function() {
+      $(".pp-warning").removeClass(cls.none);
+      $(".warning-background").removeClass(cls.none);
+    });
+    // Privacy Policy Kapatır
+    $(".pp-warning")
+      .find(".form-close-button")
+      .bind("click", function() {
+        $(".pp-warning").addClass(cls.none);
+        $(".warning-background").addClass(cls.none);
+      });
+    // Terms of Use Açar
+    $(".pd-term").bind("click", function() {
+      $(".tou-warning").removeClass(cls.none);
+      $(".warning-background").removeClass(cls.none);
+    });
+    // terms of Use Kapatır
+    $(".tou-warning")
+      .find(".form-close-button")
+      .bind("click", function() {
+        $(".tou-warning").addClass(cls.none);
+        $(".warning-background").addClass(cls.none);
+      });
+  },
+  timePickerWarnings() {
+    if (date.checkIn.time != "" && date.checkOut.time != "" && date.selectedHours.length != 0) {
+      $(".time-picker-warnings").removeClass(cls.none);
+
+      if (!!date.totalHours && date.totalHours != NaN) {
+        $("#tp-totalHour").text(date.totalHours);
+        $("#ci-day").text(
+          $("#db-in-date")
+            .val()
+            .substring(0, 6)
+        );
+        $("#co-day").text(
+          $("#db-out-date")
+            .val()
+            .substring(0, 6)
+        );
+      }
+      // Aynı gun degıl ise zaman uayarısını açar
+      if (date.checkOut.day !== date.checkIn.day && date.selectedHours.length != 0) {
+        $(".date-warning").removeClass(cls.none);
+      }
+    }
+  },
+  init() {
+    this.birthDateWarning();
+    this.cvcToolTip();
+    this.privacyPolicyAndTermOfUseWarning();
+  },
 }
+
+setTimeout(function() {
+  bookingEvents.init();
+}, 10);
 
 
 
@@ -118,7 +219,7 @@ var selectedLocation = {
 
 /*KREDI KARTI GORUNTUSU generate eden ve CVC alanına gelince kartı çeviren script */
 var creditCard = new Card({
-  form: document.querySelector("form"),
+  form: document.querySelector("#credit-card-form"),
   container: ".card-wrapper",
   formSelectors: {
     numberInput: 'input#card-number', // optional — default input[name="number"]
@@ -466,7 +567,6 @@ var date = {
       numberOfMonths: 1,
       minDate: setDate(),
       showButtonPanel: true,
-      closeText: '<svg class="icon icon-menu-close-white"><use xlink:href="#icon-menu-close-white"></use></svg>',
     });
   },
 
@@ -899,87 +999,7 @@ var date = {
 
 date.init();
 
-
-
-  var bookingEvents = {
-
-    /*CVC alanindaki ? iconuna basinca tooltip acilmasini saglayan kod */
-    cvcToolTip() {
-      $(".cvc-mark").bind("click", function() {
-        $(".cvc-info-tooltip").toggleClass("ems-none");
-      });
-
-      $(".cvc-info-close").bind("click", function() {
-        $(".cvc-info-tooltip").addClass("ems-none");
-      });
-
-      $("#cvc").bind("focus", function() {
-        $(".cvc-info-tooltip").addClass("ems-none");
-      });
-    },
-    /*TERM OF USE BILDIRIM ALANINI ACIP KAPATAN SCRIPT */
-    privacyPolicyAndTermOfUseWarning() {
-      // Privacy Policy Açar
-      $(".pd-privacy").bind("click", function() {
-        $(".pp-warning").removeClass(cls.none);
-        $(".warning-background").removeClass(cls.none);
-      });
-      // Privacy Policy Kapatır
-      $(".pp-warning")
-        .find(".form-close-button")
-        .bind("click", function() {
-          $(".pp-warning").addClass(cls.none);
-          $(".warning-background").addClass(cls.none);
-        });
-      // Terms of Use Açar
-      $(".pd-term").bind("click", function() {
-        $(".tou-warning").removeClass(cls.none);
-        $(".warning-background").removeClass(cls.none);
-      });
-      // terms of Use Kapatır
-      $(".tou-warning")
-        .find(".form-close-button")
-        .bind("click", function() {
-          $(".tou-warning").addClass(cls.none);
-          $(".warning-background").addClass(cls.none);
-        });
-    },
-    timePickerWarnings() {
-      if (date.checkIn.time != "" && date.checkOut.time != "" && date.selectedHours.length != 0) {
-        $(".time-picker-warnings").removeClass(cls.none);
-
-        if (!!date.totalHours && date.totalHours != NaN) {
-          $("#tp-totalHour").text(date.totalHours);
-          $("#ci-day").text(
-            $("#db-in-date")
-              .val()
-              .substring(0, 6)
-          );
-          $("#co-day").text(
-            $("#db-out-date")
-              .val()
-              .substring(0, 6)
-          );
-        }
-        // Aynı gun degıl ise zaman uayarısını açar
-        if (date.checkOut.day !== date.checkIn.day && date.selectedHours.length != 0) {
-          $(".date-warning").removeClass(cls.none);
-        }
-      }
-    },
-    init() {
-      this.cvcToolTip();
-      this.privacyPolicyAndTermOfUseWarning();
-    },
-  }
-
-  setTimeout(function() {
-    bookingEvents.init();
-  }, 10);
-
-
-
-  /*REZERVASYON YAPAN KULLANICI BILGILERI VALIDATION VS SCRIPTLERI */
+/* YOLCU BILGISI FORMU  - KONTROLLER VS - GUEST INFO ISLEMLERI */
   var guest = {
     // DOM
     elements: {
@@ -990,15 +1010,8 @@ date.init();
         button: ".button-counter",
       },
     },
-
     // Inputs
-
     inputs: {
-      email: {
-        element: "#email",
-        check: false,
-        regex: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-      },
       name: {
         element: "#name",
         check: false,
@@ -1013,12 +1026,17 @@ date.init();
         element: "#gender",
         check: false,
       },
+      email: {
+        element: "#email",
+        check: false,
+        regex: /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+      },
       countryCode: {
-        element: "#country-code",
+        element: "#countryCode",
         check: true, // because of inital value
         regex: /^\+?(\d+)/,
       },
-      phoneNumber: {
+      mobile: {
         element: "#mobile",
         check: false,
         regex: /^[0-9]{9,13}$/,
@@ -1028,21 +1046,66 @@ date.init();
         check: false,
       },
     },
-
     // Models
-    name: "",
-    surname: "",
-    gender: "",
-    mobile: "",
-    countryCode: "",
-    phoneNumber: "",
-    birthDate: "",
-
-    // Methods
+    passenger : {
+      name: "",
+      surname: "",
+      gender: "",
+      email:"",
+      phoneNumber: "",
+      birthDate: ""
+    },
+    skipGuestInfo() {
+      // Kisinin forma doldurdugu verileri model'ime aktariyorum.
+      var info = this.passenger;
+      info.name = $(guest.inputs.name.element).val();
+      info.surname = $(guest.inputs.surname.element).val();
+      info.gender = $(guest.inputs.gender.element).val();
+      info.email = $(guest.inputs.email.element).val();
+      info.phoneNumber = $(guest.inputs.countryCode.element).val().substring(1) + $(guest.inputs.mobile.element).val();
+      info.birthDate = $(guest.inputs.birthdate.element).val();
+      
+    },
+    prepareReservation() {
+      var data = null;
+      $.ajax({
+        type: "POST",
+        url: "http://kepler.marrul.com/api/KeplerService/Get?id=1",
+        data: "Rezervasyon =" + rezervasyonBilgileri.info + "GuestInfo=" + guest.passenger,
+        crossDomain: true,
+        success: function(resp) {
+          if (!resp.isSuccess) {
+            $("body").removeClass("isLoading");
+            this.errorParser(resp.message);
+            $(".post-sonuclari-warning .warning-content-wrapper").removeClass(cls.none);
+            $(".warning-background").removeClass(cls.none);
+          } else if (!!resp.data) {
+            data = resp.data;
+            //Burada kredi kartın sayfasına yönlendireceğiz. stepper
+          }
+        },
+        complete: function() {
+          if (!!data) {
+            //ihtiyac olursa diye ekledim. Gereksizse silinebilir.
+          }
+  
+        },  
+        error: function(resp) {
+          $("body").removeClass(cls.isLoading);
+          $(".post-sonuclari-warning .warning-content-wrapper").find(".warning-title p").text(msg);
+          $(".post-sonuclari-warning").removeClass(cls.none);
+          $(".warning-background").removeClass(cls.none);
+        },
+      });
+    },
+    errorParser(msg) {
+      $(".post-sonuclari-warning .warning-content-wrapper")
+        .find(".warning-title p")
+        .text(msg);
+    },
     setValue(element) {
       return $(element).val();
     },
-
     get fullPhoneNumber() {
       return this.countryCode + this.phoneNumber;
     },
@@ -1052,7 +1115,6 @@ date.init();
 
     formValidation() {
       var inputArrays = Object.values(this.inputs);
-
       inputArrays.forEach(function(input) {
         if (input.element == "#mobile") {
           $(input.element).on("input propertychange", function() {
@@ -1123,78 +1185,46 @@ date.init();
         }
       });
     },
-  };
-  guest.formValidation();
-
-  var parser = {
-    info: {
-      plannedEntryTime: "",
-      plannedExitTime: "",
-      locationId: "locationId",
-      areaId: "",
-      roomTypeId: "",
-      rawPrice: 0,
-      amount: 0,
-      currencyId: "",
-      applicationId: "",
-      maleCount: "",
-      femaleCount:"",
-      passenger: {
-        name: "",
-        surname: "",
-        gender: "",
-        email: "",
-        phoneNumber: "",
-        birthDate: ""
-      }
+    confirmGuestInfo() { //Bu method ile form kurallarina gore doldurulursa devam butununu aktif ediyorum.
+      $(".booking-guest-info-container").find("input, select").on("input propertychange, change", function() {
+          if (
+            guest.inputs.name.check &&
+            guest.inputs.surname.check &&
+            guest.inputs.gender.check &&
+            guest.inputs.email.check &&
+            guest.inputs.countryCode.check &&
+            guest.inputs.mobile.check &&
+            guest.inputs.birthdate.check
+          ) {
+            $(".toCreditCard .continue-button").removeClass("disabled");
+          } else {
+            $(".toCreditCard .continue-button").addClass("disabled");
+          }
+        });
     },
-    bookingInfo() {
-    var markupTemplate = "";
-    var info = this.info;
-    info.plannedEntryTime = this.generatePlannedEntryTime(date.checkIn.day,date.checkIn.time);
-    info.plannedExitTime = this.generatePlannedExitTime(date.checkOut.day,date.checkOut.time);
-    info.locationId = summaryContext.location.airport.locationId;
-    info.areaId = summaryContext.location.area.areaId;
-    info.roomTypeId = summaryContext.location.room.roomCategoryId;
-    info.rawPrice = summaryContext.location.room.rawPrice;
-    info.amount = 0;
-    info.currencyId = summaryContext.location.room.currencyId;
-    info.maleCount = product.male;
-    info.femaleCount = product.female;
-    
-    },
-    generatePlannedEntryTime(day, time) {
-      return day.concat("T",time,":00.000Z");
-    },
-    generatePlannedExitTime(day, time) {
-      return day.concat("T",time,":00.000Z");
-    },
-    passengerInfo() {
-      var info = this.info;
-      info.passenger.name = "adi";
-    },
-
     init() {
-      this.bookingInfo();
-      this.passengerInfo();
+      this.formValidation();
+      this.confirmGuestInfo();
+      this.skipGuestInfo();
     }
-    
   }
 
-
   setTimeout(function() {
-    parser.init();
+    guest.init();
   }, 10);
-  
 
-  $(".continue-button").on("click", function() {
-    parser.bookingInfo();
+  $(".toCreditCard .continue-button").on("click", function() {
+    guest.skipGuestInfo();
+    $("body").addClass("isLoading");
+    guest.prepareReservation();
   });
 
+/*MARKUP HTML SABLON ISLEMLERI */
 
-  /*MARKUP HTML SABLON ISLEMLERI */
-
-  var prepareGuestInfo = {
+  var bookingSummary = {
+    info : {
+      amount: 0,
+    },
     maleGuestInfo() {
       if(product.male > 0) {  // erkek misafir varsa
 
@@ -1226,7 +1256,7 @@ date.init();
       }
     },
     bookingSummaryInfo() {
-      if(selectedLocation.airport.name !== "" && date.totalHours > 0) {
+      if(selectedLocation.room.name !== "" && date.totalHours > 0) {
       var bookingSummaryContext = {
         airport: selectedLocation.airport.name,
         area: selectedLocation.area.name,
@@ -1243,7 +1273,8 @@ date.init();
       }
     },
     amountSummaryInfo() {
-      if(selectedLocation.airport.name !== "" && date.totalHours > 0) {
+      var info = this.info;
+      if(selectedLocation.room.name !== "" && date.totalHours > 0) {
       var subTotal = 2 * date.totalHours * selectedLocation.room.price;
       var currencyCode = selectedLocation.room.currencyCode;
       var totalGuest = parseInt(product.male) + parseInt(product.female);
@@ -1253,7 +1284,7 @@ date.init();
       var accommodationRate = selectedLocation.room.accommodationRate;
       var accommodationPrice =  Number((subTotal * Number(accommodationRate) / 100).toFixed(2));
       var totalPrice = subTotal + vatePrice + accommodationPrice;
-      
+      info.amount = totalPrice;
       var amountSummaryContext = {
         toplamYolcu: totalGuest,
         ilkTutar: subTotal.toFixed(2),
@@ -1266,7 +1297,7 @@ date.init();
         toplamFiyat: totalPrice.toFixed(2)
       };
       var amountSummaryTemplate = document.getElementById("amountSummaryInfoTemplate").firstChild.textContent;
-        $("#amount-summary-content").html(Mark.up(amountSummaryTemplate,amountSummaryContext));
+        $(".amount-summary-content").html(Mark.up(amountSummaryTemplate,amountSummaryContext));
       }      
     },
     init() {
@@ -1278,26 +1309,66 @@ date.init();
   };
 
   setTimeout(function() {
-    prepareGuestInfo.init();
+    bookingSummary.init();
   }, 10);
 
   $(".comfirm-button").on("click", function() {
-    prepareGuestInfo.maleGuestInfo();
-    prepareGuestInfo.femaleGuestInfo();
-    prepareGuestInfo.bookingSummaryInfo();
-    prepareGuestInfo.amountSummaryInfo();
+    bookingSummary.maleGuestInfo();
+    bookingSummary.femaleGuestInfo();
+    bookingSummary.bookingSummaryInfo();
+    bookingSummary.amountSummaryInfo();
   });
 
-  var summaryContext = {
-    location: selectedLocation,
-    product: product,
-    date: date
+
+  /* Backend'in kullanacagi bilgileri SETLIYORUM (application ID zaten Backend'de burada o bilgi haric digerlerini aldim.) */
+
+  var rezervasyonBilgileri = {
+    info: {
+      plannedEntryTime: "",
+      plannedExitTime: "",
+      locationId: "locationId",
+      areaId: "",
+      roomTypeId: "",
+      rawPrice: 0,
+      amount: 0,
+      currencyId: "",
+      maleCount: "",
+      femaleCount:""
+    },
+    prepareBookingInfo() {
+      var info = this.info;
+      info.plannedEntryTime = this.generatePlannedEntryTime(date.checkIn.day,date.checkIn.time);
+      info.plannedExitTime = this.generatePlannedExitTime(date.checkOut.day,date.checkOut.time);
+      info.locationId = selectedLocation.airport.locationId;
+      info.areaId = selectedLocation.area.areaId;
+      info.roomTypeId = selectedLocation.room.roomCategoryId;
+      info.rawPrice = selectedLocation.room.rawPrice;
+      info.amount = bookingSummary.info.amount.toFixed(2);
+      info.currencyId = selectedLocation.room.currencyId;
+      info.maleCount = product.male;
+      info.femaleCount = product.female;
+    },
+    generatePlannedEntryTime(day, time) {
+      return day.concat("T",time,":00.000Z");
+    },
+    generatePlannedExitTime(day, time) {
+      return day.concat("T",time,":00.000Z");
+    },
+    init() {
+      this.prepareBookingInfo();
+    }
+    
   };
+  setTimeout(function() {
+    rezervasyonBilgileri.init();
+  }, 10);
+  
 
+  $(".toGuestInfo .continue-button").on("click", function() {
+    rezervasyonBilgileri.prepareBookingInfo();  // backend in ihtiyaci olan rezervasyon detayini iceren data model'i hazirliyorum.
+  });
 
-
-
-  /*SELECTBOX TA SECILEN DEGERIN SPAN ICINE YAZILMASI (CALISTIRAMADIM) */
+/*SELECTBOX TA SECILEN DEGERIN SPAN ICINE YAZILMASI (CALISTIRAMADIM) */
 
   (function (a) {
     a.fn.extend({

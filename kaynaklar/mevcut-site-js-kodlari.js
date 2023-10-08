@@ -504,8 +504,7 @@ function logTimes(date) {
           changeMonth: false,
           numberOfMonths: 1,
           minDate: setDate(),
-          showButtonPanel: true,
-          closeText: '<svg class="icon icon-menu-close-white"><use xlink:href="#icon-menu-close-white"></use></svg>',
+          showButtonPanel: false,
         });
       },
   
