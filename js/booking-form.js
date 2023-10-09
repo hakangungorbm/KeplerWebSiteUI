@@ -22,7 +22,82 @@ var selectedLocation = {
   }
 }
 
+var step = function( stepNumber ) {
 
+  $('.stp-1').addClass('hide');
+  $('.stp-2').addClass('hide');
+  $('.stp-3').addClass('hide');
+  $('.stp-4').addClass('hide');
+  
+  $('.stp-'+stepNumber).removeClass('hide');
+
+  $('.booking-step-container').removeClass('step-1 step-2 step-3 step-4').addClass('step-'+stepNumber);
+
+  $('.booking-form').scrollTop(0);
+
+};
+
+step(1); 
+
+$(".toGuestInfo .previous-step-button").on("click", function(e) {
+  e.preventDefault();
+  step(1); 
+});
+
+$(document).on('click', '.bi-button-back', function(e) {
+  e.preventDefault();
+  step(1); 
+});
+
+$(".comfirm-button").on("click", function(e) {
+  e.preventDefault();
+  step(2);
+});
+
+$(".toGuestInfo .continue-button").on("click", function(e) {
+  e.preventDefault();
+  step(3); 
+});
+
+$(".toCreditCard .continue-button").on("click", function(e) {
+  e.preventDefault();
+  step(4); 
+});
+
+$(".toCreditCard .previous-step-button").on("click", function(e) {
+  e.preventDefault();
+  step(2);
+});
+
+var debounce = function(func, delay) {
+  var debounceTimer;
+  return function () {
+    var context = this;
+    var args = arguments;
+    clearTimeout(debounceTimer);
+    debounceTimer = setTimeout(function () {
+      return func.apply(context, args);
+    }, delay);
+  };
+};
+
+$(".book-session-first-step").on('DOMSubtreeModified', debounce( function() {
+
+  var airport    = selectedLocation.airport.name;
+  var area       = selectedLocation.area.name;
+  var room       = selectedLocation.room.name;
+  var male       = product.male;
+  var female     = product.female;
+  var checkIn    = date.checkIn.time;
+  var checkOut   = date.checkOut.time;
+
+  if ( airport && area && room && ( male > 0 || female > 0 ) && checkIn && checkOut ) {
+    $('.comfirm-button').removeClass('disabled');
+  } else {
+    $('.comfirm-button').addClass('disabled');
+  }
+
+} ) );
 
 var airport = {
   fetchAirpots() {
@@ -37,9 +112,6 @@ var airport = {
         
         response.map(function(item) {
           $airports.append('<option value="'+ item.locationId +'">'+ item.name +'</option>');
-          selectedLocation.airport.name = item.name;
-          selectedLocation.airport.locationId = item.locationId;
-          selectedLocation.airport.code = item.code;
         });
 
         // Set areas and rooms on change
@@ -55,10 +127,38 @@ var airport = {
           if ( airportIndex !== -1 ) {
             response[airportIndex].areas.map(function(item) {
               $areas.append('<option value="'+ item.areaId +'">'+ item.name +'</option>');
-              selectedLocation.area.name = item.name;
-              selectedLocation.area.areaId = item.areaId;
-
             });
+          }
+
+          // Resetleme
+          selectedLocation = {
+            airport: {
+              name: "",
+              code: "",
+              locationId: ""
+            },
+            area: {
+              name:"",
+              areaId:"",
+            },
+            room: {
+              roomCategoryId:"",
+              name:"",
+              capacity: 0,
+              price: 0,
+              rawPrice: 0,
+              discountRate: 0,
+              vateRate: 0,
+              accommodationRate: 0,
+              currencyCode: "",
+              currencyId: ""
+            }
+          };
+
+          if ( airportIndex !== -1 ) {
+            selectedLocation.airport.name = response[airportIndex].name;
+            selectedLocation.airport.locationId = response[airportIndex].locationId;
+            selectedLocation.airport.code = response[airportIndex].code;
           }
 
           // Set rooms
@@ -69,22 +169,47 @@ var airport = {
           if ( airportIndex !== -1 ) {
             response[airportIndex].roomInfoList.map(function(item) {
               $rooms.append('<option value="'+ item.roomCategoryId +'">'+ item.name +'</option>');
-
-              selectedLocation.room.roomCategoryId = item.roomCategoryId;
-              selectedLocation.room.name = item.name;
-              selectedLocation.room.capacity = item.capacity
-              selectedLocation.room.price = item.price
-              selectedLocation.room.rawPrice = item.rawPrice
-              selectedLocation.room.discountRate = item.discountRate
-              selectedLocation.room.vateRate = item.vateRate
-              selectedLocation.room.accommodationRate = item.accommodationRate
-              selectedLocation.room.currencyCode = item.currencyCode
-              selectedLocation.room.currencyId = item.currencyId
             });
-            
-
           }
 
+        });
+
+        // Area değişince yapılacak işlemler
+        var $areas = $('#areas');
+
+        $areas.on('change', function() {
+
+          var airportIndex = $airports.find('option:selected').index() - 1;
+          var areaIndex    = $areas.find('option:selected').index() - 1;
+
+          if ( areaIndex != -1 ) {
+            selectedLocation.area.name   = response[airportIndex].areas[areaIndex].name;
+            selectedLocation.area.areaId = response[airportIndex].areas[areaIndex].areaId;
+          }
+          
+        });
+
+        
+        // Rooms değişince yapılacak işlemler
+        var $rooms = $('#rooms');
+
+        $rooms.on('change', function() {
+
+          var airportIndex = $airports.find('option:selected').index() - 1;
+          var roomIndex    = $rooms.find('option:selected').index() - 1;
+          
+          if ( roomIndex != -1 ) {
+            selectedLocation.room.roomCategoryId    = response[airportIndex].roomInfoList[roomIndex].roomCategoryId;
+            selectedLocation.room.name              = response[airportIndex].roomInfoList[roomIndex].name;
+            selectedLocation.room.capacity          = response[airportIndex].roomInfoList[roomIndex].capacity
+            selectedLocation.room.price             = response[airportIndex].roomInfoList[roomIndex].price
+            selectedLocation.room.rawPrice          = response[airportIndex].roomInfoList[roomIndex].rawPrice
+            selectedLocation.room.discountRate      = response[airportIndex].roomInfoList[roomIndex].discountRate
+            selectedLocation.room.vateRate          = response[airportIndex].roomInfoList[roomIndex].vateRate
+            selectedLocation.room.accommodationRate = response[airportIndex].roomInfoList[roomIndex].accommodationRate
+            selectedLocation.room.currencyCode      = response[airportIndex].roomInfoList[roomIndex].currencyCode
+            selectedLocation.room.currencyId        = response[airportIndex].roomInfoList[roomIndex].currencyId
+          }
 
         });
 
@@ -1071,30 +1196,39 @@ date.init();
       $.ajax({
         type: "POST",
         url: "http://kepler.marrul.com/api/KeplerService/Get?id=1",
-        data: "Rezervasyon =" + rezervasyonBilgileri.info + "GuestInfo=" + guest.passenger,
+        data: {
+          rezervasyon: rezervasyonBilgileri.info,
+          guest: guest.passenger,
+        },
         crossDomain: true,
+        dataType: 'json',
         success: function(resp) {
-          if (!resp.isSuccess) {
+
+          if ( resp.isSuccess ) {
+
+            // Başarılı
+            data = resp.data;
+
+            // Ödeme adımına geç...
+
+
+          } else {
+
             $("body").removeClass("isLoading");
             this.errorParser(resp.message);
             $(".post-sonuclari-warning .warning-content-wrapper").removeClass(cls.none);
             $(".warning-background").removeClass(cls.none);
-          } else if (!!resp.data) {
-            data = resp.data;
-            //Burada kredi kartın sayfasına yönlendireceğiz. stepper
+
           }
+
         },
-        complete: function() {
-          if (!!data) {
-            //ihtiyac olursa diye ekledim. Gereksizse silinebilir.
-          }
-  
-        },  
         error: function(resp) {
+
           $("body").removeClass(cls.isLoading);
           $(".post-sonuclari-warning .warning-content-wrapper").find(".warning-title p").text(msg);
           $(".post-sonuclari-warning").removeClass(cls.none);
           $(".warning-background").removeClass(cls.none);
+
         },
       });
     },
@@ -1214,8 +1348,8 @@ date.init();
   }, 10);
 
   $(".toCreditCard .continue-button").on("click", function() {
-    guest.skipGuestInfo();
     $("body").addClass("isLoading");
+    guest.skipGuestInfo();
     guest.prepareReservation();
   });
 
@@ -1363,7 +1497,6 @@ date.init();
     rezervasyonBilgileri.init();
   }, 10);
   
-
   $(".toGuestInfo .continue-button").on("click", function() {
     rezervasyonBilgileri.prepareBookingInfo();  // backend in ihtiyaci olan rezervasyon detayini iceren data model'i hazirliyorum.
   });

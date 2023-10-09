@@ -37,14 +37,70 @@
 
 .guest-count-info-wrapper .guest-container{
   padding: 0 !important;
+  border-bottom: none !important;
 }
 
+.booking-step-container .step-success {
+  display: none;
+}
 
+.booking-step-container .step-text {
+  display: #1d3243;
+}
 
+.booking-step-container.step-5 .step-area-1 .step-number,
+.booking-step-container.step-4 .step-area-1 .step-number,
+.booking-step-container.step-3 .step-area-1 .step-number {
+  border: none;
+  font-size: 0px;
+  color: #fff;
+  background: #465dc8;
+}
 
+.booking-step-container.step-5 .step-area-1 .step-name,
+.booking-step-container.step-4 .step-area-1 .step-name,
+.booking-step-container.step-3 .step-area-1 .step-name {
+  color: #465dc8;
+}
 
+.booking-step-container.step-5 .step-area-1 .step-success,
+.booking-step-container.step-4 .step-area-1 .step-success,
+.booking-step-container.step-3 .step-area-1 .step-success {
+  display: block;
+}
 
+.booking-step-container.step-5 .step-area-2 .step-number,
+.booking-step-container.step-4 .step-area-2 .step-number {
+  border: none;
+  font-size: 0px;
+  color: #fff;
+  background: #465dc8;
+}
 
+.booking-step-container.step-5 .step-area-2 .step-name,
+.booking-step-container.step-4 .step-area-2 .step-name {
+  color: #465dc8;
+}
+
+.booking-step-container.step-5 .step-area-2 .step-success,
+.booking-step-container.step-4 .step-area-2 .step-success {
+  display: block;
+}
+
+.booking-step-container.step-5 .step-area-3 .step-number {
+  border: none;
+  font-size: 0px;
+  color: #fff;
+  background: #465dc8;
+}
+
+.booking-step-container.step-5 .step-area-3 .step-name {
+  color: #465dc8;
+}
+
+.booking-step-container.step-5 .step-area-3 .step-success {
+  display: block;
+}
 
 .sStylerMainWrp {
   position: relative; }
