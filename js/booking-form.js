@@ -254,20 +254,18 @@ var bookingEvents = {
     // $(".hasDatepicker").on("click", function() {
     $("#birthdate").on("focus", function() {
       if (!isOpen) {
+        $("body").addClass(date.elements.datePicker.ready);
         $(".child-warning").removeClass(cls.none);
         $(".warning-background").removeClass(cls.none);
-        isOpen = true;
-      }
-      //Alttaki satir neden datepicker acmiyor sorulacak
-      else {
         $("#birthdate").datepicker({
           yearRange: _yearRange,
           maxDate: "-7y",
           changeMonth: true,
           changeYear: true,
-          dateFormat: "yy-mm-dd",
+          dateFormat: "dd/mm/yy",
           showButtonPanel: true,
         });
+        isOpen = true;
       }
     });
 

@@ -487,5 +487,8 @@
   .booking-form::-webkit-scrollbar-thumb:hover {
     background: #ffc2c7; }
 
-
-
+.ui-datepicker .ui-datepicker-title select{
+  font-size: 13px;
+  color: #1d3243;
+  background: #fff;
+}
