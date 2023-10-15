@@ -86,8 +86,8 @@ $(".book-session-first-step").on('DOMSubtreeModified', debounce( function() {
   var airport    = selectedLocation.airport.name;
   var area       = selectedLocation.area.name;
   var room       = selectedLocation.room.name;
-  var male       = product.male;
-  var female     = product.female;
+  var male       = parseInt(product.male);
+  var female     = parseInt(product.female);
   var checkIn    = date.checkIn.time;
   var checkOut   = date.checkOut.time;
 
@@ -251,25 +251,22 @@ var bookingEvents = {
     var currentMaxDate = maxDate.substr(0, 4);
     var _yearRange = "1900:" + currentMaxDate;
 
-    // $(".hasDatepicker").on("click", function() {
-    $("#birthdate").on("focus", function() {
-      if (!isOpen) {
-        $(".child-warning").removeClass(cls.none);
-        $(".warning-background").removeClass(cls.none);
-        isOpen = true;
-      }
-      //Alttaki satir neden datepicker acmiyor sorulacak
-      else {
-        $("#birthdate").datepicker({
-          yearRange: _yearRange,
-          maxDate: "-7y",
-          changeMonth: true,
-          changeYear: true,
-          dateFormat: "yy-mm-dd",
-          showButtonPanel: true,
-        });
-      }
-    });
+      $("#birthdate").on("focus", function() {
+        if (!isOpen) {
+          $("body").addClass(date.elements.datePicker.ready);
+          $(".child-warning").removeClass(cls.none);
+          $(".warning-background").removeClass(cls.none);
+          $("#birthdate").datepicker({
+            yearRange: _yearRange,
+            maxDate: "-7y",
+            changeMonth: true,
+            changeYear: true,
+            dateFormat: "dd/mm/yy",
+            showButtonPanel: true,
+          });
+          isOpen = true;
+        }
+      });
 
     $(".child-warning").bind("click", function() {
         $(".child-warning").addClass(cls.none);
@@ -302,6 +299,15 @@ var bookingEvents = {
         $(".warning-background").addClass(cls.none);
       });
   },
+  postSonuclariWarning() {
+    // postEdilen formlardan donen hatalarin gosterildigi popup i kapatır
+    $(".postSonuclariWarning")
+    .find(".form-close-button")
+    .bind("click", function() {
+      $(".postSonuclariWarning").addClass(cls.none);
+      $(".warning-background").addClass(cls.none);
+    });
+  },
   timePickerWarnings() {
     if (date.checkIn.time != "" && date.checkOut.time != "" && date.selectedHours.length != 0) {
       $(".time-picker-warnings").removeClass(cls.none);
@@ -329,6 +335,7 @@ var bookingEvents = {
     this.birthDateWarning();
     this.cvcToolTip();
     this.privacyPolicyAndTermOfUseWarning();
+    this.postSonuclariWarning();
   },
 }
 
@@ -336,28 +343,6 @@ setTimeout(function() {
   bookingEvents.init();
 }, 10);
 
-
-
-
-
-
-
-/*KREDI KARTI GORUNTUSU generate eden ve CVC alanına gelince kartı çeviren script */
-var creditCard = new Card({
-  form: document.querySelector("#credit-card-form"),
-  container: ".card-wrapper",
-  formSelectors: {
-    numberInput: 'input#card-number', // optional — default input[name="number"]
-    expiryInput: 'input#expiration', // optional — default input[name="expiry"]
-    cvcInput: 'input#cvc', // optional — default input[name="cvc"]
-    nameInput: 'input#card-holder' // optional - defaults input[name="name"]
-  },
-  width: 320, // optional — default 350px
-  messages: {
-    validDate: 'valid\ndate', // optional - default 'valid\nthru'
-    monthYear: 'mm/yy', // optional - default 'month/year'
-  },
-});
 
 
 
@@ -471,8 +456,8 @@ var product = {
         }
         target.length > 0 ? target.text(value) : 0;
 
-        product.male = $("#male").val();
-        product.female = $("#female").val();
+        product.male = parseInt($("#male").val());
+        product.female = parseInt($("#female").val());
 
         $(el)
           .siblings()
@@ -1029,28 +1014,11 @@ var date = {
     }
   },
 
-  // setUnavailableBeforeCurrent(el) {
-  //   $(date.elements.timePicker.hours).each(function() {
-  //     var elDay = $(this).attr("data-date");
-  //     var elTime = $(this).attr("data-time");
-
-  //     if (elDay == setDate() && parseInt(elTime) <= new Date().getHours()) {
-  //       $(this).addClass(cls.disabled);
-  //       // date.disabledBeforeCurrent.push(setDate() + " " + elTime);
-  //     }
-  //     // var lastDate = setDate() + " 20:00";
-  //     // var lastDate2 = setDate() + " 22:00";
-  //     // date.unavailableHours.push(lastDate);
-  //     // date.unavailableHours.push(lastDate2);
-  //   });
-  // },
-
   checkTimes() {
     $(date.elements.timePicker.hours).each(function() {
       $(this).removeClass(cls.selectedTime);
       $(this).removeClass(cls.bookedTime);
       $(this).removeClass(cls.disabled);
-      //$(this).removeClass(cls.notAvailable);
       $(this).removeClass(cls.notEnoughCapacity);
 
       var elDay = $(this).attr("data-date");
@@ -1124,6 +1092,16 @@ var date = {
 
 date.init();
 
+var parsers = {
+  errorParser(msg) {
+      $(".postSonuclariWarning .warning-content-wrapper")
+          .find(".warning-title p")
+          .text(msg);
+      $(".warning-background").removeClass("ems-none");
+      $(".postSonuclariWarning").removeClass("ems-none");
+  }
+}
+
 /* YOLCU BILGISI FORMU  - KONTROLLER VS - GUEST INFO ISLEMLERI */
   var guest = {
     // DOM
@@ -1192,50 +1170,44 @@ date.init();
       
     },
     prepareReservation() {
-      var data = null;
       $.ajax({
         type: "POST",
         url: "http://kepler.marrul.com/api/KeplerService/Get?id=1",
-        data: {
+        data: JSON.stringify({
           rezervasyon: rezervasyonBilgileri.info,
           guest: guest.passenger,
-        },
+        }),
+        contentType: 'application/json',
         crossDomain: true,
         dataType: 'json',
         success: function(resp) {
 
-          if ( resp.isSuccess ) {
+          if ( resp.success ) {
 
-            // Başarılı
-            data = resp.data;
+            // Başarılı ise bir sonraki adımda kullanılacak modele, rezervasyon id'yi setliyorum.
+            creditCart.paymentInfo.reservationId = resp.data;
+
+            //Loading iconu kaldir
+            $("body").removeClass(cls.isLoading);
 
             // Ödeme adımına geç...
+            step(4);
 
 
           } else {
 
             $("body").removeClass("isLoading");
-            this.errorParser(resp.message);
-            $(".post-sonuclari-warning .warning-content-wrapper").removeClass(cls.none);
-            $(".warning-background").removeClass(cls.none);
-
+            parsers.errorParser(resp.message);
+            step(3);
           }
 
         },
         error: function(resp) {
-
           $("body").removeClass(cls.isLoading);
-          $(".post-sonuclari-warning .warning-content-wrapper").find(".warning-title p").text(msg);
-          $(".post-sonuclari-warning").removeClass(cls.none);
-          $(".warning-background").removeClass(cls.none);
-
+          parsers.errorParser("Sistemsel bir hata oluştu. Lütfen tekrar deneyiniz.");
+          step(3);
         },
       });
-    },
-    errorParser(msg) {
-      $(".post-sonuclari-warning .warning-content-wrapper")
-        .find(".warning-title p")
-        .text(msg);
     },
     setValue(element) {
       return $(element).val();
@@ -1353,6 +1325,269 @@ date.init();
     guest.prepareReservation();
   });
 
+
+
+
+
+  /* KREDI KARTI BILGISI FORMU  - KONTROLLER VS */
+  var creditCart = {
+    // DOM
+    elements: {
+      container: ".card-wrapper",
+    },
+    // Inputs
+    inputs: {
+      cardholdername: {
+        element: "#cardHolder",
+        check: false,
+        regex: /\w\D/,
+      },
+      cardnumber: {
+        element: "#cardnumber",
+        check: false,
+        regex: /^[0-9]{9,13}$/,
+      },
+      expiration: {
+        element: "#expiration",
+        check: false,
+        regex: /^(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})$/,
+      },
+      cvc: {
+        element: "#cvc",
+        check: false,
+        regex: /^[0-9]{3,4}$/,
+      },
+      saveApprove: {
+        element: "#saveApprove",
+        check: false
+      }
+    },
+    // Models
+    paymentInfo : {
+      reservationId: "",
+      cardHolderName: "",
+      cardNumber: "",
+      expireMonth: 0,
+      expireYear: 0,
+      cvvCode: "",
+      installment: 0,
+      cardType: "Master",
+      manufacturerCard: true
+    },
+    skipPaymentInfo() {
+      // Kisinin forma doldurdugu verileri model'ime aktariyorum.
+      var info = this.paymentInfo;
+      info.cardHolderName = $(creditCart.inputs.cardholdername.element).val();
+      info.cardNumber = $(creditCart.inputs.cardnumber.element).val();
+      info.expiration = $(creditCart.inputs.expiration.element).val();
+      info.expireMonth = parseInt($(creditCart.inputs.expiration.element).val().substring(0, 2));
+      info.expireYear = parseInt($(creditCart.inputs.expiration.element).val().substring(5, 9));
+      info.cvvCode = $(creditCart.inputs.cvc.element).val();      
+    },
+    preparePayment() {
+      $.ajax({
+        type: "POST",
+        url: "http://localhost:44385/api/KeplerService/Sale3DFirstRequest",
+        data: JSON.stringify({
+          paymentInfo: creditCart.paymentInfo
+        }),
+        contentType: 'application/json',
+        crossDomain: true,
+        dataType: 'json',
+        success: function(resp) {
+
+          if ( resp.success ) {
+
+            // Başarılı
+            data = resp.data;
+
+            //Loading iconu kaldir
+            $("body").removeClass(cls.isLoading);
+
+            // Basarili sayfasina yonlendir - Formu temizle
+
+
+          } else {
+
+            $("body").removeClass("isLoading");
+            parsers.errorParser(resp.message);
+          }
+
+        },
+        error: function(resp) {
+
+          $("body").removeClass(cls.isLoading);
+          parsers.errorParser("Sistemsel bir hata oluştu. Lütfen tekrar deneyiniz.");
+          step(4);
+        },
+      });
+    },
+    formValidation() {
+      var inputArrays = Object.values(this.inputs);
+      inputArrays.forEach(function(input) {
+        if (input.element == "#cardHolder") {
+          $(input.element).on("input propertychange", function() {
+            if (input.regex.test($(this).val())) {
+              $(this)
+                .parent()
+                .addClass("form-valid")
+                .removeClass("form-invalid");
+              input.check = true;
+            } else {
+              $(this)
+                .parent()
+                .addClass("form-invalid")
+                .removeClass("form-valid");
+              input.check = false;
+            }
+          });
+        } else if (input.element == "#cardnumber") {
+          $(input.element).on("change", function() {
+            if ($(this).val() != "") {
+              $(this)
+                .parent()
+                .addClass("form-valid")
+                .removeClass("form-invalid");
+              input.check = true;
+            } else {
+              $(this)
+                .parent()
+                .addClass("form-invalid")
+                .removeClass("form-valid");
+              input.check = false;
+            }
+          });
+        } else if (input.element == "#expiration") {
+          $(input.element).on("change", function() {
+            if ($(this).val() != "") {
+              $(this)
+                .parent()
+                .addClass("form-valid")
+                .removeClass("form-invalid");
+              input.check = true;
+            } else {
+              $(this)
+                .parent()
+                .addClass("form-invalid")
+                .removeClass("form-valid");
+              input.check = false;
+            }
+          });
+        } else if (input.element == "#cvc") {
+                $(input.element).on("change", function() {
+                  if ($(this).val() != "") {
+                    $(this)
+                      .parent()
+                      .addClass("form-valid")
+                      .removeClass("form-invalid");
+                    input.check = true;
+                  } else {
+                    $(this)
+                      .parent()
+                      .addClass("form-invalid")
+                      .removeClass("form-valid");
+                    input.check = false;
+                  }
+                });
+          } else if (input.element == "#saveApprove") {
+            $(input.element).on("change", function() {
+              if ($(this).val() != "") {
+                $(this)
+                  .parent()
+                  .addClass("form-valid")
+                  .removeClass("form-invalid");
+                input.check = true;
+              } else {
+                $(this)
+                  .parent()
+                  .addClass("form-invalid")
+                  .removeClass("form-valid");
+                input.check = false;
+              }
+            });
+          } else {
+          $(input.element).on("input propertychange", function() {
+            if (input.regex.test($(this).val())) {
+              $(this)
+                .parent()
+                .addClass("form-valid")
+                .removeClass("form-invalid");
+              input.check = true;
+            } else {
+              $(this)
+                .parent()
+                .addClass("form-invalid")
+                .removeClass("form-valid");
+              input.check = false;
+            }
+          });
+        }
+      });
+    },
+    confirmPaymentInfo() { //Bu method ile form kurallarina gore doldurulursa ODEME YAP butununu aktif ediyorum.
+      $(".card-container .form-container").find("input, select").on("input propertychange, change", function() {
+          if (
+            creditCart.inputs.cardholdername.check &&
+            creditCart.inputs.cardnumber.check &&
+            creditCart.inputs.expiration.check &&
+            creditCart.inputs.cvc.check
+          ) {
+            $(".toPayment .continue-button").removeClass("disabled");
+          } else {
+            $(".toPayment .continue-button").addClass("disabled");
+          }
+        });
+    },
+    init() {
+      this.formValidation();
+      this.confirmPaymentInfo();
+      this.skipPaymentInfo();
+    }
+  }
+
+  setTimeout(function() {
+    creditCart.init();
+  }, 10);
+
+  $(".toPayment .continue-button").on("click", function() {
+    $("body").addClass("isLoading");
+    creditCart.skipPaymentInfo();
+    creditCart.preparePayment();
+  });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*KREDI KARTI GORUNTUSU generate eden ve CVC alanına gelince kartı çeviren script */
+var creditCard = new Card({
+  form: document.querySelector("#credit-card-form"),
+  container: ".card-wrapper",
+  formSelectors: {
+    numberInput: 'input#cardnumber', // optional — default input[name="number"]
+    expiryInput: 'input#expiration', // optional — default input[name="expiry"]
+    cvcInput: 'input#cvc', // optional — default input[name="cvc"]
+    nameInput: 'input#cardHolder' // optional - defaults input[name="name"]
+  },
+  width: 320, // optional — default 350px
+  messages: {
+    validDate: 'valid\ndate', // optional - default 'valid\nthru'
+    monthYear: 'mm/yy', // optional - default 'month/year'
+  },
+});
+
+
+
+
 /*MARKUP HTML SABLON ISLEMLERI */
 
   var bookingSummary = {
@@ -1360,8 +1595,8 @@ date.init();
       amount: 0,
     },
     maleGuestInfo() {
-      if(product.male > 0) {  // erkek misafir varsa
-
+      if(selectedLocation.airport.name !== "" && product.male > 0) {  // erkek misafir varsa
+        $('#male-guest-content').removeClass("ems-none")
         var maleGuestContext = {
           maleGuestNumber: product.male,
           hour: date.totalHours,
@@ -1372,10 +1607,14 @@ date.init();
         var maleGuestTemplate = document.getElementById("maleGuestTemplate").firstChild.textContent;
         $("#male-guest-content").html(Mark.up(maleGuestTemplate, maleGuestContext));
 
+      } else {
+        $('#male-guest-content').addClass("ems-none");
       }
     },
     femaleGuestInfo() {
-      if(product.female > 0) {  // bayan misafir varsa
+      if(selectedLocation.airport.name !== "" && product.female > 0) {  // bayan misafir varsa
+
+        $('#female-guest-content').removeClass("ems-none");
 
         var femaleGuestContext = {
           femaleGuestNumber: product.female,
@@ -1387,10 +1626,13 @@ date.init();
         var femaleGuestTemplate = document.getElementById("femaleGuestTemplate").firstChild.textContent;
         $("#female-guest-content").html(Mark.up(femaleGuestTemplate,femaleGuestContext));
 
+      } else {
+        $('#female-guest-content').addClass("ems-none");
       }
     },
     bookingSummaryInfo() {
       if(selectedLocation.room.name !== "" && date.totalHours > 0) {
+        $('#booking-info-summary-content').removeClass("ems-none");
       var bookingSummaryContext = {
         airport: selectedLocation.airport.name,
         area: selectedLocation.area.name,
@@ -1404,11 +1646,14 @@ date.init();
       };
       var bookingSummaryTemplate = document.getElementById("bookingInfoSummaryTemplate").firstChild.textContent;
         $("#booking-info-summary-content").html(Mark.up(bookingSummaryTemplate,bookingSummaryContext));
+      } else {
+        $('#booking-info-summary-content').addClass("ems-none");
       }
     },
     amountSummaryInfo() {
       var info = this.info;
       if(selectedLocation.room.name !== "" && date.totalHours > 0) {
+      $('.amount-summary-content').removeClass("ems-none");
       var subTotal = 2 * date.totalHours * selectedLocation.room.price;
       var currencyCode = selectedLocation.room.currencyCode;
       var totalGuest = parseInt(product.male) + parseInt(product.female);
@@ -1432,6 +1677,8 @@ date.init();
       };
       var amountSummaryTemplate = document.getElementById("amountSummaryInfoTemplate").firstChild.textContent;
         $(".amount-summary-content").html(Mark.up(amountSummaryTemplate,amountSummaryContext));
+      } else {
+        $('.amount-summary-content').addClass("ems-none");
       }      
     },
     init() {

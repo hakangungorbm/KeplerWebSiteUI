@@ -458,13 +458,15 @@
             
             <div class="guest-info-input">
                 <label for="birthdate">Doğum Günü<sup>*</sup></label>
-                <input required="" autocomplete="off" type="text" name="birthDate" id="birthdate" placeholder="GG/AA/YYYY" class="hasDatepicker" />
+                <input required="" autocomplete="off" type="text" name="birthDate" id="birthdate" placeholder="GG/AA/YYYY" />
             </div>
 
         </div>
 
     </form>
-    </section>    
+    </section> 
+    
+    <div class="amount-summary-content"></div>
 
     <div class="toCreditCard continue-button-wrapper">
         <div class="continue-button disabled">CONTINUE</div>
@@ -487,13 +489,15 @@
             <form id="credit-card-form" action="">
                 <div class="card-info-wrapper">
                     <div class="card-info">
+                        <div class="validation-icon"></div>
                         <label for="card-holder">Kart Sahibi<sup>*</sup></label>
-                        <input placeholder="Full name" type="text" name="name" id="card-holder">
+                        <input autocomplete="off" required="" type="text" name="card-holder" id="cardHolder">
                     </div>
 
                     <div class="card-info">
+                        <div class="validation-icon"></div>
                         <label for="card-number">Kart numarası<sup>*</sup></label>
-                        <input placeholder="Card number" type="tel" name="number" id="card-number">
+                        <input autocomplete="off" required="" type="text" name="card-number" id="cardnumber" class="unknown">
                     </div>
 
                     <div class="card-info">
@@ -501,12 +505,12 @@
                         <div class="payment-credential">
                             <div>
                                 <label for="expiration">Sona erme<sup>*</sup></label>
-                                <input placeholder="MM/YY" type="tel" name="expiry" id="expiration">
+                                <input required="" autocomplete="off" type="text" id="expiration" name="expiration" placeholder="MM/YY">
                             </div>
                             <div>
                                 <div class="cvc-info"><div class="cvc-mark">?</div><div class="cvc-info-tooltip ems-none"><p>The CVC is a 3 or 4 digit number unique to each credit card that only appears on the actual card itself; it cannot be obtained from receipts or any other transaction documents</p><i class="cvc-info-close"></i></div></div>
                                 <label for="cvc">CVC<sup>*</sup></label>
-                                <input placeholder="CVC" type="number" name="cvc" id="cvc">
+                                <input autocomplete="off" required="" type="text" name="cvc" id="cvc">
                             </div>
                         </div>
                     </div>
@@ -524,7 +528,7 @@
 
         <div class="confirm-checbox-wrapper">
             <label class="custom-checkbox">By proceeding with this booking. I agree to Kepler Club's Terms of Use and Privacy Policy.
-                <input type="checkbox" name="infoSaveApprove" value="approve">
+                <input type="checkbox" name="infoSaveApprove" id="saveApprove" value="approve">
                 <span class="checkmark"></span>
             </label>
         </div>
@@ -533,6 +537,13 @@
             <p>Our guests need to contact us to change or cancel their reservations. In order to be able to cancel a reservation, there has to be at least 24 hours left until the reserved check-in time</p>
         </div>
     </div>
+
+    <div class="amount-summary-content"></div>
+
+    <div class="toPayment continue-button-wrapper">
+        <div class="continue-button disabled">CONFIRM PAYMENT</div>
+        <a href="#" class="previous-step-button">Previous Step</a>    
+    </div><!--continue-button-wrapper bitti-->
 
 </div><!--paymet-card-area bitti-->
 
@@ -990,7 +1001,7 @@
 </div>
 
 <!--Formlari post ettikten sonra hata donerse bu warning ile gostericem-->
-<div class="form-warnings post-sonuclari-warning ems-none">
+<div class="form-warnings postSonuclariWarning ems-none">
     <div class="warning-content-wrapper">
     <div class="warning-title"><p></p><div></div></div>
     <div class="form-close-button"><i class="close-icon"></i></div>

@@ -1,4 +1,4 @@
-1. Token alınacak
+﻿1. Token alınacak
 
 İstek Atılacak adres:
 https://kepler.seytekbilisim.com/Login/LoginUser
@@ -145,7 +145,27 @@ Response Body de gelen obje icersinden asagidaki alanlari aldik:
 
 5. Adim: 
 
-Kart ekrani geldi. Odemeye gittik. Basariliysa
+Kart ekrani geldi. Kart bilgilerini ekrandan aldik ve alttaki ID'ye istek attik.
+
+https://kepler.seytekbilisim.com/WebReservation/Sale3DFirstRequest
+
+Request Body:
+
+paymentInfo: { 
+  "reservationId": "F42B5468-53AF-44E6-D329-08DBBF4BEAA6",
+  "total": 1.12,
+  "currencyId": "63FC9654-C9B9-4E3E-2E23-08DB35051060",
+  "cardHolderName": "test kk",
+  "cardNumber": "5400450189809645",
+  "expireMonth": 5,
+  "expireYear": 29,
+  "cvvCode": "854"
+  "installment": 0,  // sabit deger 0 olacak
+  "cardType": "Master",  // sabit
+  "manufacturerCard": true  // sabit
+}
+
+
 4. adimda bana gelen reservationNo yu ekrana yazdik. Birde tebrikler isleminiz basarili seklinde bir mesaj yazicaz.
 
 Arka planda da AddPayment istegi atilir:
