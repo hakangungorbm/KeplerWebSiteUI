@@ -223,6 +223,10 @@
             </div>
         </div>
 
+        <div class="setting-capacity">
+            <small>Maximum capacity for your selection category: <span id="capacity">0</span></small>
+        </div>
+
         <div class="setting-description room-adult-icon-bg">
             <div class="setting-description-text">
             <p>Number of Adults</p>
@@ -246,7 +250,7 @@
                     <div class="button-title">Male</div>
                         <div class="button-container">
                             <div rel="dec" class="button-counter">-</div>
-                            <input autocomplete="off" data-target=".maleNumber" type="number" max="18" id="male" value="0" class="ems-none">
+                            <input autocomplete="off" data-target=".maleNumber" type="number" max="0" id="male" value="0" class="ems-none">
                             <span class="maleNumber">0</span>
                             <div rel="inc" class="button-counter">+</div>
                         </div>
@@ -255,7 +259,7 @@
                     <div class="button-title">Female</div>
                     <div class="button-container">
                         <div rel="dec" class="button-counter">-</div>
-                        <input autocomplete="off" data-target=".femaleNumber" type="number" max="10" id="female" value="0" class="ems-none">
+                        <input autocomplete="off" data-target=".femaleNumber" type="number" max="0" id="female" value="0" class="ems-none">
                         <span class="femaleNumber">0</span>
                         <div rel="inc" class="button-counter">+</div>
                     </div>
@@ -350,7 +354,7 @@
 </div><!--book-session-first-step-->
 
 
-<div class="steper-wrapper stp-2 stp-2 stp-3 stp-4 hide">
+<div class="steper-wrapper stp-2 stp-2 stp-3 stp-4 stp-5 hide">
     <section class="booking-step-container">
 
         <div class="booking-step step-area-1">
@@ -394,8 +398,8 @@
 <section class="booking-info-product-container">
     <h3>Your Unit Details</h3>
     <div class="booking-info-product-wrapper">
-        <div id="male-guest-content"></div>
-        <div id="female-guest-content"></div>
+        <div class="male-guest-content"></div>
+        <div class="female-guest-content"></div>
     </div>
 </section>
 </div><!--unit-detail-area-->
@@ -546,6 +550,32 @@
     </div><!--continue-button-wrapper bitti-->
 
 </div><!--paymet-card-area bitti-->
+
+<div class="payment-completed-area stp-5 hide">
+
+    <div class="payment-completed-summary-content"></div> <!--Buraya template ten rezervasyon ID gelecek--> 
+
+    <div class="reservation-cancellation-wrapper">
+        <h3>Reservation Conditions and Cancellation Policy</h3>
+        <p>You can cancel your booking 24 hours prior to arrival date by <strong>contacting us.</strong> If you fail to arrive or cancel the reservation, no refund will be given.</p>
+    </div>
+
+    <div class="booking-info-product-wrapper">
+    <div class="male-guest-content"></div>
+
+    <div class="female-guest-content"></div>
+
+    </div>
+
+    <div class="amount-summary-content"></div>  <!--Buraya template ten odeme ozeti gelecek-->
+
+
+
+    <div class="completeReservation continue-button-wrapper">
+        <a href="#" class="continue-button">ANASAYFAYA DÖN</a>  
+    </div><!--continue-button-wrapper(completeReservation) bitti-->
+
+</div><!--payment-completed-area bitti-->
 
 
 </div><!--booking-form bitti-->
@@ -811,7 +841,7 @@
     <div class="mask-animation wipe-in-right ken-burns "> 
         <h2>Kepler Club</h2>
         <p>Explore guest reviews at Kepler Capsule Hotel for a glimpse into exceptional experiences.</p>
-        <a href="#" class="all-reviews-button">SEE ALL REVIEWS</a>
+        <a href="all-reviews.html" class="all-reviews-button">SEE ALL REVIEWS</a>
     </div>
 </div>    
 
@@ -821,6 +851,7 @@
 
 <div class="review-slider swiper-container">
     <div class="review-slider__wrp swiper-wrapper">
+
 
         <div class="review-slider__item swiper-slide">
          <i class="quote-icon"></i>
@@ -1005,6 +1036,18 @@
     <div class="warning-content-wrapper">
     <div class="warning-title"><p></p><div></div></div>
     <div class="form-close-button"><i class="close-icon"></i></div>
+    </div>
+</div>
+
+<!--3D islemlerinde Iframe icerik basicam -->
+<div class="form-warnings iframeWarning ems-none">
+    <div class="warning-content-wrapper">
+        <div class="iframe-content">
+            <p></p>
+            <div></div>
+            <iframe id="bankiframe" frameborder="0" height="800px" width="100%"></iframe>
+        </div>
+        <div class="form-close-button"><i class="close-icon"></i></div>
     </div>
 </div>
 
@@ -1261,6 +1304,51 @@
             </div>
         </div>
     </div>
+</script>
+
+
+<script id="paymentCompletedTemplate" type="text/template">
+<div class="end-of-payment-summary">
+
+    <h1>Thank you!</h1>
+    <h2>You successfully completed your reservation </h2>
+
+    <h3>We will send you a confirmation email with your electronic receipt shortly.</h3>
+
+    <div class="reservationId-wrapper">
+        <p>Your Reservation ID</p>
+        <span>{{reservationId}}</span>
+    </div>
+
+    <div class="booking-summary-wrapper">
+        <h4 class="booking-summary-title">Booking Summary</h4>
+        <span class="airport">Kepler Club, {{airport}} </span>
+        <span class="terminal-area">{{area}}</span>
+
+        <div class="all-info-wrapper">
+            <div class="info-title-wrapper check-in-out-icon-bg">
+                <div class="info-title"><p>Check-in / Check-out-Day</p></div>
+            </div>
+            <span>{{checkInDate}} - {{checkOutDate}}</span>
+        </div><!--all-info-wrapper bitti-->
+
+        <div class="all-info-wrapper">
+            <div class="info-title-wrapper stay-icon-bg">
+                <div class="info-title"><p>Length of Stay</p></div>
+            </div>
+            <span>{{checkInTime}} - {{checkOutTime}} ({{totalHours}} hrs)</span>
+        </div><!--all-info-wrapper bitti-->
+
+        <div class="all-info-wrapper">
+            <div class="info-title-wrapper guest-icon-bg">
+                <div class="info-title"><p>Guest</p></div>
+            </div>
+            <span>{{maleGuestNumber}} Male, {{femaleGuestNumber}} female</span>
+        </div><!--all-info-wrapper bitti-->
+
+    </div><!--booking-summary-wrapper bitti-->
+
+</div><!--end-of-payment-summary bitti-->
 </script>
 
 

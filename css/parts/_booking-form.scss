@@ -17,7 +17,7 @@
   position: fixed;
   visibility: hidden;
   width: 0px;
-  height: calc(100vh - 65px);
+  height: calc(100vh);
   overflow-y: auto;
   transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
   animation: 0.4s ease-out 0s 1 wipe-in-left;
@@ -25,7 +25,7 @@
   
 }
 
-@media (min-width: 1025px) {
+@media (min-width: 722px) {
   .booking-form {
     top: 0px;
     height: 100vh;
@@ -292,6 +292,7 @@
     text-align: center;
     color: #fff;
     cursor: pointer;
+    display: block;
   }
 
   .previous-step-button {
@@ -469,6 +470,129 @@
 }
 /*Kart Bilgileri alani css leri*/
 
+/*payment-completed-area REZERVASYON BITTI alani css leri*/
+.payment-completed-area {
+  @include centerer(400px);
+  margin-top: 50px;
+  .reservation-cancellation-wrapper {
+    margin-top: 40px;
+    margin-bottom: 20px;
+    h3 {
+      display: block;
+      font-size: 16px;
+      color: $g3color;
+      font-family: $fBold;
+      margin-bottom: 20px;
+    }
+    p {
+      color: $yazicolor;
+      font-size: 16px;
+    }
+  }
+}
+.end-of-payment-summary {
+  h1 {
+    display: block;
+    color: $morcolor;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: $fBold;
+  }
+  h2 {
+    display: block;
+    font-size: 18px;
+    color: $yazicolor;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  h3 {
+    display: block;
+    font-size: 18px;
+    color: $yazicolor;
+    text-align: center;
+    margin-bottom: 20px;
+  }
+  .reservationId-wrapper {
+    margin-top: 20px;
+    margin-bottom: 20px;
+    background-color: #ededed;
+    padding-top: 20px;
+    padding-bottom: 20px;
+    text-align: center;
+    p {
+      display: block;
+    }
+    span {
+      display: block;
+      color: $g3color;
+      font-family: $fBold;
+    }
+  }
+  .booking-summary-wrapper {
+    margin-top: 20px;
+    .booking-summary-title {
+      border-bottom: 1px solid #efeded;
+      padding-bottom: 10px;
+    }
+    .airport {
+      display: block;
+      font-family: $fBold;
+      color: $yazicolor;
+    }
+    .terminal-area {
+      display: block;
+      color: $yazicolor;
+      margin-top: 20px;
+      margin-bottom: 20px;
+    }
+    .all-info-wrapper {
+      border-bottom: 1px solid #efeded;
+      padding-bottom: 20px;
+      margin-top: 20px;
+      .info-title-wrapper {
+        min-width: 231.5px;
+        width: 100%;
+        max-width: 483px;
+        .info-title {
+          p {
+            font-size: 16px;
+            margin-left: 5px;
+            font-family: $fBold;
+            color: $morcolor;
+            text-align: left;
+          }
+        }
+      }
+      .check-in-out-icon-bg {
+        background-image: url(../images/calendar-icon.svg);
+        background-size: 32px 32px;
+        padding-left: 36px;
+        background-repeat: no-repeat;
+        background-position-y: bottom;
+      }
+      .stay-icon-bg {
+        background-image: url(../images/time-icon.svg);
+        background-size: 32px 32px;
+        padding-left: 36px;
+        background-repeat: no-repeat;
+        background-position-y: bottom;
+      }
+      .guest-icon-bg {
+        background-image: url(../images/adult-icon.svg);
+        background-size: 32px 32px;
+        padding-left: 36px;
+        background-repeat: no-repeat;
+        background-position-y: bottom;
+      }
+      span {
+        font-size: 16px;
+        font-family: $fRegular;
+        color: $yazicolor;
+        padding-left: 45px;
+      }
+    }
+  }
+}
 
 /*payment-card-area alani css leri*/
 .payment-card-area {
@@ -949,7 +1073,7 @@ svg {
 .steper-wrapper {
   .booking-step-container {
     margin: 30px auto;
-    max-width: 320px;
+    max-width: 335px;
     width: 100%;
     display: flex;
     flex-direction: row;
@@ -2060,4 +2184,54 @@ svg {
   .ui-widget-shadow {
     -webkit-box-shadow: 0 0 5px #666;
     box-shadow: 0 0 5px #666; }
+}
+
+/*mobile eklemeler*/
+
+@media (max-width: 721px) {
+  .booking-form-animate .booking-form {
+    min-width: auto;
+    max-width: none;
+    width: 100%;
+  }
+  .book-session-first-step, #booking-info-summary-content, .unit-detail-area, .guest-info-form-area, .payment-card-area, .payment-completed-area  {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+  .unit-detail-area {
+    max-width: 370px !important;
+  }
+  .datepicker-ready #ui-datepicker-div {
+    width: 100%;
+  }
+  #ui-datepicker-div {
+    padding: 15px !important;
+  }
+  .datepicker-ready #ui-datepicker-div .ui-widget-header {
+    margin-top: 60px !important;
+  }
+  .ui-datepicker .ui-datepicker-title {
+    margin: 0 0;
+    font-size: 16px;
+  }
+}
+@media only screen and (min-width: 1200px) and (max-width: 1440px) {
+  .datepicker-ready #ui-datepicker-div {
+    width: 60%;
+  }
+}
+@media only screen and (min-width: 1000px) and (max-width: 1199px) {
+  .datepicker-ready #ui-datepicker-div {
+    width: 72%;
+  }
+}
+@media only screen and (min-width: 800px) and (max-width: 999px) {
+  .datepicker-ready #ui-datepicker-div {
+    width: 88%;
+  }
+}
+@media only screen and (min-width: 722px) and (max-width: 799px) {
+  .datepicker-ready #ui-datepicker-div {
+    width: 95%;
+  }
 }

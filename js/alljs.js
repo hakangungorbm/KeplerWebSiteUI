@@ -419,7 +419,7 @@ $('.navbar-toggle').click(function(e) {
 
 
 /*BOOKING FORM ACMA */
-$('.book-session-button').click(function(e) {
+$('.book-session-button, .book-session-mobile-button').click(function(e) {
 
   if($('#booking-form-wrapper').hasClass('booking-form-animate')) {
     $('#booking-form-wrapper').removeClass('booking-form-animate');
@@ -478,3 +478,5 @@ e.preventDefault();
 
 
 });// document ready bitti
+
+$('.fancybox').fancybox();

@@ -183,7 +183,11 @@
   .sStylerWrp_select .icon-select-active {
     display: none; }
 
-
+    .setting-capacity{
+      display: none;
+      color: rgb(81, 78, 255);
+      padding-left: 42px;
+    }
 
 
 

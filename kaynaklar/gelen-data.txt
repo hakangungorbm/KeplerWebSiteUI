@@ -1,0 +1,80 @@
+[
+    {
+        "name": "Merkez Bölge",
+        "code": "BR001",
+        "locationId": "27a9f9c7-c509-402e-9bd5-0be285b8a550",
+        "areas": [
+            {
+                "name": "After Passport Control",
+                "areaId": "ace09f63-b173-48a7-2284-08dbb767564c"
+            },
+            {
+                "name": "Marvel",
+                "areaId": "538383b6-5a02-4992-60a6-08dbbf4c2884"
+            },
+            {
+                "name": "45",
+                "areaId": "d853d645-3af3-4a4e-60a7-08dbbf4c2884"
+            }
+        ],
+        "roomInfoList": [
+            {
+                "roomCategoryId": "1f6ba4eb-6496-46e0-919d-08db38f8af30",
+                "name": "Kabin / Cabin",
+                "capacity": 1,
+                "price": 10.714285714285714,
+                "rawPrice": 12,
+                "discountRate": 0,
+                "vateRate": 10,
+                "accommodationRate": 2,
+                "currencyCode": "TL",
+                "currencyId": "63fc9654-c9b9-4e3e-2e23-08db35051060"
+            },
+            {
+                "roomCategoryId": "5c00e9cc-7aa7-42c9-919e-08db38f8af30",
+                "name": "Oda / Room",
+                "capacity": 1,
+                "price": 12.499999999999998,
+                "rawPrice": 14,
+                "discountRate": 0,
+                "vateRate": 10,
+                "accommodationRate": 2,
+                "currencyCode": "TL",
+                "currencyId": "63fc9654-c9b9-4e3e-2e23-08db35051060"
+            }
+        ]
+    },
+    {
+        "name": "Sabiha Gökçen",
+        "code": "SG",
+        "locationId": "d73d6267-b792-4a38-824e-d271cbdcaa9b",
+        "areas": [
+            {
+                "name": "Before Passport Control",
+                "areaId": "a7936ca0-856f-4db4-94f2-08db9d0522ac"
+            },
+            {
+                "name": "After Passport Control",
+                "areaId": "768c9d8a-4bf9-4f0c-d210-08db9d55c9b3"
+            },
+            {
+                "name": "Giþe",
+                "areaId": "d071954c-21a7-47fa-60a8-08dbbf4c2884"
+            }
+        ],
+        "roomInfoList": [
+            {
+                "roomCategoryId": "1f6ba4eb-6496-46e0-919d-08db38f8af30",
+                "name": "Kabin / Cabin",
+                "capacity": 1,
+                "price": 10.714285714285714,
+                "rawPrice": 12,
+                "discountRate": 0,
+                "vateRate": 10,
+                "accommodationRate": 2,
+                "currencyCode": "EUR",
+                "currencyId": "75a73287-1606-4f8f-6bf0-08db518aa90a"
+            }
+        ]
+    }
+]

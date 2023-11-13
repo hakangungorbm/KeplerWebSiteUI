@@ -237,6 +237,9 @@
 .navbar-nav {
   padding-top: 7px; }
 
+.navbar-fixed-top {
+  z-index: 4 !important; }
+
 .navbar-fixed-top .navbar-collapse {
   max-height: 100% !important; }
 
@@ -262,11 +265,23 @@
   background-size: 130px 45px !important;
   width: 130px !important; }
 
+@media (max-width: 768px) {
+  .navbar-wrapper {
+    height: calc(100vh - 230px);
+    animation: 1.3s ease-out 0s 1 mobileMenuOpenFromLeft; } }
+@media only screen and (min-width: 769px) and (max-width: 881px) {
+  .navbar-wrapper {
+    height: calc(100vh - 62px);
+    animation: 1.3s ease-out 0s 1 mobileMenuOpenFromLeft; } }
+@media only screen and (min-width: 882px) and (max-width: 1198px) {
+  .navbar-wrapper {
+    height: calc(100vh - 62px);
+    animation: 1.3s ease-out 0s 1 mobileMenuOpenFromLeft; } }
 @media (max-width: 1198px) {
   .navbar-nav {
     padding-top: 70px; }
     .navbar-nav li {
-      margin-bottom: 45px; }
+      margin-bottom: 35px; }
       .navbar-nav li a {
         font-size: 22px !important;
         font-family: "TTHoves-Light", arial, sans-serif;
@@ -309,10 +324,6 @@
     background-image: url(../images/kepler-top-logo.svg) !important;
     background-size: 90px 30px !important;
     width: 90px !important; }
-
-  .navbar-wrapper {
-    height: calc(100vh - 65px);
-    animation: 1.3s ease-out 0s 1 mobileMenuOpenFromLeft; }
 
   .navbar-nav {
     margin: 0px !important; }
@@ -2589,15 +2600,16 @@
     margin-right: auto;
     overflow: hidden;
     margin-bottom: 10px; }
-  .gallery-block-wrapper figure {
+  .gallery-block-wrapper .fancybox {
     margin-left: 0px;
     margin-right: 0px;
     margin-top: 0px;
     margin-bottom: 0px;
     max-height: 760px;
     overflow: hidden;
+    display: block;
     cursor: pointer; }
-    .gallery-block-wrapper figure::after {
+    .gallery-block-wrapper .fancybox::after {
       content: '';
       display: block;
       width: 100%;
@@ -2901,13 +2913,13 @@
   position: fixed;
   visibility: hidden;
   width: 0px;
-  height: calc(100vh - 65px);
+  height: calc(100vh);
   overflow-y: auto;
   transition: all 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
   animation: 0.4s ease-out 0s 1 wipe-in-left;
   padding-bottom: 100px; }
 
-@media (min-width: 1025px) {
+@media (min-width: 722px) {
   .booking-form {
     top: 0px;
     height: 100vh;
@@ -3146,7 +3158,8 @@
     line-height: 42px;
     text-align: center;
     color: #fff;
-    cursor: pointer; }
+    cursor: pointer;
+    display: block; }
   .continue-button-wrapper .previous-step-button {
     position: relative;
     display: flex;
@@ -3301,6 +3314,109 @@
     margin-bottom: 25px; }
 
 /*Kart Bilgileri alani css leri*/
+/*payment-completed-area REZERVASYON BITTI alani css leri*/
+.payment-completed-area {
+  width: 100%;
+  max-width: 400px;
+  margin-right: auto;
+  margin-left: auto;
+  margin-top: 50px; }
+  .payment-completed-area .reservation-cancellation-wrapper {
+    margin-top: 40px;
+    margin-bottom: 20px; }
+    .payment-completed-area .reservation-cancellation-wrapper h3 {
+      display: block;
+      font-size: 16px;
+      color: #03363d;
+      font-family: "TTHoves-Bold", arial, sans-serif;
+      margin-bottom: 20px; }
+    .payment-completed-area .reservation-cancellation-wrapper p {
+      color: #1D3243;
+      font-size: 16px; }
+
+.end-of-payment-summary h1 {
+  display: block;
+  color: #453D98;
+  margin-bottom: 20px;
+  text-align: center;
+  font-family: "TTHoves-Bold", arial, sans-serif; }
+.end-of-payment-summary h2 {
+  display: block;
+  font-size: 18px;
+  color: #1D3243;
+  text-align: center;
+  margin-bottom: 20px; }
+.end-of-payment-summary h3 {
+  display: block;
+  font-size: 18px;
+  color: #1D3243;
+  text-align: center;
+  margin-bottom: 20px; }
+.end-of-payment-summary .reservationId-wrapper {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  background-color: #ededed;
+  padding-top: 20px;
+  padding-bottom: 20px;
+  text-align: center; }
+  .end-of-payment-summary .reservationId-wrapper p {
+    display: block; }
+  .end-of-payment-summary .reservationId-wrapper span {
+    display: block;
+    color: #03363d;
+    font-family: "TTHoves-Bold", arial, sans-serif; }
+.end-of-payment-summary .booking-summary-wrapper {
+  margin-top: 20px; }
+  .end-of-payment-summary .booking-summary-wrapper .booking-summary-title {
+    border-bottom: 1px solid #efeded;
+    padding-bottom: 10px; }
+  .end-of-payment-summary .booking-summary-wrapper .airport {
+    display: block;
+    font-family: "TTHoves-Bold", arial, sans-serif;
+    color: #1D3243; }
+  .end-of-payment-summary .booking-summary-wrapper .terminal-area {
+    display: block;
+    color: #1D3243;
+    margin-top: 20px;
+    margin-bottom: 20px; }
+  .end-of-payment-summary .booking-summary-wrapper .all-info-wrapper {
+    border-bottom: 1px solid #efeded;
+    padding-bottom: 20px;
+    margin-top: 20px; }
+    .end-of-payment-summary .booking-summary-wrapper .all-info-wrapper .info-title-wrapper {
+      min-width: 231.5px;
+      width: 100%;
+      max-width: 483px; }
+      .end-of-payment-summary .booking-summary-wrapper .all-info-wrapper .info-title-wrapper .info-title p {
+        font-size: 16px;
+        margin-left: 5px;
+        font-family: "TTHoves-Bold", arial, sans-serif;
+        color: #453D98;
+        text-align: left; }
+    .end-of-payment-summary .booking-summary-wrapper .all-info-wrapper .check-in-out-icon-bg {
+      background-image: url(../images/calendar-icon.svg);
+      background-size: 32px 32px;
+      padding-left: 36px;
+      background-repeat: no-repeat;
+      background-position-y: bottom; }
+    .end-of-payment-summary .booking-summary-wrapper .all-info-wrapper .stay-icon-bg {
+      background-image: url(../images/time-icon.svg);
+      background-size: 32px 32px;
+      padding-left: 36px;
+      background-repeat: no-repeat;
+      background-position-y: bottom; }
+    .end-of-payment-summary .booking-summary-wrapper .all-info-wrapper .guest-icon-bg {
+      background-image: url(../images/adult-icon.svg);
+      background-size: 32px 32px;
+      padding-left: 36px;
+      background-repeat: no-repeat;
+      background-position-y: bottom; }
+    .end-of-payment-summary .booking-summary-wrapper .all-info-wrapper span {
+      font-size: 16px;
+      font-family: "TTHoves-Regular", arial, sans-serif;
+      color: #1D3243;
+      padding-left: 45px; }
+
 /*payment-card-area alani css leri*/
 .payment-card-area {
   width: 100%;
@@ -3707,7 +3823,7 @@
 
 .steper-wrapper .booking-step-container {
   margin: 30px auto;
-  max-width: 320px;
+  max-width: 335px;
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -4559,6 +4675,44 @@
   -webkit-box-shadow: 0 0 5px #666;
   box-shadow: 0 0 5px #666; }
 
+/*mobile eklemeler*/
+@media (max-width: 721px) {
+  .booking-form-animate .booking-form {
+    min-width: auto;
+    max-width: none;
+    width: 100%; }
+
+  .book-session-first-step, #booking-info-summary-content, .unit-detail-area, .guest-info-form-area, .payment-card-area, .payment-completed-area {
+    padding-left: 20px;
+    padding-right: 20px; }
+
+  .unit-detail-area {
+    max-width: 370px !important; }
+
+  .datepicker-ready #ui-datepicker-div {
+    width: 100%; }
+
+  #ui-datepicker-div {
+    padding: 15px !important; }
+
+  .datepicker-ready #ui-datepicker-div .ui-widget-header {
+    margin-top: 60px !important; }
+
+  .ui-datepicker .ui-datepicker-title {
+    margin: 0 0;
+    font-size: 16px; } }
+@media only screen and (min-width: 1200px) and (max-width: 1440px) {
+  .datepicker-ready #ui-datepicker-div {
+    width: 60%; } }
+@media only screen and (min-width: 1000px) and (max-width: 1199px) {
+  .datepicker-ready #ui-datepicker-div {
+    width: 72%; } }
+@media only screen and (min-width: 800px) and (max-width: 999px) {
+  .datepicker-ready #ui-datepicker-div {
+    width: 88%; } }
+@media only screen and (min-width: 722px) and (max-width: 799px) {
+  .datepicker-ready #ui-datepicker-div {
+    width: 95%; } }
 .locations-effect-wrapper {
   background-color: #453D98; }
   .locations-effect-wrapper .area-wrapper {
@@ -4847,6 +5001,111 @@
     max-width: 540px;
     margin-bottom: 20px;
     margin-top: 20px; } }
+.all-reviews-area__item {
+  position: relative;
+  width: 100%;
+  padding-left: 55px;
+  max-width: 420px;
+  margin-top: 50px;
+  margin-bottom: 50px;
+  min-height: 240px;
+  overflow: hidden; }
+
+@media (min-width: 768px) {
+  .review-area-main-wrapper {
+    padding-top: 100px;
+    padding-bottom: 100px; } }
+@media (min-width: 768px) {
+  .review-area-main-wrapper .container .row {
+    display: flex;
+    justify-content: center;
+    align-items: center; } }
+@media (max-width: 767px) {
+  .review-area-main-wrapper {
+    padding-top: 50px;
+    padding-bottom: 50px; }
+
+  .all-reviews-area .all-reviews-area__content span {
+    font-size: 20px !important;
+    line-height: 32px !important; } }
+/*REVIEWER SLIDER*/
+.all-reviews-area {
+  width: 100%;
+  position: relative; }
+  .all-reviews-area .review-active .all-reviews-area__content > * {
+    opacity: 1;
+    transform: none; }
+    .all-reviews-area .review-active .all-reviews-area__content > *:nth-child(1) {
+      transition-delay: 0.3s; }
+    .all-reviews-area .review-active .all-reviews-area__content > *:nth-child(2) {
+      transition-delay: 0.4s; }
+    .all-reviews-area .review-active .all-reviews-area__content > *:nth-child(3) {
+      transition-delay: 0.5s; }
+    .all-reviews-area .review-active .all-reviews-area__content > *:nth-child(4) {
+      transition-delay: 0.6s; }
+    .all-reviews-area .review-active .all-reviews-area__content > *:nth-child(5) {
+      transition-delay: 0.7s; }
+    .all-reviews-area .review-active .all-reviews-area__content > *:nth-child(6) {
+      transition-delay: 0.8s; }
+    .all-reviews-area .review-active .all-reviews-area__content > *:nth-child(7) {
+      transition-delay: 0.9s; }
+    .all-reviews-area .review-active .all-reviews-area__content > *:nth-child(8) {
+      transition-delay: 1s; }
+    .all-reviews-area .review-active .all-reviews-area__content > *:nth-child(9) {
+      transition-delay: 1.1s; }
+    .all-reviews-area .review-active .all-reviews-area__content > *:nth-child(10) {
+      transition-delay: 1.2s; }
+    .all-reviews-area .review-active .all-reviews-area__content > *:nth-child(11) {
+      transition-delay: 1.3s; }
+    .all-reviews-area .review-active .all-reviews-area__content > *:nth-child(12) {
+      transition-delay: 1.4s; }
+    .all-reviews-area .review-active .all-reviews-area__content > *:nth-child(13) {
+      transition-delay: 1.5s; }
+    .all-reviews-area .review-active .all-reviews-area__content > *:nth-child(14) {
+      transition-delay: 1.6s; }
+    .all-reviews-area .review-active .all-reviews-area__content > *:nth-child(15) {
+      transition-delay: 1.7s; }
+  .all-reviews-area .all-reviews-area__img {
+    overflow: hidden;
+    height: 85px;
+    opacity: 1;
+    transition: all .3s; }
+    .all-reviews-area .all-reviews-area__img .reviewer-image {
+      float: left;
+      display: block;
+      max-width: 80px; }
+    .all-reviews-area .all-reviews-area__img .image-detail-text-area {
+      float: left;
+      padding-left: 20px; }
+      .all-reviews-area .all-reviews-area__img .image-detail-text-area .title {
+        margin-bottom: 0px; }
+      .all-reviews-area .all-reviews-area__img .image-detail-text-area .location {
+        margin-bottom: 5px; }
+  .all-reviews-area .all-reviews-area__content > * {
+    opacity: 1;
+    transform: translateY(25px);
+    transition: all .4s; }
+  .all-reviews-area .all-reviews-area__content {
+    margin-bottom: 20px; }
+    .all-reviews-area .all-reviews-area__content span {
+      font-family: "TTHoves-Regular", arial, sans-serif;
+      font-size: 24px;
+      width: 100%;
+      max-width: 540px;
+      display: inline-block;
+      line-height: 32px; }
+  .all-reviews-area .quote-icon {
+    width: 55px;
+    height: 42px;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    background-image: url(../images/quote-icon.svg);
+    background-size: 55px 42px;
+    background-repeat: repeat;
+    opacity: 1;
+    transition-delay: .3s; }
+
 /***********************/
 *, body, html {
   padding: 0;

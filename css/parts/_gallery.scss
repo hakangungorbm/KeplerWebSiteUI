@@ -21,13 +21,14 @@
     overflow: hidden;
     margin-bottom: 10px;
   }
-  figure {
+  .fancybox {
       margin-left: 0px;
       margin-right: 0px;
       margin-top: 0px;
       margin-bottom: 0px;
       max-height: 760px;
       overflow: hidden;
+      display: block;
       cursor: pointer;
       &::after {
         content: '';
