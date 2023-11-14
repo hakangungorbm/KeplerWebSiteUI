@@ -50,11 +50,6 @@ $(document).on('click', '.bi-button-back', function (e) {
     step(1);
 });
 
-$(".comfirm-button").on("click", function (e) {
-    e.preventDefault();
-    step(2);
-});
-
 $(".toGuestInfo .continue-button").on("click", function (e) {
     e.preventDefault();
     step(3);
@@ -1246,7 +1241,9 @@ var guest = {
         gender: "",
         email: "",
         phoneNumber: "",
-        birthDate: ""
+        birthDate: "",
+        locationId:"",
+        reservationList:[]
     },
     skipGuestInfo() {
         // Kisinin forma doldurdugu verileri model'ime aktariyorum.
@@ -1257,15 +1254,16 @@ var guest = {
         info.email = $(guest.inputs.email.element).val();
         info.phoneNumber = $(guest.inputs.countryCode.element).val().substring(1) + $(guest.inputs.mobile.element).val();
         info.birthDate = $(guest.inputs.birthdate.element).val();
+        info.locationId = selectedLocation.airport.locationId;
+        info.reservationList = rezervationIdList.info.reservationList;
 
     },
     //MISAFIR BILGILERINI ALIP MODELE KAYDEDIYORUM
-    prepareReservation() {
+    addPassenger() {
         $.ajax({
             type: "POST",
-            url: "http://localhost:44385/api/KeplerService/AddRezervation",
+            url: "http://localhost:44385/api/KeplerService/AddPassenger",
             data: JSON.stringify({
-                rezervasyon: rezervasyonBilgileri.info,
                 guest: guest.passenger,
             }),
             contentType: 'application/json',
@@ -1282,7 +1280,7 @@ var guest = {
                     //Loading iconu kaldir
                     $("body").removeClass(cls.isLoading);
 
-                    //Kisi bilgileri adimina gec
+                    //Kredi karti bilgileri adimina gec
                     step(4);
 
 
@@ -1301,11 +1299,11 @@ var guest = {
                     if (resp.responseJSON.errors[0].message != '' || resp.responseJSON.errors[0].message != null) {
                         parsers.errorParser(resp.responseJSON.errors[0].message);
                     } else {
-                        parsers.errorParser("Rezervasyon olusturmada hata oldu! Error!");
+                        parsers.errorParser("Yolcu bilgilerini kaydederken hata olustu! Error!");
                         step(3);
                     }
                 } else {
-                    parsers.errorParser("Rezervasyon adimina girilemedi!");
+                    parsers.errorParser("Yolcu bilgileri kaydetme adimina girilemedi!");
                     step(3);
                 }
 
@@ -1427,11 +1425,9 @@ setTimeout(function () {
 $(".toCreditCard .continue-button").on("click", function (e) {
     $("body").addClass("isLoading");
     guest.skipGuestInfo();
-    guest.prepareReservation();
+    guest.addPassenger();
     e.preventDefault();
 });
-
-
 
 
 
@@ -1478,7 +1474,8 @@ var creditCart = {
         cvvCode: "",
         installment: 0,
         cardType: "Master",
-        manufacturerCard: true
+        manufacturerCard: true,
+        reservationList: []
     },
     skipPaymentInfo() {
         // Kisinin forma doldurdugu verileri model'ime aktariyorum.
@@ -1489,6 +1486,7 @@ var creditCart = {
         info.expireMonth = parseInt($(creditCart.inputs.expiration.element).val().substring(0, 2));
         info.expireYear = parseInt($(creditCart.inputs.expiration.element).val().substring(5, 9));
         info.cvvCode = $(creditCart.inputs.cvc.element).val();
+        info.reservationList = rezervationIdList.info.reservationList;
     },
     //KREDI KARTI BILGILERINI ALDIM BANKAYA GIDIYORUM
     preparePayment() {
@@ -1838,21 +1836,30 @@ $(".comfirm-button").on("click", function () {
 });
 
 
+var rezervationIdList = {
+    // Models
+    info: {
+        reservationList: []
+    },
+}
+
+
+
 /* Backend'in kullanacagi bilgileri SETLIYORUM (application ID zaten Backend'de burada o bilgi haric digerlerini aldim.) */
 
 var rezervasyonBilgileri = {
     info: {
         plannedEntryTime: "",
         plannedExitTime: "",
-        locationId: "locationId",
+        locationId: "",
         areaId: "",
         roomTypeId: "",
         rawPrice: 0,
         amount: 0,
         currencyId: "",
-        maleCount: "",
-        femaleCount: "",
-        unitCount: ""
+        maleCount: 0,
+        femaleCount: 0,
+        unitCount: 0
     },
     prepareBookingInfo() {
         var info = this.info;
@@ -1874,6 +1881,59 @@ var rezervasyonBilgileri = {
     generatePlannedExitTime(day, time) {
         return day.concat("T", time, ":00.000");
     },
+
+    //ILK ADIMDA SECILEN BILGILERI BIR USTTEKI METHOD DA MODELE SETLEYIP, ALTTAKI METHOD DA REZERVASYON OLUSABILIYOR MU DIYE BACKENDE GONDERIYORUM
+    tryForReservation() {
+        $.ajax({
+            type: "POST",
+            url: "http://localhost:44385/api/KeplerService/AddReservation",
+            data: JSON.stringify({
+                rezervasyon: rezervasyonBilgileri.info
+            }),
+            contentType: 'application/json',
+            crossDomain: true,
+            dataType: 'json',
+            success: function (resp) {
+
+                if (resp.success) {
+
+                    // Basarili ise backendden rezervasyon id'yi setliyorum.
+                    rezervationIdList.info.reservationList = response.data;
+
+                    //Loading iconu kaldir
+                    $("body").removeClass(cls.isLoading);
+
+                    //Ozet gosterilen kısma geç
+                    step(2);
+
+
+                } else {
+
+                    //DIKKAT - hata olusmussa response.message keyinin kesin dolu gelmesi lazim.
+                    $("body").removeClass("isLoading");
+                    parsers.errorParser(resp.message);
+                    step(1);
+                }
+
+            },
+            error: function (resp) {
+                if (resp != null) {
+                    $("body").removeClass(cls.isLoading);
+                    if (resp.responseJSON.errors[0].message != '' || resp.responseJSON.errors[0].message != null) {
+                        parsers.errorParser(resp.responseJSON.errors[0].message);
+                    } else {
+                        parsers.errorParser("Rezervasyon olusturmada hata oldu! Error!");
+                        step(1);
+                    }
+                } else {
+                    parsers.errorParser("Rezervasyon adimina girilemedi!");
+                    step(1);
+                }
+
+            },
+        });
+    },
+
     init() {
         this.prepareBookingInfo();
     }
@@ -1883,8 +1943,9 @@ setTimeout(function () {
     rezervasyonBilgileri.init();
 }, 10);
 
-$(".toGuestInfo .continue-button").on("click", function () {
+$(".comfirm-button .continue-button").on("click", function () {
     rezervasyonBilgileri.prepareBookingInfo();  // backend in ihtiyaci olan rezervasyon detayini iceren data model'i hazirliyorum.
+    rezervasyonBilgileri.tryForReservation();  // rezervasyon yapmak icin backende istek atiyorum
 });
 
 /* REZERVASYON TAMAMLANDI */
