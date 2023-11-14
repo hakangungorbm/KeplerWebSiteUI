@@ -242,7 +242,7 @@ var airport = {
                         selectedLocation.room.accommodationRate = response[airportIndex].roomInfoList[roomIndex].accommodationRate;
                         selectedLocation.room.currencyCode = response[airportIndex].roomInfoList[roomIndex].currencyCode;
                         selectedLocation.room.currencyId = response[airportIndex].roomInfoList[roomIndex].currencyId;
-                        selectedLocation.room.type = response[airportIndex].roomInfoList[roomIndex].type;
+                        selectedLocation.room.type = response[airportIndex].roomInfoList[roomIndex].type || 'room';
 
                         if ( selectedLocation.room.type === 'room' ) {
                             $('.guest-adult').removeClass('ems-none');
