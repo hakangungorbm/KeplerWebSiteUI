@@ -227,41 +227,63 @@
             <small>Maximum capacity for your selection category: <span id="capacity">0</span></small>
         </div>
 
-        <div class="setting-description room-adult-icon-bg">
-            <div class="setting-description-text">
-            <p>Number of Adults</p>
-            </div>
-        </div>
-
-        <div class="guest-container">
-            <div class="info-wrapper">
-                <div class="input-title-wrapper">
-                    <div class="input-info"><span class="maleNumber">0</span>Male,<span class="femaleNumber">0</span>Female</div>
+        <div class="guest-adult ems-none">
+            <div class="setting-description room-adult-icon-bg">
+                <div class="setting-description-text">
+                <p>Number of Adults</p>
                 </div>
-                <div class="guest-family-info ems-none">
-                    <div class="family-icon"></div>
-                    <div class="family-info">
-                    <div class="family-info-title">Bu lokasyonumuz Aile Odası sunmaktadır!</div><div class="family-info-phrase"> Rezervasyon için lütfen <a href="tel:+902162124212">+90 (216) 212 4 212</a> numaralı telefonu arayın veya girişte bulunan konaklama müdürümüzle iletişime geçin.</div>
+            </div>
+            <div class="guest-container ">
+                <div class="info-wrapper">
+                    <div class="input-title-wrapper">
+                        <div class="input-info"><span class="maleNumber">0</span>Male,<span class="femaleNumber">0</span>Female</div>
+                    </div>
+                    <div class="guest-family-info ems-none">
+                        <div class="family-icon"></div>
+                        <div class="family-info">
+                        <div class="family-info-title">Bu lokasyonumuz Aile Odası sunmaktadır!</div><div class="family-info-phrase"> Rezervasyon için lütfen <a href="tel:+902162124212">+90 (216) 212 4 212</a> numaralı telefonu arayın veya girişte bulunan konaklama müdürümüzle iletişime geçin.</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="counter-container">
+                    <div class="counter-wrapper">
+                        <div class="button-title">Male</div>
+                            <div class="button-container">
+                                <div rel="dec" class="button-counter">-</div>
+                                <input autocomplete="off" data-target=".maleNumber" type="number" max="0" id="male" value="0" class="ems-none">
+                                <span class="maleNumber">0</span>
+                                <div rel="inc" class="button-counter">+</div>
+                            </div>
+                    </div>
+                    <div class="counter-wrapper">
+                        <div class="button-title">Female</div>
+                        <div class="button-container">
+                            <div rel="dec" class="button-counter">-</div>
+                            <input autocomplete="off" data-target=".femaleNumber" type="number" max="0" id="female" value="0" class="ems-none">
+                            <span class="femaleNumber">0</span>
+                            <div rel="inc" class="button-counter">+</div>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="counter-container">
-                <div class="counter-wrapper">
-                    <div class="button-title">Male</div>
-                        <div class="button-container">
-                            <div rel="dec" class="button-counter">-</div>
-                            <input autocomplete="off" data-target=".maleNumber" type="number" max="0" id="male" value="0" class="ems-none">
-                            <span class="maleNumber">0</span>
-                            <div rel="inc" class="button-counter">+</div>
-                        </div>
+        </div>
+
+        <div class="guest-unit ems-none">
+            <div class="setting-description room-adult-icon-bg">
+                <div class="setting-description-text">
+                <p>Number of Unit</p>
                 </div>
-                <div class="counter-wrapper">
-                    <div class="button-title">Female</div>
-                    <div class="button-container">
-                        <div rel="dec" class="button-counter">-</div>
-                        <input autocomplete="off" data-target=".femaleNumber" type="number" max="0" id="female" value="0" class="ems-none">
-                        <span class="femaleNumber">0</span>
-                        <div rel="inc" class="button-counter">+</div>
+            </div>
+            <div class="guest-container guest-container-unit">
+                <div class="counter-container">
+                    <div class="counter-wrapper">
+                        <div class="button-title">Unit</div>
+                            <div class="button-container">
+                                <div rel="dec" class="button-counter">-</div>
+                                <input autocomplete="off" data-target=".unitNumber" type="number" max="0" id="unit" value="0" class="ems-none">
+                                <span class="unitNumber">0</span>
+                                <div rel="inc" class="button-counter">+</div>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -400,6 +422,7 @@
     <div class="booking-info-product-wrapper">
         <div class="male-guest-content"></div>
         <div class="female-guest-content"></div>
+        <div class="unit-guest-content"></div>
     </div>
 </section>
 </div><!--unit-detail-area-->
@@ -561,10 +584,9 @@
     </div>
 
     <div class="booking-info-product-wrapper">
-    <div class="male-guest-content"></div>
-
-    <div class="female-guest-content"></div>
-
+        <div class="male-guest-content"></div>
+        <div class="female-guest-content"></div>
+        <div class="unit-guest-content"></div>
     </div>
 
     <div class="amount-summary-content"></div>  <!--Buraya template ten odeme ozeti gelecek-->
@@ -1237,7 +1259,7 @@
         <div class="booking-info-order-container">
             <div class="order-wrapper">
                 <div class="bi-order-amount-container">
-                    <div class="bi-order-amount"><div><span class="bi-order-total-guest">{{toplamYolcu}}</span> adult(s) x <span class="bi-order-guest-price"></span> {{paraBirimi}}</div></div>
+                    <div class="bi-order-amount"><div><span class="bi-order-total-guest">{{toplamYolcu}}</span> {{if guestType|equals>room}}adult(s){{/if}}{{if guestType|equals>cabin}}unit{{/if}} x <span class="bi-order-guest-price"></span> {{paraBirimi}}</div></div>
                         <div><span class="bi-order-subtotal-price">{{ilkTutar}}</span> {{paraBirimi}}</div>
                 </div>
                 <div class="bi-order-total-container">
@@ -1296,6 +1318,19 @@
 <script id="femaleGuestTemplate" type="text/template">
     <div class="booking-info-product"><div class="bi-product-image"><img src="images/product-for-female.png"></div>
         <div class="bi-product-info"><div class="bi-product-title"> Nap Session ( <span class="bi-product-gender"> Female </span>) x {{femaleGuestNumber}}</div>
+            <ul class="bi-product-specs">
+                <li>Fully Equipped Kep</li>
+                <li>Reserved for your use only</li>
+            </ul>
+            <div class="bi-product-fee"><div class="bi-prodcut-hour"><span class="bi-hour">{{hour}} x 24</span>hrs x<span class="bi-unit-price">  {{price}} </span> {{currencyCode}} / 30 min</div>
+            </div>
+        </div>
+    </div>
+</script>
+
+<script id="unitGuestTemplate" type="text/template">
+    <div class="booking-info-product"><div class="bi-product-image"><img src="images/product-for-unit.png"></div>
+        <div class="bi-product-info"><div class="bi-product-title"> Nap Session ( <span class="bi-product-gender"> Unit </span>) x {{unitGuestNumber}}</div>
             <ul class="bi-product-specs">
                 <li>Fully Equipped Kep</li>
                 <li>Reserved for your use only</li>

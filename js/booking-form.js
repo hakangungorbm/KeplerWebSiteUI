@@ -91,10 +91,11 @@ $(".book-session-first-step").on('DOMSubtreeModified', debounce(function () {
     var room = selectedLocation.room.name;
     var male = parseInt(product.male);
     var female = parseInt(product.female);
+    var unit = parseInt(product.unit);
     var checkIn = date.checkIn.time;
     var checkOut = date.checkOut.time;
 
-    if (airport && area && room && (male > 0 || female > 0) && checkIn && checkOut) {
+    if (airport && area && room && (male > 0 || female > 0 || unit > 0) && checkIn && checkOut) {
         $('.comfirm-button').removeClass('disabled');
     } else {
         $('.comfirm-button').addClass('disabled');
@@ -195,6 +196,7 @@ var airport = {
                     var areaIndex = $areas.find('option:selected').index() - 1;
 
                     if (areaIndex != -1) {
+
                         selectedLocation.area.name = response[airportIndex].areas[areaIndex].name;
                         selectedLocation.area.areaId = response[airportIndex].areas[areaIndex].areaId;
                     }
@@ -217,7 +219,13 @@ var airport = {
                     $('#female').val(0);
                     $('.femaleNumber').text(0);
 
+                    $('#unit').attr('max', 0);
+                    $('#unit').val(0);
+
                     $('.setting-capacity').hide();
+
+                    $('.guest-adult').addClass('ems-none');
+                    $('.guest-unit').addClass('ems-none');
 
                     var airportIndex = $airports.find('option:selected').index() - 1;
                     var roomIndex = $rooms.find('option:selected').index() - 1;
@@ -234,11 +242,19 @@ var airport = {
                         selectedLocation.room.accommodationRate = response[airportIndex].roomInfoList[roomIndex].accommodationRate;
                         selectedLocation.room.currencyCode = response[airportIndex].roomInfoList[roomIndex].currencyCode;
                         selectedLocation.room.currencyId = response[airportIndex].roomInfoList[roomIndex].currencyId;
+                        selectedLocation.room.type = response[airportIndex].roomInfoList[roomIndex].type;
+
+                        if ( selectedLocation.room.type === 'room' ) {
+                            $('.guest-adult').removeClass('ems-none');
+                        } else if ( selectedLocation.room.type === 'cabin' ) {
+                            $('.guest-unit').removeClass('ems-none');
+                        }
 
                         $('.setting-capacity').show();
                         $('#capacity').text(selectedLocation.room.capacity);
                         $('#male').attr('max', selectedLocation.room.capacity);
                         $('#female').attr('max', selectedLocation.room.capacity);
+                        $('#unit').attr('max', selectedLocation.room.capacity);
 
                     }
 
@@ -471,6 +487,7 @@ var product = {
     },
     male: 0,
     female: 0,
+    unit: 0,
 
     setProductAmount(el) {
         var input = $(el).find("input");
@@ -497,9 +514,9 @@ var product = {
 
                 var capacity = selectedLocation.room.capacity;
 
-                if (type === 'inc' && (product.male + product.female) >= capacity) {
+                if (type === 'inc' && (input.attr('id') === 'male' || input.attr('id') === 'female') && (product.male + product.female) >= capacity) {
 
-                    if (input.attr('id') === 'male') {
+                    if ( input.attr('id') === 'male' ) {
 
                         var femaleValue = Math.max(0, $('#female').val() - 1);
 
@@ -508,7 +525,7 @@ var product = {
 
                         product.female = femaleValue;
 
-                    } else {
+                    } else if (input.attr('id') === 'female') {
 
                         var maleValue = Math.max(0, $('#male').val() - 1);
 
@@ -1713,6 +1730,25 @@ var bookingSummary = {
             $('.female-guest-content').addClass("ems-none");
         }
     },
+    unitGuestInfo() {
+        if (selectedLocation.airport.name !== "" && product.unit > 0) {  // unit misafir varsa
+
+            $('.unit-guest-content').removeClass("ems-none");
+
+            var unitGuestContext = {
+                unitGuestNumber: product.unit,
+                hour: date.totalHours,
+                price: selectedLocation.room.price.toFixed(2),
+                currencyCode: selectedLocation.room.currencyCode
+            };
+
+            var unitGuestTemplate = document.getElementById("unitGuestTemplate").firstChild.textContent;
+            $(".unit-guest-content").html(Mark.up(unitGuestTemplate, unitGuestContext));
+
+        } else {
+            $('.unit-guest-content').addClass("ems-none");
+        }
+    },
     bookingSummaryInfo() {
         if (selectedLocation.room.name !== "" && date.totalHours > 0) {
             $('.booking-info-summary-content').removeClass("ems-none");
@@ -1723,6 +1759,7 @@ var bookingSummary = {
                 checkOutDate: date.checkOut.day,
                 maleGuestNumber: product.male,
                 femaleGuestNumber: product.female,
+                unitGuestNumber: product.unit,
                 checkInTime: date.checkIn.time,
                 checkOutTime: date.checkOut.time,
                 totalHour: date.totalHours
@@ -1739,7 +1776,13 @@ var bookingSummary = {
             $('.amount-summary-content').removeClass("ems-none");
             var subTotal = 2 * date.totalHours * selectedLocation.room.price;
             var currencyCode = selectedLocation.room.currencyCode;
-            var totalGuest = parseInt(product.male) + parseInt(product.female);
+            var totalGuest = 0;
+            var guestType = selectedLocation.room.type;
+            if ( selectedLocation.room.type === 'room' ) {
+                totalGuest = parseInt(product.male) + parseInt(product.female);
+            } else if ( selectedLocation.room.type === 'cabin' ) {
+                totalGuest = parseInt(product.unit);
+            }
             var discountRate = selectedLocation.room.discountRate;
             var vateRate = selectedLocation.room.vateRate;
             var vatePrice = Number((subTotal * Number(vateRate) / 100).toFixed(2));
@@ -1748,6 +1791,7 @@ var bookingSummary = {
             var totalPrice = subTotal + vatePrice + accommodationPrice;
             info.amount = totalPrice;
             var amountSummaryContext = {
+                guestType: guestType,
                 toplamYolcu: totalGuest,
                 ilkTutar: subTotal.toFixed(2),
                 paraBirimi: currencyCode,
@@ -1768,6 +1812,7 @@ var bookingSummary = {
         this.bookingSummaryInfo();
         this.maleGuestInfo();
         this.femaleGuestInfo();
+        this.unitGuestInfo();
         this.amountSummaryInfo();
     }
 };
@@ -1777,8 +1822,17 @@ setTimeout(function () {
 }, 10);
 
 $(".comfirm-button").on("click", function () {
-    bookingSummary.maleGuestInfo();
-    bookingSummary.femaleGuestInfo();
+
+    $('.male-guest-content').addClass("ems-none");
+    $('.female-guest-content').addClass("ems-none");
+    $('.unit-guest-content').addClass("ems-none");
+
+    if ( selectedLocation.room.type === 'room' ) {
+        bookingSummary.maleGuestInfo();
+        bookingSummary.femaleGuestInfo();
+    } else if ( selectedLocation.room.type === 'cabin' ) {
+        bookingSummary.unitGuestInfo();
+    }
     bookingSummary.bookingSummaryInfo();
     bookingSummary.amountSummaryInfo();
 });
@@ -1797,7 +1851,8 @@ var rezervasyonBilgileri = {
         amount: 0,
         currencyId: "",
         maleCount: "",
-        femaleCount: ""
+        femaleCount: "",
+        unitCount: ""
     },
     prepareBookingInfo() {
         var info = this.info;
@@ -1811,6 +1866,7 @@ var rezervasyonBilgileri = {
         info.currencyId = selectedLocation.room.currencyId;
         info.maleCount = product.male;
         info.femaleCount = product.female;
+        info.unitCount = product.unit;
     },
     generatePlannedEntryTime(day, time) {
         return day.concat("T", time, ":00.000");
@@ -1849,7 +1905,8 @@ var rezervasyonTamamlandi = {
                 checkOutTime: date.checkOut.time,
                 totalHours: date.totalHours,
                 maleGuestNumber: product.male,
-                femaleGuestNumber: product.female
+                femaleGuestNumber: product.female,
+                unitGuestNumber: product.unit
             };
             var finishSummaryTemplate = document.getElementById("paymentCompletedTemplate").firstChild.textContent;
             $(".payment-completed-summary-content").html(Mark.up(finishSummaryTemplate, finishSummaryContext));
