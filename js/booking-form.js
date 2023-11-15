@@ -105,7 +105,6 @@ var airport = {
         $.ajax({
             type: "GET",
             url: "http://localhost:44385/api/KeplerService/Get?id=1",
-            url: "http://localhost/kepler.json",
             crossDomain: true,
             success: function (response) {
 
