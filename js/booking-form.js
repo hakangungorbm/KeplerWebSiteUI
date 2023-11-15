@@ -11,7 +11,9 @@ var selectedLocation = {
     room: {
         roomCategoryId: "",
         name: "",
-        capacity: 0,
+        unitCapacity: 0,
+        maleCapacity: 0,
+        femaleCapacity: 0,
         price: 0,
         rawPrice: 0,
         discountRate: 0,
@@ -103,20 +105,19 @@ var airport = {
         $.ajax({
             type: "GET",
             url: "http://localhost:44385/api/KeplerService/Get?id=1",
+            url: "http://localhost/kepler.json",
             crossDomain: true,
             success: function (response) {
 
                 // Set airports
                 var $airports = $('#airports');
 
-                response.map(function (item) {
+                response.webLocations.map(function (item) {
                     $airports.append('<option value="' + item.locationId + '">' + item.name + '</option>');
                 });
 
                 // Set areas and rooms on change
                 $airports.on('change', function () {
-
-                    $('.setting-capacity').hide();
 
                     var airportIndex = $airports.find('option:selected').index() - 1;
 
@@ -126,7 +127,7 @@ var airport = {
                     $areas.find('option').not(':first-child').remove();
 
                     if (airportIndex !== -1) {
-                        response[airportIndex].areas.map(function (item) {
+                        response.webLocations[airportIndex].areas.map(function (item) {
                             $areas.append('<option value="' + item.areaId + '">' + item.name + '</option>');
                         });
                     }
@@ -145,7 +146,9 @@ var airport = {
                         room: {
                             roomCategoryId: "",
                             name: "",
-                            capacity: 0,
+                            unitCapacity: 0,
+                            maleCapacity: 0,
+                            femaleCapacity: 0,
                             price: 0,
                             rawPrice: 0,
                             discountRate: 0,
@@ -157,9 +160,9 @@ var airport = {
                     };
 
                     if (airportIndex !== -1) {
-                        selectedLocation.airport.name = response[airportIndex].name;
-                        selectedLocation.airport.locationId = response[airportIndex].locationId;
-                        selectedLocation.airport.code = response[airportIndex].code;
+                        selectedLocation.airport.name = response.webLocations[airportIndex].name;
+                        selectedLocation.airport.locationId = response.webLocations[airportIndex].locationId;
+                        selectedLocation.airport.code = response.webLocations[airportIndex].code;
                     }
 
                     // Set rooms
@@ -168,7 +171,7 @@ var airport = {
                     $rooms.find('option').not(':first-child').remove();
 
                     if (airportIndex !== -1) {
-                        response[airportIndex].roomInfoList.map(function (item) {
+                        response.webLocations[airportIndex].roomInfoList.map(function (item) {
                             $rooms.append('<option value="' + item.roomCategoryId + '">' + item.name + '</option>');
                         });
                     }
@@ -183,8 +186,6 @@ var airport = {
 
                 $areas.on('change', function () {
 
-                    $('.setting-capacity').hide();
-
                     $rooms.val('').trigger('change');
 
                     var airportIndex = $airports.find('option:selected').index() - 1;
@@ -192,8 +193,8 @@ var airport = {
 
                     if (areaIndex != -1) {
 
-                        selectedLocation.area.name = response[airportIndex].areas[areaIndex].name;
-                        selectedLocation.area.areaId = response[airportIndex].areas[areaIndex].areaId;
+                        selectedLocation.area.name = response.webLocations[airportIndex].areas[areaIndex].name;
+                        selectedLocation.area.areaId = response.webLocations[airportIndex].areas[areaIndex].areaId;
                     }
 
                 });
@@ -203,8 +204,6 @@ var airport = {
                 var $rooms = $('#rooms');
 
                 $rooms.on('change', function () {
-
-                    $('#capacity').text(0);
 
                     $('#male').attr('max', 0);
                     $('#male').val(0);
@@ -217,8 +216,6 @@ var airport = {
                     $('#unit').attr('max', 0);
                     $('#unit').val(0);
 
-                    $('.setting-capacity').hide();
-
                     $('.guest-adult').addClass('ems-none');
                     $('.guest-unit').addClass('ems-none');
 
@@ -227,29 +224,29 @@ var airport = {
 
                     if (roomIndex != -1) {
 
-                        selectedLocation.room.roomCategoryId = response[airportIndex].roomInfoList[roomIndex].roomCategoryId;
-                        selectedLocation.room.name = response[airportIndex].roomInfoList[roomIndex].name;
-                        selectedLocation.room.capacity = response[airportIndex].roomInfoList[roomIndex].capacity;
-                        selectedLocation.room.price = response[airportIndex].roomInfoList[roomIndex].price;
-                        selectedLocation.room.rawPrice = response[airportIndex].roomInfoList[roomIndex].rawPrice;
-                        selectedLocation.room.discountRate = response[airportIndex].roomInfoList[roomIndex].discountRate;
-                        selectedLocation.room.vateRate = response[airportIndex].roomInfoList[roomIndex].vateRate;
-                        selectedLocation.room.accommodationRate = response[airportIndex].roomInfoList[roomIndex].accommodationRate;
-                        selectedLocation.room.currencyCode = response[airportIndex].roomInfoList[roomIndex].currencyCode;
-                        selectedLocation.room.currencyId = response[airportIndex].roomInfoList[roomIndex].currencyId;
-                        selectedLocation.room.type = response[airportIndex].roomInfoList[roomIndex].type || 'room';
+                        selectedLocation.room.roomCategoryId = response.webLocations[airportIndex].roomInfoList[roomIndex].roomCategoryId;
+                        selectedLocation.room.name = response.webLocations[airportIndex].roomInfoList[roomIndex].name;
+                        selectedLocation.room.unitCapacity = response.webLocations[airportIndex].roomInfoList[roomIndex].unitCapacity;
+                        selectedLocation.room.maleCapacity = response.webLocations[airportIndex].roomInfoList[roomIndex].maleCapacity;
+                        selectedLocation.room.femaleCapacity = response.webLocations[airportIndex].roomInfoList[roomIndex].femaleCapacity;
+                        selectedLocation.room.price = response.webLocations[airportIndex].roomInfoList[roomIndex].price;
+                        selectedLocation.room.rawPrice = response.webLocations[airportIndex].roomInfoList[roomIndex].rawPrice;
+                        selectedLocation.room.discountRate = response.webLocations[airportIndex].roomInfoList[roomIndex].discountRate;
+                        selectedLocation.room.vateRate = response.webLocations[airportIndex].roomInfoList[roomIndex].vateRate;
+                        selectedLocation.room.accommodationRate = response.webLocations[airportIndex].roomInfoList[roomIndex].accommodationRate;
+                        selectedLocation.room.currencyCode = response.webLocations[airportIndex].roomInfoList[roomIndex].currencyCode;
+                        selectedLocation.room.currencyId = response.webLocations[airportIndex].roomInfoList[roomIndex].currencyId;
+                        selectedLocation.room.isCabin = response.webLocations[airportIndex].roomInfoList[roomIndex].isCabin;
 
-                        if ( selectedLocation.room.type === 'room' ) {
-                            $('.guest-adult').removeClass('ems-none');
-                        } else if ( selectedLocation.room.type === 'cabin' ) {
+                        if ( selectedLocation.room.isCabin ) {
                             $('.guest-unit').removeClass('ems-none');
+                        } else {
+                            $('.guest-adult').removeClass('ems-none');
                         }
 
-                        $('.setting-capacity').show();
-                        $('#capacity').text(selectedLocation.room.capacity);
-                        $('#male').attr('max', selectedLocation.room.capacity);
-                        $('#female').attr('max', selectedLocation.room.capacity);
-                        $('#unit').attr('max', selectedLocation.room.capacity);
+                        $('#male').attr('max', selectedLocation.room.maleCapacity);
+                        $('#female').attr('max', selectedLocation.room.femaleCapacity);
+                        $('#unit').attr('max', selectedLocation.room.unitCapacity);
 
                     }
 
@@ -506,32 +503,6 @@ var product = {
                 }
 
                 target.length > 0 ? target.text(value) : 0;
-
-                var capacity = selectedLocation.room.capacity;
-
-                if (type === 'inc' && (input.attr('id') === 'male' || input.attr('id') === 'female') && (product.male + product.female) >= capacity) {
-
-                    if ( input.attr('id') === 'male' ) {
-
-                        var femaleValue = Math.max(0, $('#female').val() - 1);
-
-                        $('#female').val(femaleValue);
-                        $('.femaleNumber').text(femaleValue);
-
-                        product.female = femaleValue;
-
-                    } else if (input.attr('id') === 'female') {
-
-                        var maleValue = Math.max(0, $('#male').val() - 1);
-
-                        $('#male').val(maleValue);
-                        $('.maleNumber').text(maleValue);
-
-                        product.male = maleValue;
-
-                    }
-
-                }
 
                 product[input.attr('id')] = value;
 
@@ -2006,7 +1977,9 @@ $('.completeReservation .continue-button').click(function (e) {
             room: {
                 roomCategoryId: "",
                 name: "",
-                capacity: 0,
+                unitCapacity: 0,
+                maleCapacity: 0,
+                femaleCapacity: 0,
                 price: 0,
                 rawPrice: 0,
                 discountRate: 0,
