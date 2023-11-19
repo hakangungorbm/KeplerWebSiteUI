@@ -105,9 +105,10 @@
       flex-direction: column;
       justify-content: space-between;
       width: 75%;
+      
       .booking-info-card-item {
         display: flex;
-        margin-bottom: 10px;
+        margin-bottom: 15px;
       }
       .booking-info-location-card-item-icon {
         margin-right: 10px;
@@ -2234,4 +2235,7 @@ svg {
   .datepicker-ready #ui-datepicker-div {
     width: 95%;
   }
+}
+.booking-info-guest {
+  margin-top: 10px;
 }

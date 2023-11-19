@@ -1257,7 +1257,7 @@
         <div class="booking-info-order-container">
             <div class="order-wrapper">
                 <div class="bi-order-amount-container">
-                    <div class="bi-order-amount"><div><span class="bi-order-total-guest">{{toplamYolcu}}</span> {{if guestType|equals>room}}adult(s){{/if}}{{if guestType|equals>cabin}}unit{{/if}} x <span class="bi-order-guest-price"></span> {{paraBirimi}}</div></div>
+                    <div class="bi-order-amount"><div><span class="bi-order-total-guest">{{toplamYolcu}}</span> {{if konukTipi|equals>cabin}}adult(s){{/if}}{{if konukTipi|equals>room}}unit{{/if}} x <span class="bi-order-guest-price"></span> {{paraBirimi}}</div></div>
                         <div><span class="bi-order-subtotal-price">{{ilkTutar}}</span> {{paraBirimi}}</div>
                 </div>
                 <div class="bi-order-total-container">
@@ -1286,9 +1286,8 @@
 
         <div class="booking-info-card-item">
             <div class="booking-info-calendar-card-item-icon"></div>
-            <div class="booking-info-item-detail"><div class="booking-info-date">{{checkInDate}} - {{checkOutDate}}, 23</div>
+            <div class="booking-info-item-detail"><div class="booking-info-date">Check-In: {{checkInDate}} - Check-Out:{{checkOutDate}}</div>
                 <div class="booking-info-guest">
-                    <div class="booking-info-guest-number"><span class="bi-male-number">{{maleGuestNumber}}</span> Male, <span class="bi-female-number">{{femaleGuestNumber}}</span> Female</div>
                     <div class="booking-info-guest-hours"><span class="bi-checkin-hour">{{checkInTime}}</span> - <span class="bi-checkout-hour">{{checkOutTime}}</span> (<span class="bi-total-hour">{{totalHour}}</span> hrs)</div>
                 </div>
             </div>

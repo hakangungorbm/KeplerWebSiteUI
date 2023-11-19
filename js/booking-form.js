@@ -104,7 +104,8 @@ var airport = {
     fetchAirpots() {
         $.ajax({
             type: "GET",
-            url: "http://localhost:44385/api/KeplerService/Get?id=1",
+             url: "http://localhost:44385/api/KeplerService/Get?id=1",
+            //url: "http://localhost/gelen-data.json",
             crossDomain: true,
             success: function (response) {
 
@@ -237,10 +238,16 @@ var airport = {
                         selectedLocation.room.currencyId = response.webLocations[airportIndex].roomInfoList[roomIndex].currencyId;
                         selectedLocation.room.isCabin = response.webLocations[airportIndex].roomInfoList[roomIndex].isCabin;
 
-                        if ( selectedLocation.room.isCabin ) {
-                            $('.guest-unit').removeClass('ems-none');
-                        } else {
+                        if (selectedLocation.room.isCabin) {
+                            product.male = 0;
+                            product.female = 0;
+                            product.unit = 0;
                             $('.guest-adult').removeClass('ems-none');
+                        } else {
+                            product.male = 0;
+                            product.female = 0;
+                            product.unit = 0;
+                            $('.guest-unit').removeClass('ems-none');
                         }
 
                         $('#male').attr('max', selectedLocation.room.maleCapacity);
@@ -1212,11 +1219,13 @@ var guest = {
         email: "",
         phoneNumber: "",
         birthDate: "",
-        locationId:"",
-        reservationList:[]
+        locationId: "",
+        reservationList: [],
+        reservationNo:""
     },
     skipGuestInfo() {
         // Kisinin forma doldurdugu verileri model'ime aktariyorum.
+
         var info = this.passenger;
         info.name = $(guest.inputs.name.element).val();
         info.surname = $(guest.inputs.surname.element).val();
@@ -1226,7 +1235,7 @@ var guest = {
         info.birthDate = $(guest.inputs.birthdate.element).val();
         info.locationId = selectedLocation.airport.locationId;
         info.reservationList = rezervationIdList.info.reservationList;
-
+        info.reservationNo = rezervationIdList.info.reservationNo;
     },
     //MISAFIR BILGILERINI ALIP MODELE KAYDEDIYORUM
     addPassenger() {
@@ -1244,8 +1253,7 @@ var guest = {
                 if (resp.success) {
 
                     // Basarili ise bir sonraki adimda kullanilacak modele, rezervasyon id'yi setliyorum.
-                    creditCart.paymentInfo.reservationId = resp.data;
-                    creditCart.paymentInfo.total = parseFloat(rezervasyonBilgileri.info.amount).toFixed(2);
+                    creditCart.paymentInfo.total = parseFloat(bookingSummary.info.amount).toFixed(2);
 
                     //Loading iconu kaldir
                     $("body").removeClass(cls.isLoading);
@@ -1436,7 +1444,7 @@ var creditCart = {
     },
     // Models
     paymentInfo: {
-        reservationId: "",
+        reservationNo: "",
         cardHolderName: "",
         cardNumber: "",
         expireMonth: 0,
@@ -1445,7 +1453,8 @@ var creditCart = {
         installment: 0,
         cardType: "Master",
         manufacturerCard: true,
-        reservationList: []
+        reservationList: [],
+        total:0
     },
     skipPaymentInfo() {
         // Kisinin forma doldurdugu verileri model'ime aktariyorum.
@@ -1457,6 +1466,7 @@ var creditCart = {
         info.expireYear = parseInt($(creditCart.inputs.expiration.element).val().substring(5, 9));
         info.cvvCode = $(creditCart.inputs.cvc.element).val();
         info.reservationList = rezervationIdList.info.reservationList;
+        info.reservationNo = rezervationIdList.info.reservationNo;
     },
     //KREDI KARTI BILGILERINI ALDIM BANKAYA GIDIYORUM
     preparePayment() {
@@ -1470,7 +1480,6 @@ var creditCart = {
             crossDomain: true,
             dataType: 'json',
             success: function (resp) {
-                debugger;
                 if (resp.Result.success) {
 
                     // Basarili sonuc geldiyse iframe ac
@@ -1661,6 +1670,8 @@ var creditCard = new Card({
 var bookingSummary = {
     info: {
         amount: 0,
+        guestType: "",
+        resTotal:0
     },
     maleGuestInfo() {
         if (selectedLocation.airport.name !== "" && product.male > 0) {  // erkek misafir varsa
@@ -1742,32 +1753,36 @@ var bookingSummary = {
         var info = this.info;
         if (selectedLocation.room.name !== "" && date.totalHours > 0) {
             $('.amount-summary-content').removeClass("ems-none");
-            var subTotal = 2 * date.totalHours * selectedLocation.room.price;
             var currencyCode = selectedLocation.room.currencyCode;
-            var totalGuest = 0;
-            var guestType = selectedLocation.room.type;
-            if ( selectedLocation.room.type === 'room' ) {
+            var totalGuest = 1;
+            if (selectedLocation.room.isCabin) {
                 totalGuest = parseInt(product.male) + parseInt(product.female);
-            } else if ( selectedLocation.room.type === 'cabin' ) {
+                info.guestType = "cabin";
+            } else {
                 totalGuest = parseInt(product.unit);
+                info.guestType = "room";
             }
+            var yeniPrice = selectedLocation.room.rawPrice / (100 + selectedLocation.room.vateRate + selectedLocation.room.accommodationRate) * 100;
+            var resTotal = 2 * date.totalHours * selectedLocation.room.rawPrice;
+            var subTotal = 2 * date.totalHours * yeniPrice * totalGuest;
             var discountRate = selectedLocation.room.discountRate;
             var vateRate = selectedLocation.room.vateRate;
-            var vatePrice = Number((subTotal * Number(vateRate) / 100).toFixed(2));
+            var vatePrice = (selectedLocation.room.rawPrice / (100 + selectedLocation.room.vateRate + selectedLocation.room.accommodationRate) * selectedLocation.room.vateRate) * totalGuest * 2 * date.totalHours;
             var accommodationRate = selectedLocation.room.accommodationRate;
-            var accommodationPrice = Number((subTotal * Number(accommodationRate) / 100).toFixed(2));
-            var totalPrice = subTotal + vatePrice + accommodationPrice;
+            var accommodationPrice = (selectedLocation.room.rawPrice / (100 + selectedLocation.room.vateRate + selectedLocation.room.accommodationRate) * selectedLocation.room.accommodationRate) * totalGuest * 2 * date.totalHours;
+            var totalPrice = resTotal * totalGuest;
             info.amount = totalPrice;
+            info.resTotal = resTotal;
             var amountSummaryContext = {
-                guestType: guestType,
+                konukTipi: info.guestType,
                 toplamYolcu: totalGuest,
                 ilkTutar: subTotal.toFixed(2),
                 paraBirimi: currencyCode,
                 indirimOrani: discountRate,
                 kdvOrani: vateRate,
-                kdvUcreti: vatePrice,
+                kdvUcreti: vatePrice.toFixed(2),
                 konaklamaVergisiOrani: accommodationRate,
-                konaklamaVergiUcreti: accommodationPrice,
+                konaklamaVergiUcreti: accommodationPrice.toFixed(2),
                 toplamFiyat: totalPrice.toFixed(2)
             };
             var amountSummaryTemplate = document.getElementById("amountSummaryInfoTemplate").firstChild.textContent;
@@ -1789,26 +1804,15 @@ setTimeout(function () {
     bookingSummary.init();
 }, 10);
 
-$(".comfirm-button").on("click", function () {
 
-    $('.male-guest-content').addClass("ems-none");
-    $('.female-guest-content').addClass("ems-none");
-    $('.unit-guest-content').addClass("ems-none");
 
-    if ( selectedLocation.room.type === 'room' ) {
-        bookingSummary.maleGuestInfo();
-        bookingSummary.femaleGuestInfo();
-    } else if ( selectedLocation.room.type === 'cabin' ) {
-        bookingSummary.unitGuestInfo();
-    }
-    bookingSummary.bookingSummaryInfo();
-    bookingSummary.amountSummaryInfo();
-});
 
+//Ihticim oldugunda kullanabilecegim reservationID listesi
 
 var rezervationIdList = {
     // Models
     info: {
+        reservationNo:"",
         reservationList: []
     },
 }
@@ -1829,7 +1833,9 @@ var rezervasyonBilgileri = {
         currencyId: "",
         maleCount: 0,
         femaleCount: 0,
-        unitCount: 0
+        unitCount: 0,
+        resTotal:0
+
     },
     prepareBookingInfo() {
         var info = this.info;
@@ -1844,6 +1850,7 @@ var rezervasyonBilgileri = {
         info.maleCount = product.male;
         info.femaleCount = product.female;
         info.unitCount = product.unit;
+        info.resTotal = bookingSummary.info.resTotal;
     },
     generatePlannedEntryTime(day, time) {
         return day.concat("T", time, ":00.000");
@@ -1867,10 +1874,34 @@ var rezervasyonBilgileri = {
 
                 if (resp.success) {
 
-                    // Basarili ise backendden rezervasyon id'yi setliyorum.
-                    rezervationIdList.info.reservationList = response.data;
 
-                    //Loading iconu kaldir
+                    //BASARILI CEVAP GELDI: Bir sonraki ekranda gosterilecek ozet bilgileri hazirliyorum.
+
+                    //Ileri geri yaptiksa ve ekrana ozet daha once gosterilmisse once eskileri kaldiriyorum
+                    $('.male-guest-content').addClass("ems-none");
+                    $('.female-guest-content').addClass("ems-none");
+                    $('.unit-guest-content').addClass("ems-none");
+                    $('.booking-info-summary-content').addClass("ems-none");
+                    $('.amount-summary-content').addClass("ems-none");
+
+                    bookingSummary.bookingSummaryInfo();
+                    bookingSummary.amountSummaryInfo();
+
+                    if (selectedLocation.room.isCabin) {
+                        bookingSummary.maleGuestInfo();
+                        bookingSummary.femaleGuestInfo();
+                    } else {
+                        bookingSummary.unitGuestInfo();
+                    }
+
+
+
+
+                    // backendden gelen rezervasyon id listesini setliyorum.
+                    rezervationIdList.info.reservationList = resp.data.reservationList;
+                    rezervationIdList.info.reservationNo = resp.data.reservationNo;
+
+                    //Loading iconu kaldiriyorum
                     $("body").removeClass(cls.isLoading);
 
                     //Ozet gosterilen kısma geç
@@ -1914,6 +1945,7 @@ setTimeout(function () {
 }, 10);
 
 $(".comfirm-button .continue-button").on("click", function () {
+    bookingSummary.amountSummaryInfo();
     rezervasyonBilgileri.prepareBookingInfo();  // backend in ihtiyaci olan rezervasyon detayini iceren data model'i hazirliyorum.
     rezervasyonBilgileri.tryForReservation();  // rezervasyon yapmak icin backende istek atiyorum
 });

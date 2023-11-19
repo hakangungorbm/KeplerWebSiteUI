@@ -2991,7 +2991,7 @@
     width: 75%; }
     .booking-info-card-container .booking-info-card-wrapper .booking-info-card-item {
       display: flex;
-      margin-bottom: 10px; }
+      margin-bottom: 15px; }
     .booking-info-card-container .booking-info-card-wrapper .booking-info-location-card-item-icon {
       margin-right: 10px;
       width: 24px;
@@ -4713,6 +4713,9 @@
 @media only screen and (min-width: 722px) and (max-width: 799px) {
   .datepicker-ready #ui-datepicker-div {
     width: 95%; } }
+.booking-info-guest {
+  margin-top: 10px; }
+
 .locations-effect-wrapper {
   background-color: #453D98; }
   .locations-effect-wrapper .area-wrapper {
@@ -5186,5 +5189,3 @@ h1, h2, h3 {
 
 .icon32-linkedin2 {
   background-position: 0 -448px !important; }
-
-/*# sourceMappingURL=style.css.map */
