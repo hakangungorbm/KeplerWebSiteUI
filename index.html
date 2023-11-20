@@ -1373,9 +1373,11 @@
 
         <div class="all-info-wrapper">
             <div class="info-title-wrapper guest-icon-bg">
-                <div class="info-title"><p>Guest</p></div>
+                <div class="info-title"><p>{{if guestType|equals>cabin}}Guest{{/if}}{{if guestType|equals>room}}Unit{{/if}}</p></div>
             </div>
-            <span>{{maleGuestNumber}} Male, {{femaleGuestNumber}} female</span>
+            <span>{{if maleGuestNumber|more>0}}{{maleGuestNumber}} Male{{/if}}</span>
+            <span>{{if femaleGuestNumber|more>0}}{{femaleGuestNumber}} Female{{/if}}</span>
+            <span>{{if unitGuestNumber|more>0}}{{unitGuestNumber}} Unit{{/if}}</span>
         </div><!--all-info-wrapper bitti-->
 
     </div><!--booking-summary-wrapper bitti-->

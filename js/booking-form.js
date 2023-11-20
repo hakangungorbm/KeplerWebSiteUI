@@ -1,3 +1,4 @@
+var _baseInternalAPIURL = "http://localhost:44385/";
 var selectedLocation = {
     airport: {
         name: "",
@@ -104,7 +105,7 @@ var airport = {
     fetchAirpots() {
         $.ajax({
             type: "GET",
-             url: "http://localhost:44385/api/KeplerService/Get?id=1",
+            url: _baseInternalAPIURL + "api/KeplerService/Get?id=1",
             //url: "http://localhost/gelen-data.json",
             crossDomain: true,
             success: function (response) {
@@ -1221,7 +1222,7 @@ var guest = {
         birthDate: "",
         locationId: "",
         reservationList: [],
-        reservationNo:""
+        reservationNo: ""
     },
     skipGuestInfo() {
         // Kisinin forma doldurdugu verileri model'ime aktariyorum.
@@ -1241,7 +1242,7 @@ var guest = {
     addPassenger() {
         $.ajax({
             type: "POST",
-            url: "http://localhost:44385/api/KeplerService/AddPassenger",
+            url: _baseInternalAPIURL + "api/KeplerService/AddPassenger",
             data: JSON.stringify({
                 guest: guest.passenger,
             }),
@@ -1454,7 +1455,7 @@ var creditCart = {
         cardType: "Master",
         manufacturerCard: true,
         reservationList: [],
-        total:0
+        total: 0
     },
     skipPaymentInfo() {
         // Kisinin forma doldurdugu verileri model'ime aktariyorum.
@@ -1472,7 +1473,7 @@ var creditCart = {
     preparePayment() {
         $.ajax({
             type: "POST",
-            url: "http://localhost:44385/api/KeplerService/Sale3DFirstRequest",
+            url: _baseInternalAPIURL + "api/KeplerService/Sale3DFirstRequest",
             data: JSON.stringify({
                 paymentInfo: creditCart.paymentInfo
             }),
@@ -1671,7 +1672,7 @@ var bookingSummary = {
     info: {
         amount: 0,
         guestType: "",
-        resTotal:0
+        resTotal: 0
     },
     maleGuestInfo() {
         if (selectedLocation.airport.name !== "" && product.male > 0) {  // erkek misafir varsa
@@ -1807,12 +1808,12 @@ setTimeout(function () {
 
 
 
-//Ihticim oldugunda kullanabilecegim reservationID listesi
+//Ihtiyacim oldugunda kullanabilecegim reservationNo ve reservation listesi
 
 var rezervationIdList = {
     // Models
     info: {
-        reservationNo:"",
+        reservationNo: "",
         reservationList: []
     },
 }
@@ -1834,7 +1835,7 @@ var rezervasyonBilgileri = {
         maleCount: 0,
         femaleCount: 0,
         unitCount: 0,
-        resTotal:0
+        resTotal: 0
 
     },
     prepareBookingInfo() {
@@ -1863,7 +1864,7 @@ var rezervasyonBilgileri = {
     tryForReservation() {
         $.ajax({
             type: "POST",
-            url: "http://localhost:44385/api/KeplerService/AddReservation",
+            url: _baseInternalAPIURL + "api/KeplerService/AddReservation",
             data: JSON.stringify({
                 rezervasyon: rezervasyonBilgileri.info
             }),
@@ -1898,8 +1899,14 @@ var rezervasyonBilgileri = {
 
 
                     // backendden gelen rezervasyon id listesini setliyorum.
-                    rezervationIdList.info.reservationList = resp.data.reservationList;
-                    rezervationIdList.info.reservationNo = resp.data.reservationNo;
+                    if (resp.data.reservationList != null && resp.data.reservationNo != null) {
+                        rezervationIdList.info.reservationList = resp.data.reservationList;
+                        rezervationIdList.info.reservationNo = resp.data.reservationNo;
+                    } else {
+                        $("body").removeClass(cls.isLoading);
+                        parsers.errorParser("Reservation numbers could not be created! Please try again!");
+                        step(1);
+                    }
 
                     //Loading iconu kaldiriyorum
                     $("body").removeClass(cls.isLoading);
@@ -1956,10 +1963,10 @@ var rezervasyonTamamlandi = {
 
     finishReservation() {
 
-        if (creditCart.paymentInfo.reservationId != '') {
+        if (rezervationIdList.info.reservationNo != '') {
             $('.payment-completed-summary-content').removeClass("ems-none");
             var finishSummaryContext = {
-                reservationId: creditCart.paymentInfo.reservationId,
+                reservationNo: rezervationIdList.info.reservationNo,
                 airport: selectedLocation.airport.name,
                 area: selectedLocation.area.name,
                 checkInDate: date.checkIn.day,
@@ -1967,6 +1974,7 @@ var rezervasyonTamamlandi = {
                 checkInTime: date.checkIn.time,
                 checkOutTime: date.checkOut.time,
                 totalHours: date.totalHours,
+                guestType: bookingSummary.info.guestType,
                 maleGuestNumber: product.male,
                 femaleGuestNumber: product.female,
                 unitGuestNumber: product.unit
