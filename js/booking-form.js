@@ -1,4 +1,4 @@
-var _baseInternalAPIURL = "http://localhost:44385/";
+var _baseInternalAPIURL = "https://www.keplerclub.com/";
 var selectedLocation = {
     airport: {
         name: "",
@@ -13,7 +13,7 @@ var selectedLocation = {
         roomCategoryId: "",
         name: "",
         unitCapacity: 0,
-        maleCapacity: 0,
+        maleCapacity: 0, 
         femaleCapacity: 0,
         price: 0,
         rawPrice: 0,
@@ -106,7 +106,7 @@ var airport = {
         $.ajax({
             type: "GET",
             url: _baseInternalAPIURL + "api/KeplerService/Get?id=1",
-            //url: "http://localhost/gelen-data.json",
+            //url: "https://www.keplerclub.com/api/KeplerService/Get?id=1",
             crossDomain: true,
             success: function (response) {
 
@@ -120,14 +120,14 @@ var airport = {
                 // Set areas and rooms on change
                 $airports.on('change', function () {
 
-                    var airportIndex = $airports.find('option:selected').index() - 1;
+                    var airportIndex = $airports.find('option:selected').index() - 2;
 
                     // Set areas
                     var $areas = $('#areas');
                     $areas.val('').trigger('change');
-                    $areas.find('option').not(':first-child').remove();
+                    $areas.find('option').not('.sabit').remove();
 
-                    if (airportIndex !== -1) {
+                    if (airportIndex > -1) {
                         response.webLocations[airportIndex].areas.map(function (item) {
                             $areas.append('<option value="' + item.areaId + '">' + item.name + '</option>');
                         });
@@ -169,9 +169,9 @@ var airport = {
                     // Set rooms
                     var $rooms = $('#rooms');
                     $rooms.val('').trigger('change');
-                    $rooms.find('option').not(':first-child').remove();
+                    $rooms.find('option').not('.sabit').remove();
 
-                    if (airportIndex !== -1) {
+                    if (airportIndex > -1) {
                         response.webLocations[airportIndex].roomInfoList.map(function (item) {
                             $rooms.append('<option value="' + item.roomCategoryId + '">' + item.name + '</option>');
                         });
@@ -189,11 +189,10 @@ var airport = {
 
                     $rooms.val('').trigger('change');
 
-                    var airportIndex = $airports.find('option:selected').index() - 1;
-                    var areaIndex = $areas.find('option:selected').index() - 1;
+                    var airportIndex = $airports.find('option:selected').index() - 2;
+                    var areaIndex = $areas.find('option:selected').index() - 2;
 
-                    if (areaIndex != -1) {
-
+                    if (areaIndex > -1) {
                         selectedLocation.area.name = response.webLocations[airportIndex].areas[areaIndex].name;
                         selectedLocation.area.areaId = response.webLocations[airportIndex].areas[areaIndex].areaId;
                     }
@@ -213,17 +212,18 @@ var airport = {
                     $('#female').attr('max', 0);
                     $('#female').val(0);
                     $('.femaleNumber').text(0);
-
+                    
                     $('#unit').attr('max', 0);
                     $('#unit').val(0);
+                    $('.unitNumber').text(0);
 
                     $('.guest-adult').addClass('ems-none');
                     $('.guest-unit').addClass('ems-none');
 
-                    var airportIndex = $airports.find('option:selected').index() - 1;
-                    var roomIndex = $rooms.find('option:selected').index() - 1;
+                    var airportIndex = $airports.find('option:selected').index() - 2;
+                    var roomIndex = $rooms.find('option:selected').index() - 2;
 
-                    if (roomIndex != -1) {
+                    if (roomIndex > -1) {
 
                         selectedLocation.room.roomCategoryId = response.webLocations[airportIndex].roomInfoList[roomIndex].roomCategoryId;
                         selectedLocation.room.name = response.webLocations[airportIndex].roomInfoList[roomIndex].name;
@@ -255,6 +255,9 @@ var airport = {
                         $('#female').attr('max', selectedLocation.room.femaleCapacity);
                         $('#unit').attr('max', selectedLocation.room.unitCapacity);
 
+                        $('.time-area-title').removeClass('ems-none');
+                        $('.time-area-data').removeClass('ems-none');
+    
                     }
 
                 });

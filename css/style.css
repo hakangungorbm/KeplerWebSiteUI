@@ -238,7 +238,7 @@
   padding-top: 7px; }
 
 .navbar-fixed-top {
-  z-index: 4 !important; }
+  z-index: 3 !important; }
 
 .navbar-fixed-top .navbar-collapse {
   max-height: 100% !important; }
@@ -263,23 +263,24 @@
 .navbar-brand.kepler-logo {
   background-image: url(../images/kepler-top-logo.svg) !important;
   background-size: 130px 45px !important;
-  width: 130px !important; }
+  /* width: 80px !important; */
+}
 
 @media (max-width: 768px) {
   .navbar-wrapper {
-    height: calc(100vh - 230px);
+    height: 80vh;
     animation: 1.3s ease-out 0s 1 mobileMenuOpenFromLeft; } }
 @media only screen and (min-width: 769px) and (max-width: 881px) {
   .navbar-wrapper {
-    height: calc(100vh - 62px);
+    height: calc(100vh - 100px);
     animation: 1.3s ease-out 0s 1 mobileMenuOpenFromLeft; } }
 @media only screen and (min-width: 882px) and (max-width: 1198px) {
   .navbar-wrapper {
-    height: calc(100vh - 62px);
+    height: calc(100vh - 100px);
     animation: 1.3s ease-out 0s 1 mobileMenuOpenFromLeft; } }
 @media (max-width: 1198px) {
   .navbar-nav {
-    padding-top: 70px; }
+    padding-top: 50px; }
     .navbar-nav li {
       margin-bottom: 35px; }
       .navbar-nav li a {
@@ -339,7 +340,7 @@
     border-radius: 21px;
     min-width: 270px;
     padding: 12px 0px;
-    margin-top: 90px; }
+     }
 
   .dropdown {
     width: 52px;
@@ -678,7 +679,7 @@
 @media (max-width: 750px) {
   .main-image-slider-wrapper .swiper-pagination {
     left: 5%;
-    bottom: 28% !important; } }
+    bottom: 25% !important; } }
 @media (min-width: 751px) {
   .main-text-slider-wrapper {
     padding-left: 2%;
@@ -1836,7 +1837,7 @@
   .content-top-text .less-text .button-wrapper {
     position: relative;
     width: 100%;
-    max-width: 160px;
+    max-width: 170px;
     margin-right: auto;
     margin-left: auto;
     display: block; }
@@ -1855,7 +1856,7 @@
     transition: max-height 1s ease-in; }
 
   .resting-units-text .info-text {
-    max-height: 2200px;
+    max-height: 2500px;
     transition: max-height 2s ease-in; } }
 @media (max-width: 767px) {
   .content-top-text {
@@ -2102,7 +2103,7 @@
     width: 70%; }
   .image-text-area .provide-list li .text-with-icon {
     width: 30%;
-    max-width: 70px;
+    max-width: 85px;
     padding-right: 20px;
     position: relative; }
     .image-text-area .provide-list li .text-with-icon::before {
@@ -2225,7 +2226,6 @@
   .scroll-down-wrapper .down-area .arrow-wrapper {
     margin-top: 20px;
     display: block;
-    padding-left: 35px;
     padding-top: 30px; }
   .scroll-down-wrapper .down-area span {
     display: block;
@@ -2234,8 +2234,11 @@
     border-bottom: 2px solid white;
     border-right: 2px solid white;
     transform: rotate(45deg);
-    margin: -10px;
-    animation: scroll-bottom-animation 2s infinite; }
+    animation: scroll-bottom-animation 2s infinite;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: -10px;
+  }
     .scroll-down-wrapper .down-area span:nth-child(2) {
       animation-delay: -0.2s; }
     .scroll-down-wrapper .down-area span:nth-child(3) {
@@ -2635,7 +2638,7 @@
   background-color: white; }
   .gallery-menu .menu {
     width: 100%;
-    max-width: 845px;
+    max-width: 950px;
     margin-right: auto;
     margin-left: auto;
     margin-bottom: 30px;
@@ -2690,7 +2693,9 @@
       transition: all 0.5s ease;
       padding: 10px 20px 10px 20px;
       background-color: white;
-      margin-right: 20px; }
+      margin-right: 15px;
+      margin-bottom: 10px;
+    }
       .filter-menu .menu .category-button a {
         color: #1D3243;
         display: inline-block;
@@ -3901,7 +3906,10 @@
   background-color: #eaeaea;
   color: #ababab;
   align-self: center;
-  font-weight: 600; }
+  font-weight: 600;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
 
 .active-button {
   background-color: #465dc8 !important;
@@ -4058,11 +4066,13 @@
       padding-bottom: 30px; }
       .guest-count-info-wrapper .guest-container .info-for-adults li {
         font-size: 14px;
-        margin-top: 10px;
+        margin-top: 20px;
         position: relative;
         padding-left: 20px;
         list-style: none;
-        font-family: "TTHoves-Light", arial, sans-serif; }
+        font-family: "TTHoves-Light", arial, sans-serif; 
+        line-height: 20px;
+      }
       .guest-count-info-wrapper .guest-container .info-for-adults li:after {
         content: '';
         background: #e5e5e5;
@@ -4217,7 +4227,10 @@
   color: #465dc8;
   padding: 15px 0px;
   display: flex;
-  justify-content: center; }
+  justify-content: center;
+  margin: 0 0.8em;
+
+}
 
 #ui-datepicker-div .ui-widget-header .ui-datepicker-title .ui-datepicker-month, #ui-datepicker-div .ui-widget-header .ui-datepicker-title .ui-datepicker-year {
   border-radius: 0px;
@@ -5188,4 +5201,13 @@ h1, h2, h3 {
   background-position: 0 -416px !important; }
 
 .icon32-linkedin2 {
-  background-position: 0 -448px !important; }
+  background-position: 0 -448px !important;
+}
+select > option {
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+}
+select > option:disabled {
+  color: #453D98;
+  font-family: "TTHoves-Bold", arial, sans-serif; 
+}

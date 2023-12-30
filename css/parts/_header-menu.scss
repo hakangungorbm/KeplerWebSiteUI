@@ -134,7 +134,7 @@
 .navbar-brand.kepler-logo {
   background-image: url(../images/kepler-top-logo.svg) !important;
   background-size: 130px 45px !important;
-  width: 130px !important;
+  width: 80px !important;
 }
 
 @media (max-width: 768px) {
@@ -145,13 +145,13 @@
 }
 @media only screen and (min-width: 769px) and (max-width: 881px) {
   .navbar-wrapper {
-    height: calc(100vh - 62px);
+    height: calc(100vh - 100px);
     animation: 1.3s ease-out 0s 1 mobileMenuOpenFromLeft;
   }
 }
 @media only screen and (min-width: 882px) and (max-width: 1198px) {
   .navbar-wrapper {
-    height: calc(100vh - 62px);
+    height: calc(100vh - 100px);
     animation: 1.3s ease-out 0s 1 mobileMenuOpenFromLeft;
   }
 }
@@ -159,7 +159,7 @@
 
 @media (max-width: 1198px) {
   .navbar-nav {
-    padding-top: 70px;
+    padding-top: 50px;
     li {
       margin-bottom: 35px;
       a {
