@@ -120,12 +120,12 @@ var airport = {
                 // Set areas and rooms on change
                 $airports.on('change', function () {
 
-                    var airportIndex = $airports.find('option:selected').index() - 2;
+                    var airportIndex = $airports.find('option:selected').index() - 1;
 
                     // Set areas
                     var $areas = $('#areas');
                     $areas.val('').trigger('change');
-                    $areas.find('option').not('.sabit').remove();
+                    $areas.find('option').not(':first-child').remove();
 
                     if (airportIndex > -1) {
                         response.webLocations[airportIndex].areas.map(function (item) {
@@ -166,39 +166,36 @@ var airport = {
                         selectedLocation.airport.code = response.webLocations[airportIndex].code;
                     }
 
-                    // Set rooms
-                    var $rooms = $('#rooms');
+                    // Clear rooms
                     $rooms.val('').trigger('change');
-                    $rooms.find('option').not('.sabit').remove();
 
-                    if (airportIndex > -1) {
-                        response.webLocations[airportIndex].roomInfoList.map(function (item) {
-                            $rooms.append('<option value="' + item.roomCategoryId + '">' + item.name + '</option>');
-                        });
-                    }
+                    $rooms.find('option').not(':first-child').remove();
 
                 });
 
                 // Area deÄŸiÅŸince yapÄ±lacak iÅŸlemler
                 var $areas = $('#areas');
 
-                // Rooms deÄŸiÅŸince yapÄ±lacak iÅŸlemler
-                var $rooms = $('#rooms');
-
                 $areas.on('change', function () {
 
-                    $rooms.val('').trigger('change');
-
-                    var airportIndex = $airports.find('option:selected').index() - 2;
-                    var areaIndex = $areas.find('option:selected').index() - 2;
-
+                    var airportIndex = $airports.find('option:selected').index() - 1;
+                    var areaIndex = $areas.find('option:selected').index() - 1;
+                    
                     if (areaIndex > -1) {
+                        
                         selectedLocation.area.name = response.webLocations[airportIndex].areas[areaIndex].name;
                         selectedLocation.area.areaId = response.webLocations[airportIndex].areas[areaIndex].areaId;
+                        
+                        // Set rooms
+                        var $rooms = $('#rooms');
+
+                        response.webLocations[airportIndex].roomInfoList.map(function (item) {
+                            $rooms.append('<option value="' + item.roomCategoryId + '">' + item.name + '</option>');
+                        });
+
                     }
 
                 });
-
 
                 // Rooms deÄŸiÅŸince yapÄ±lacak iÅŸlemler
                 var $rooms = $('#rooms');
@@ -220,8 +217,11 @@ var airport = {
                     $('.guest-adult').addClass('ems-none');
                     $('.guest-unit').addClass('ems-none');
 
-                    var airportIndex = $airports.find('option:selected').index() - 2;
-                    var roomIndex = $rooms.find('option:selected').index() - 2;
+                    $('.time-area-title').addClass('ems-none');
+                    $('.time-area-data').addClass('ems-none');
+
+                    var airportIndex = $airports.find('option:selected').index() - 1;
+                    var roomIndex = $rooms.find('option:selected').index() - 1;
 
                     if (roomIndex > -1) {
 
