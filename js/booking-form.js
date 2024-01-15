@@ -311,7 +311,7 @@ var bookingEvents = {
                     changeMonth: true,
                     changeYear: true,
                     dateFormat: "dd/mm/yy",
-                    showButtonPanel: true,
+                    showButtonPanel: false,
                 });
                 isOpen = true;
             }
@@ -735,7 +735,30 @@ var date = {
             changeMonth: false,
             numberOfMonths: 1,
             minDate: setDate(),
-            showButtonPanel: true,
+            showButtonPanel: false,
+            beforeShow: function(input, inst) {
+                var dateCheck, dateWidth, dateHeight;
+                setTimeout(function(){
+                    if (  type.el === '#in-date' ) {
+                        dateCheck = $('.check-in-info');
+                    } else {
+                        dateCheck = $('.check-out-info');
+                    }
+                    dateWidth = dateCheck.outerWidth() / 4;
+                    dateHeight = dateCheck.outerHeight() + 10;
+                    inst.dpDiv.css({
+                        top: dateCheck.offset().top + dateHeight, 
+                        left: dateCheck.offset().left - dateWidth,
+                    });
+                },1);
+                $('.booking-form').off('kepler.scroll');
+                $('.booking-form').on('scroll kepler.scroll', function(){
+                    inst.dpDiv.css({
+                        top: dateCheck.offset().top + dateHeight, 
+                        left: dateCheck.offset().left - dateWidth,
+                    });
+                });
+            }
         });
     },
 
